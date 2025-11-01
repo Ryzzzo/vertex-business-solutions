@@ -1,17 +1,17 @@
 'use client';
 
-import Navigation from '@/components/vertex/Navigation';
-import HeroSection from '@/components/vertex/HeroSection';
-import ServicesSection from '@/components/vertex/ServicesSection';
-import PortfolioSection from '@/components/vertex/PortfolioSection';
-import TechStackSection from '@/components/vertex/TechStackSection';
-import AboutSection from '@/components/vertex/AboutSection';
-import ContactSection from '@/components/vertex/ContactSection';
-import Footer from '@/components/vertex/Footer';
+import Navigation from '@/components/vx/Navigation';
+import HeroSection from '@/components/vx/HeroSection';
+import ServicesSection from '@/components/vx/ServicesSection';
+import PortfolioSection from '@/components/vx/PortfolioSection';
+import TechStackSection from '@/components/vx/TechStackSection';
+import AboutSection from '@/components/vx/AboutSection';
+import ContactSection from '@/components/vx/ContactSection';
+import Footer from '@/components/vx/Footer';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
+    <main className="min-h-screen bg-space-navy text-light-gray overflow-x-hidden">
       <Navigation />
       <HeroSection />
       <ServicesSection />
