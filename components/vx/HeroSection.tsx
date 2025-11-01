@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Database, BarChart3, Zap, Code2 } from 'lucide-react';
+import { Database, ChartBar as BarChart3, Zap, Code as Code2 } from 'lucide-react';
 import SpaceBackground from './SpaceBackground';
 
 const floatingCards = [
