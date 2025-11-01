@@ -1,18 +1,18 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Space_Grotesk } from 'next/font/google';
+import { Inter, DM_Sans } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space' });
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm', weight: ['400', '500', '700'] });
 
 export const metadata: Metadata = {
-  title: 'Premium Business App Developer | Custom CRM & Dashboard Solutions',
-  description: 'Expert business application developer specializing in custom CRM systems, enterprise dashboards, and scalable web applications. Transform your business with cutting-edge technology.',
-  keywords: 'business application developer, custom CRM, enterprise dashboards, web applications, React, Next.js, TypeScript',
-  authors: [{ name: 'Your Name' }],
+  title: 'Vertex | Business Application Development',
+  description: 'Custom CRM systems, dashboards, and workflow automation built with modern frameworks. Enterprise-grade business applications for small to medium businesses.',
+  keywords: 'business application developer, custom CRM, dashboards, workflow automation, React, Next.js, TypeScript',
+  authors: [{ name: 'Ryan' }],
   openGraph: {
-    title: 'Premium Business App Developer',
-    description: 'Building business applications that scale',
+    title: 'Vertex | Business Application Development',
+    description: 'Building custom business applications that scale',
     type: 'website',
   },
 };
@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${dmSans.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>
