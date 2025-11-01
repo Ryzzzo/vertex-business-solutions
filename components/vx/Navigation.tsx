@@ -62,7 +62,7 @@ export default function Navigation() {
       <div className="container h-full flex items-center justify-between">
         <button
           onClick={() => scrollToSection('#hero')}
-          className="flex flex-col items-start group"
+          className="flex flex-col items-center group"
         >
           <span className="text-2xl font-bold tracking-tight text-white group-hover:text-calm-blue transition-colors">
             VX

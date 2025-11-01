@@ -64,15 +64,14 @@ export default function HeroSection() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
               className="mb-6"
+              style={{ background: 'transparent' }}
             >
-              <div className="relative inline-block">
-                <h1
-                  className="font-bold tracking-tighter leading-none text-white text-glow-strong mb-6 animate-glow-pulse"
-                  style={{ fontSize: 'clamp(80px, 14vw, 140px)' }}
-                >
-                  V<span className="relative inline-block"><span className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-calm-blue via-sky-blue to-calm-blue" style={{ width: '120%', left: '-10%' }} /></span>X
-                </h1>
-              </div>
+              <h1
+                className="font-bold tracking-tighter leading-none text-white text-glow-strong mb-6 animate-glow-pulse"
+                style={{ fontSize: 'clamp(80px, 14vw, 140px)', background: 'transparent' }}
+              >
+                V<span className="relative inline-block" style={{ background: 'transparent' }}><span className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-calm-blue via-sky-blue to-calm-blue" style={{ width: '120%', left: '-10%' }} /></span>X
+              </h1>
 
               <div className="flex items-center justify-center mb-4">
                 <div className="h-px w-24 bg-gradient-to-r from-transparent via-calm-blue to-transparent" />
