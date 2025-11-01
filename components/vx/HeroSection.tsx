@@ -64,11 +64,23 @@ export default function HeroSection() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
               className="mb-6"
-              style={{ background: 'transparent' }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                padding: 0,
+                margin: 0,
+                width: 'auto',
+                height: 'auto'
+              }}
             >
               <h1
-                className="font-bold tracking-tighter leading-none text-white text-glow-strong mb-6 animate-glow-pulse"
-                style={{ fontSize: 'clamp(80px, 14vw, 140px)', background: 'transparent' }}
+                className="font-bold tracking-tighter leading-none text-white mb-6 animate-glow-pulse"
+                style={{
+                  fontSize: 'clamp(80px, 14vw, 140px)',
+                  background: 'transparent',
+                  border: 'none',
+                  textShadow: '0 0 40px rgba(74, 144, 226, 0.8), 0 0 80px rgba(74, 144, 226, 0.4)'
+                }}
               >
                 V<span className="relative inline-block" style={{ background: 'transparent' }}><span className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-calm-blue via-sky-blue to-calm-blue" style={{ width: '120%', left: '-10%' }} /></span>X
               </h1>

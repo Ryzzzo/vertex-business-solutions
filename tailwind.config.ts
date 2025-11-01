@@ -86,8 +86,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-20px)' },
         },
         'glow-pulse': {
-          '0%, 100%': { boxShadow: '0 0 40px rgba(74, 144, 226, 0.3)' },
-          '50%': { boxShadow: '0 0 60px rgba(74, 144, 226, 0.5)' },
+          '0%, 100%': { textShadow: '0 0 40px rgba(74, 144, 226, 0.8), 0 0 80px rgba(74, 144, 226, 0.4)' },
+          '50%': { textShadow: '0 0 60px rgba(74, 144, 226, 1), 0 0 100px rgba(74, 144, 226, 0.6)' },
         },
         'twinkle': {
           '0%, 100%': { opacity: '0.3' },

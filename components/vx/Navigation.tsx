@@ -63,12 +63,26 @@ export default function Navigation() {
         <button
           onClick={() => scrollToSection('#hero')}
           className="flex flex-col items-center group"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center',
+            padding: 0,
+            margin: 0
+          }}
         >
-          <span className="text-2xl font-bold tracking-tight text-white group-hover:text-calm-blue transition-colors">
+          <span
+            className="text-2xl font-bold tracking-tight text-white group-hover:text-calm-blue transition-colors"
+            style={{ textAlign: 'center', padding: 0, margin: 0 }}
+          >
             VX
           </span>
           {!isScrolled && (
-            <span className="text-[11px] tracking-widest text-soft-gray uppercase transition-opacity duration-300">
+            <span
+              className="text-[11px] tracking-widest text-soft-gray uppercase transition-opacity duration-300"
+              style={{ textAlign: 'center', padding: 0, margin: 0 }}
+            >
               Vertex
             </span>
           )}
