@@ -86,6 +86,10 @@ const config: Config = {
           '50%': { transform: 'translateY(-20px)' },
         },
         'glow-pulse': {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(74, 144, 226, 0.4), 0 0 40px rgba(74, 144, 226, 0.2)' },
+          '50%': { boxShadow: '0 0 30px rgba(74, 144, 226, 0.6), 0 0 60px rgba(74, 144, 226, 0.3)' },
+        },
+        'text-glow-pulse': {
           '0%, 100%': { textShadow: '0 0 40px rgba(74, 144, 226, 0.8), 0 0 80px rgba(74, 144, 226, 0.4)' },
           '50%': { textShadow: '0 0 60px rgba(74, 144, 226, 1), 0 0 100px rgba(74, 144, 226, 0.6)' },
         },
@@ -101,7 +105,8 @@ const config: Config = {
       animation: {
         'float': 'float 6s ease-in-out infinite',
         'float-delayed': 'float-delayed 6s ease-in-out infinite',
-        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+        'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
+        'text-glow-pulse': 'text-glow-pulse 3s ease-in-out infinite',
         'twinkle': 'twinkle 3s ease-in-out infinite',
         'fade-in-up': 'fade-in-up 0.6s ease-out',
       },

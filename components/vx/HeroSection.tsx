@@ -74,7 +74,7 @@ export default function HeroSection() {
               }}
             >
               <h1
-                className="font-bold tracking-tighter leading-none text-white mb-6 animate-glow-pulse"
+                className="font-bold tracking-tighter leading-none text-white mb-6 animate-text-glow-pulse"
                 style={{
                   fontSize: 'clamp(80px, 14vw, 140px)',
                   background: 'transparent',
