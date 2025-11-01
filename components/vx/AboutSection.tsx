@@ -2,12 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Award, MapPin, Code2 } from 'lucide-react';
+import { Award, MapPin, Code2, Zap } from 'lucide-react';
 
 const stats = [
   { icon: Award, title: 'Enterprise Experience', subtitle: '14+ Years Operations' },
   { icon: Code2, title: 'Modern Stack', subtitle: 'React • Next.js • Node' },
   { icon: MapPin, title: 'US-Based', subtitle: 'Direct Communication' },
+  { icon: Zap, title: 'Fast Delivery', subtitle: '2-Week Turnaround' },
 ];
 
 export default function AboutSection() {
@@ -50,40 +51,29 @@ export default function AboutSection() {
             initial={{ opacity: 0, x: 40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2"
           >
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <motion.div
-                  key={stat.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                  className="glass rounded-[20px] p-8 hover-glow"
-                  style={{
-                    animation: `float ${6 + index}s ease-in-out infinite`,
-                    animationDelay: `${index * 0.3}s`,
-                  }}
-                >
-                  <Icon className="w-8 h-8 text-calm-blue mb-4" strokeWidth={1.5} />
-                  <h3 className="text-xl font-semibold text-white mb-2">{stat.title}</h3>
-                  <p className="text-sm text-soft-gray">{stat.subtitle}</p>
-                </motion.div>
-              );
-            })}
-
-            <div className="glass rounded-[20px] p-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-calm-blue/10 rounded-full blur-3xl" />
-              <svg
-                viewBox="0 0 200 200"
-                className="w-full h-auto opacity-20"
-              >
-                <rect x="20" y="20" width="80" height="80" fill="none" stroke="#4A90E2" strokeWidth="1" />
-                <rect x="60" y="60" width="100" height="100" fill="none" stroke="#5DADE2" strokeWidth="1" />
-                <line x1="20" y1="20" x2="100" y2="100" stroke="#4A90E2" strokeWidth="0.5" />
-                <line x1="100" y1="20" x2="20" y2="100" stroke="#4A90E2" strokeWidth="0.5" />
-              </svg>
+            <div className="grid grid-cols-2 gap-6">
+              {stats.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <motion.div
+                    key={stat.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                    className="glass rounded-[20px] p-8 hover-glow"
+                    style={{
+                      animation: `float ${6 + index}s ease-in-out infinite`,
+                      animationDelay: `${index * 0.3}s`,
+                    }}
+                  >
+                    <Icon className="w-8 h-8 text-calm-blue mb-4" strokeWidth={1.5} />
+                    <h3 className="text-xl font-semibold text-white mb-2">{stat.title}</h3>
+                    <p className="text-sm text-soft-gray">{stat.subtitle}</p>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>

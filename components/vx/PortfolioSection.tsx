@@ -11,9 +11,8 @@ const projects = [
     title: 'CRM Dashboard Pro',
     description: 'Complete customer relationship management system with sales pipeline tracking, contact management, and real-time analytics',
     tech: ['React', 'TypeScript', 'Tailwind CSS'],
-    image: 'https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: 'https://images.pexels.com/photos/8867482/pexels-photo-8867482.jpeg?auto=compress&cs=tinysrgb&w=1200',
     link: 'https://crm-dashboard-v1.bolt.host/',
-    large: true,
   },
   {
     id: 2,
@@ -22,7 +21,6 @@ const projects = [
     tech: ['Next.js', 'Chart.js', 'PostgreSQL'],
     image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1200',
     link: '#',
-    large: false,
   },
   {
     id: 3,
@@ -31,16 +29,6 @@ const projects = [
     tech: ['React', 'Node.js', 'MongoDB'],
     image: 'https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1200',
     link: '#',
-    large: false,
-  },
-  {
-    id: 4,
-    title: 'Client Portal',
-    description: 'Secure client portal with document management, appointment scheduling, and real-time communication',
-    tech: ['Next.js', 'Firebase', 'Stripe'],
-    image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    link: '#',
-    large: false,
   },
 ];
 
@@ -67,16 +55,14 @@ export default function PortfolioSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-7 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-7 max-w-6xl mx-auto">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.12 }}
-              className={`group relative overflow-hidden rounded-[24px] cursor-pointer ${
-                project.large ? 'md:col-span-2 h-[400px]' : 'h-[400px]'
-              }`}
+              className="group relative overflow-hidden rounded-[24px] cursor-pointer h-[420px]"
               style={{
                 backgroundImage: `url(${project.image})`,
                 backgroundSize: 'cover',

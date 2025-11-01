@@ -81,7 +81,7 @@ export default function ContactSection() {
             className="text-6xl font-bold text-white mb-6 text-glow-strong"
             style={{ letterSpacing: '-0.02em' }}
           >
-            Ready to Build Something Better?
+            Ready to Build Something Together?
           </h2>
 
           <p className="text-[19px] text-light-gray mb-12 leading-relaxed">

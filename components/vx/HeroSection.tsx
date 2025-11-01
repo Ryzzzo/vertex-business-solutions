@@ -46,8 +46,8 @@ export default function HeroSection() {
                 transition={{ duration: 0.8, delay: card.delay }}
                 className={`glass hidden lg:block w-[300px] h-[200px] rounded-[20px] p-8 ${positions[card.position as keyof typeof positions]}`}
                 style={{
-                  animation: index % 2 === 0 ? 'float 6s ease-in-out infinite' : 'float-delayed 6s ease-in-out infinite',
-                  animationDelay: `${card.delay}s`,
+                  animation: 'float 6s ease-in-out infinite',
+                  animationDelay: `${index * 0.2}s`,
                   boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)',
                   zIndex: index % 2 === 0 ? 5 : 15,
                 }}
@@ -65,12 +65,14 @@ export default function HeroSection() {
               transition={{ duration: 1, delay: 0.3 }}
               className="mb-6"
             >
-              <h1
-                className="font-bold tracking-tighter leading-none text-white text-glow-strong mb-6"
-                style={{ fontSize: 'clamp(80px, 14vw, 140px)' }}
-              >
-                VX
-              </h1>
+              <div className="relative inline-block">
+                <h1
+                  className="font-bold tracking-tighter leading-none text-white text-glow-strong mb-6 animate-glow-pulse"
+                  style={{ fontSize: 'clamp(80px, 14vw, 140px)' }}
+                >
+                  V<span className="relative inline-block"><span className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-calm-blue via-sky-blue to-calm-blue" style={{ width: '120%', left: '-10%' }} /></span>X
+                </h1>
+              </div>
 
               <div className="flex items-center justify-center mb-4">
                 <div className="h-px w-24 bg-gradient-to-r from-transparent via-calm-blue to-transparent" />
