@@ -135,31 +135,31 @@ export default function Footer() {
             <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} DevPortfolio. All rights reserved.
             </p>
-            <div className="flex flex-wrap gap-3 text-xs text-gray-500 justify-center">
+            <div className="flex flex-wrap gap-3 text-sm text-gray-400 justify-center items-center">
               <button
                 onClick={() => setActiveLegal('privacy')}
-                className="hover:text-electric-blue transition-colors underline"
+                className="hover:text-electric-blue transition-colors underline underline-offset-2"
               >
                 Privacy Policy
               </button>
-              <span>•</span>
+              <span className="text-gray-600">•</span>
               <button
                 onClick={() => setActiveLegal('terms')}
-                className="hover:text-electric-blue transition-colors underline"
+                className="hover:text-electric-blue transition-colors underline underline-offset-2"
               >
                 Terms of Service
               </button>
-              <span>•</span>
+              <span className="text-gray-600">•</span>
               <button
                 onClick={() => setActiveLegal('cookies')}
-                className="hover:text-electric-blue transition-colors underline"
+                className="hover:text-electric-blue transition-colors underline underline-offset-2"
               >
                 Cookie Policy
               </button>
-              <span>•</span>
+              <span className="text-gray-600">•</span>
               <button
                 onClick={() => setActiveLegal('disclaimer')}
-                className="hover:text-electric-blue transition-colors underline"
+                className="hover:text-electric-blue transition-colors underline underline-offset-2"
               >
                 Disclaimer
               </button>
