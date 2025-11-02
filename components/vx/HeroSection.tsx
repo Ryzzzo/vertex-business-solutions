@@ -43,7 +43,6 @@ const floatingCards = [
 ];
 
 export default function HeroSection() {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const scrollToSection = (href: string) => {
@@ -64,7 +63,6 @@ export default function HeroSection() {
         <div className="relative max-w-6xl mx-auto">
           {floatingCards.map((card, index) => {
             const Icon = card.icon;
-            const isHovered = hoveredCard === card.title;
             const positions = {
               'top-left': 'lg:absolute lg:-top-20 lg:-left-32',
               'top-right': 'lg:absolute lg:-top-20 lg:-right-32',
@@ -81,44 +79,20 @@ export default function HeroSection() {
                 className={positions[card.position as keyof typeof positions]}
               >
                 <div
-                  className="glass rounded-[20px] p-8 cursor-pointer group"
+                  className="hero-card glass rounded-[20px] p-8 cursor-pointer"
                   style={{
                     animation: 'float 6s ease-in-out infinite',
                     animationDelay: `${index * 0.2}s`,
                     width: '300px',
                     minHeight: '200px',
                     zIndex: index % 2 === 0 ? 5 : 15,
-                    transition: 'transform 0.3s ease-out, box-shadow 0.3s ease-out, z-index 0s',
-                    willChange: 'transform, box-shadow',
-                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)',
-                  }}
-                  onMouseEnter={(e) => {
-                    const target = e.currentTarget;
-                    target.style.transform = 'scale(1.05) translateY(-4px)';
-                    target.style.boxShadow = '0 30px 80px rgba(74, 144, 226, 0.3)';
-                    target.style.zIndex = '20';
-                    setHoveredCard(card.title);
-                  }}
-                  onMouseLeave={(e) => {
-                    const target = e.currentTarget;
-                    target.style.transform = 'scale(1) translateY(0)';
-                    target.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.4)';
-                    target.style.zIndex = (index % 2 === 0 ? 5 : 15).toString();
-                    setHoveredCard(null);
                   }}
                 >
-                  <Icon className="w-12 h-12 text-calm-blue mb-4 pointer-events-none" strokeWidth={1.5} />
-                  <h3 className="text-xl font-semibold text-white mb-1 pointer-events-none">{card.title}</h3>
-                  <p className="text-sm text-soft-gray mb-3 pointer-events-none">{card.subtitle}</p>
-                  <div
-                    className={`overflow-hidden border-t border-calm-blue/30 transition-all duration-300 ease-out pointer-events-none ${
-                      isHovered ? 'mt-4 pt-4 opacity-100' : 'mt-0 pt-0 opacity-0 h-0'
-                    }`}
-                    style={{
-                      maxHeight: isHovered ? '500px' : '0px',
-                    }}
-                  >
-                    <p className="text-sm text-light-gray leading-relaxed">{card.hoverText}</p>
+                  <Icon className="w-12 h-12 text-calm-blue mb-4" strokeWidth={1.5} />
+                  <h3 className="text-xl font-semibold text-white mb-1">{card.title}</h3>
+                  <p className="text-sm text-soft-gray mb-3">{card.subtitle}</p>
+                  <div className="hero-card-details overflow-hidden border-t border-calm-blue/30">
+                    <p className="text-sm text-light-gray leading-relaxed pt-4">{card.hoverText}</p>
                   </div>
                 </div>
               </motion.div>
