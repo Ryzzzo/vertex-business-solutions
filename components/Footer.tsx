@@ -11,6 +11,13 @@ const quickLinks = [
   { name: 'Contact', href: '#contact' },
 ];
 
+const legalLinks = [
+  { name: 'Privacy Policy', href: '/privacy-policy' },
+  { name: 'Terms of Service', href: '/terms-of-service' },
+  { name: 'Cookie Policy', href: '/cookie-policy' },
+  { name: 'Disclaimer', href: '/disclaimer' },
+];
+
 export default function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false);
 
@@ -31,6 +38,14 @@ export default function Footer() {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleLinkClick = (href: string) => {
+    if (href.startsWith('#')) {
+      scrollToSection(href);
+    } else {
+      window.location.href = href;
     }
   };
 
@@ -113,13 +128,16 @@ export default function Footer() {
             <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} DevPortfolio. All rights reserved.
             </p>
-            <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-electric-blue transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-electric-blue transition-colors">
-                Terms of Service
-              </a>
+            <div className="flex flex-wrap gap-4 md:gap-6 text-sm justify-center md:justify-end">
+              {legalLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-gray-400 hover:text-electric-blue transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
             </div>
           </div>
         </div>

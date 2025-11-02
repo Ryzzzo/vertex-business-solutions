@@ -266,6 +266,13 @@ export default function ContactSection() {
                 />
               </div>
 
+              <div className="text-xs text-gray-400 text-center">
+                By submitting this form, you agree to our{' '}
+                <a href="/privacy-policy" className="text-electric-blue hover:text-electric-blue/80 underline">
+                  Privacy Policy
+                </a>
+              </div>
+
               <Button
                 type="submit"
                 disabled={isLoading}
