@@ -297,17 +297,17 @@ export default function ProjectQuestionnaireModal({
                           onChange={handleChange}
                           className={`w-full bg-deep-space/50 border ${
                             errors.industry ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors`}
+                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
                         >
-                          <option value="">Select industry</option>
-                          <option value="E-commerce / Retail">E-commerce / Retail</option>
-                          <option value="Healthcare / Medical">Healthcare / Medical</option>
-                          <option value="Technology / SaaS">Technology / SaaS</option>
-                          <option value="Manufacturing / Distribution">Manufacturing / Distribution</option>
-                          <option value="Professional Services">Professional Services</option>
-                          <option value="Real Estate">Real Estate</option>
-                          <option value="Financial Services">Financial Services</option>
-                          <option value="Other">Other</option>
+                          <option value="" className="bg-space-navy text-white">Select industry</option>
+                          <option value="E-commerce / Retail" className="bg-space-navy text-white">E-commerce / Retail</option>
+                          <option value="Healthcare / Medical" className="bg-space-navy text-white">Healthcare / Medical</option>
+                          <option value="Technology / SaaS" className="bg-space-navy text-white">Technology / SaaS</option>
+                          <option value="Manufacturing / Distribution" className="bg-space-navy text-white">Manufacturing / Distribution</option>
+                          <option value="Professional Services" className="bg-space-navy text-white">Professional Services</option>
+                          <option value="Real Estate" className="bg-space-navy text-white">Real Estate</option>
+                          <option value="Financial Services" className="bg-space-navy text-white">Financial Services</option>
+                          <option value="Other" className="bg-space-navy text-white">Other</option>
                         </select>
                         {errors.industry && (
                           <p className="text-red-400 text-sm mt-1">{errors.industry}</p>
@@ -324,14 +324,14 @@ export default function ProjectQuestionnaireModal({
                           onChange={handleChange}
                           className={`w-full bg-deep-space/50 border ${
                             errors.teamSize ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors`}
+                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
                         >
-                          <option value="">Select team size</option>
-                          <option value="Just me (Solo)">Just me (Solo)</option>
-                          <option value="2-10 employees">2-10 employees</option>
-                          <option value="11-50 employees">11-50 employees</option>
-                          <option value="51-200 employees">51-200 employees</option>
-                          <option value="200+ employees">200+ employees</option>
+                          <option value="" className="bg-space-navy text-white">Select team size</option>
+                          <option value="Just me (Solo)" className="bg-space-navy text-white">Just me (Solo)</option>
+                          <option value="2-10 employees" className="bg-space-navy text-white">2-10 employees</option>
+                          <option value="11-50 employees" className="bg-space-navy text-white">11-50 employees</option>
+                          <option value="51-200 employees" className="bg-space-navy text-white">51-200 employees</option>
+                          <option value="200+ employees" className="bg-space-navy text-white">200+ employees</option>
                         </select>
                         {errors.teamSize && (
                           <p className="text-red-400 text-sm mt-1">{errors.teamSize}</p>
@@ -402,14 +402,14 @@ export default function ProjectQuestionnaireModal({
                           onChange={handleChange}
                           className={`w-full bg-deep-space/50 border ${
                             errors.budget ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors`}
+                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
                         >
-                          <option value="">Select budget range</option>
-                          <option value="Under $2,000">Under $2,000</option>
-                          <option value="$2,000 - $5,000">$2,000 - $5,000</option>
-                          <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                          <option value="$10,000+">$10,000+</option>
-                          <option value="Need help determining budget">Need help determining budget</option>
+                          <option value="" className="bg-space-navy text-white">Select budget range</option>
+                          <option value="Under $2,000" className="bg-space-navy text-white">Under $2,000</option>
+                          <option value="$2,000 - $5,000" className="bg-space-navy text-white">$2,000 - $5,000</option>
+                          <option value="$5,000 - $10,000" className="bg-space-navy text-white">$5,000 - $10,000</option>
+                          <option value="$10,000+" className="bg-space-navy text-white">$10,000+</option>
+                          <option value="Need help determining budget" className="bg-space-navy text-white">Need help determining budget</option>
                         </select>
                         {errors.budget && (
                           <p className="text-red-400 text-sm mt-1">{errors.budget}</p>
@@ -426,14 +426,14 @@ export default function ProjectQuestionnaireModal({
                           onChange={handleChange}
                           className={`w-full bg-deep-space/50 border ${
                             errors.timeline ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors`}
+                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
                         >
-                          <option value="">Select timeline</option>
-                          <option value="Urgent (within 2 weeks)">Urgent (within 2 weeks)</option>
-                          <option value="1 month">1 month</option>
-                          <option value="2-3 months">2-3 months</option>
-                          <option value="3-6 months">3-6 months</option>
-                          <option value="Flexible / Exploring options">Flexible / Exploring options</option>
+                          <option value="" className="bg-space-navy text-white">Select timeline</option>
+                          <option value="Urgent (within 2 weeks)" className="bg-space-navy text-white">Urgent (within 2 weeks)</option>
+                          <option value="1 month" className="bg-space-navy text-white">1 month</option>
+                          <option value="2-3 months" className="bg-space-navy text-white">2-3 months</option>
+                          <option value="3-6 months" className="bg-space-navy text-white">3-6 months</option>
+                          <option value="Flexible / Exploring options" className="bg-space-navy text-white">Flexible / Exploring options</option>
                         </select>
                         {errors.timeline && (
                           <p className="text-red-400 text-sm mt-1">{errors.timeline}</p>
