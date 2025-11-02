@@ -34,11 +34,11 @@ const floatingCards = [
   },
   {
     icon: BarChart3,
-    title: '14+ Years Experience',
-    subtitle: 'USPS Operations',
+    title: 'Years of Experience',
+    subtitle: 'Enterprise Operations',
     position: 'bottom-right',
     delay: 0.6,
-    hoverText: 'Backed by extensive operational experience with enterprise systems at USPS. We understand real business workflows and what teams actually use.',
+    hoverText: 'Backed by extensive operational experience with enterprise systems. We understand real business workflows and what teams actually use.',
   },
 ];
 
@@ -76,40 +76,41 @@ export default function HeroSection() {
               <motion.div
                 key={card.title}
                 initial={{ opacity: 0, y: 50 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  scale: isHovered ? 1.05 : 1,
-                  zIndex: isHovered ? 20 : index % 2 === 0 ? 5 : 15,
-                }}
-                transition={{ duration: 0.3 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: card.delay }}
                 onMouseEnter={() => setHoveredCard(card.title)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className={`glass hidden lg:block rounded-[20px] p-8 cursor-pointer ${positions[card.position as keyof typeof positions]}`}
+                className={`glass hidden lg:block rounded-[20px] p-8 cursor-pointer transition-all duration-300 ease-out ${positions[card.position as keyof typeof positions]}`}
                 style={{
-                  animation: isHovered ? 'none' : 'float 6s ease-in-out infinite',
+                  animation: 'float 6s ease-in-out infinite',
                   animationDelay: `${index * 0.2}s`,
+                  width: '300px',
+                  minHeight: '200px',
+                  zIndex: isHovered ? 20 : index % 2 === 0 ? 5 : 15,
+                  willChange: isHovered ? 'transform, box-shadow' : 'auto',
+                  transform: isHovered ? 'scale(1.05) translateY(-4px)' : 'scale(1) translateY(0)',
                   boxShadow: isHovered
                     ? '0 30px 80px rgba(74, 144, 226, 0.3)'
                     : '0 20px 60px rgba(0, 0, 0, 0.4)',
-                  width: isHovered ? '350px' : '300px',
-                  height: isHovered ? 'auto' : '200px',
-                  minHeight: '200px',
                 }}
               >
                 <Icon className="w-12 h-12 text-calm-blue mb-4" strokeWidth={1.5} />
                 <h3 className="text-xl font-semibold text-white mb-1">{card.title}</h3>
                 <p className="text-sm text-soft-gray mb-3">{card.subtitle}</p>
-                {isHovered && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-4 pt-4 border-t border-calm-blue/30"
-                  >
-                    <p className="text-sm text-light-gray leading-relaxed">{card.hoverText}</p>
-                  </motion.div>
-                )}
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: isHovered ? 'auto' : 0,
+                    opacity: isHovered ? 1 : 0,
+                    marginTop: isHovered ? 16 : 0,
+                    paddingTop: isHovered ? 16 : 0,
+                  }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                  className="overflow-hidden border-t border-calm-blue/30"
+                  style={{ willChange: isHovered ? 'height, opacity' : 'auto' }}
+                >
+                  <p className="text-sm text-light-gray leading-relaxed">{card.hoverText}</p>
+                </motion.div>
               </motion.div>
             );
           })}
@@ -168,7 +169,7 @@ export default function HeroSection() {
               </Button>
               <Button
                 size="lg"
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => scrollToSection('#contact')}
                 className="bg-calm-blue hover:bg-sky-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/50 hover:scale-105"
               >
                 Get Started

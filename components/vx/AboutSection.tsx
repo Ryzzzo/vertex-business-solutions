@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { Award, MapPin, Code2, Zap } from 'lucide-react';
 
 const stats = [
-  { icon: Award, title: 'Enterprise Experience', subtitle: '14+ Years Operations' },
+  { icon: Award, title: 'Enterprise Experience', subtitle: 'Years of Operations' },
   { icon: Code2, title: 'Modern Stack', subtitle: 'React • Next.js • Node' },
   { icon: MapPin, title: 'US-Based', subtitle: 'Direct Communication' },
   { icon: Zap, title: 'Fast Delivery', subtitle: '2-Week Turnaround' },
@@ -36,12 +36,12 @@ export default function AboutSection() {
 
             <div className="pl-6 border-l-2 border-calm-blue/40 mb-6">
               <p className="text-[17px] text-light-gray leading-[1.8] italic">
-                Vertex. In mathematics, it's the point where lines converge—where separate paths meet to create something unified. That's exactly what we do: bring together your business challenges, modern technology, and 14+ years of operational expertise to create solutions that actually work.
+                Vertex. In mathematics, it's the point where lines converge—where separate paths meet to create something unified. That's exactly what we do: bring together your business challenges, modern technology, and years of operational expertise to create solutions that actually work.
               </p>
             </div>
 
             <p className="text-[17px] text-light-gray leading-[1.8]">
-              I understand business operations from 14+ years of hands-on experience with USPS systems. I've seen what works in enterprise environments and what doesn't—that knowledge drives every application I build.
+              I understand business operations from years of hands-on experience with enterprise systems. I've seen what works in enterprise environments and what doesn't—that knowledge drives every application I build.
             </p>
 
             <p className="text-[17px] text-light-gray leading-[1.8]">

@@ -26,12 +26,6 @@ export default function Footer() {
             >
               <Github className="w-5 h-5" />
             </a>
-            <a
-              href="#"
-              className="text-[13px] text-subtle-purple hover:text-calm-blue transition-colors"
-            >
-              Upwork
-            </a>
           </div>
         </div>
       </div>
