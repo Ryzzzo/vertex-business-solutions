@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import LegalModal from './LegalModal';
+import { privacyPolicyContent, termsOfServiceContent, cookiePolicyContent, disclaimerContent } from '@/lib/legalContent';
 
 const quickLinks = [
   { name: 'Services', href: '#services' },
@@ -11,15 +13,11 @@ const quickLinks = [
   { name: 'Contact', href: '#contact' },
 ];
 
-const legalLinks = [
-  { name: 'Privacy Policy', href: '/privacy-policy' },
-  { name: 'Terms of Service', href: '/terms-of-service' },
-  { name: 'Cookie Policy', href: '/cookie-policy' },
-  { name: 'Disclaimer', href: '/disclaimer' },
-];
+type LegalType = 'privacy' | 'terms' | 'cookies' | 'disclaimer' | null;
 
 export default function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [activeLegal, setActiveLegal] = useState<LegalType>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,13 +39,22 @@ export default function Footer() {
     }
   };
 
-  const handleLinkClick = (href: string) => {
-    if (href.startsWith('#')) {
-      scrollToSection(href);
-    } else {
-      window.location.href = href;
+  const getLegalContent = () => {
+    switch (activeLegal) {
+      case 'privacy':
+        return { title: 'Privacy Policy', content: privacyPolicyContent };
+      case 'terms':
+        return { title: 'Terms of Service', content: termsOfServiceContent };
+      case 'cookies':
+        return { title: 'Cookie Policy', content: cookiePolicyContent };
+      case 'disclaimer':
+        return { title: 'Disclaimer', content: disclaimerContent };
+      default:
+        return { title: '', content: null };
     }
   };
+
+  const { title, content } = getLegalContent();
 
   return (
     <footer className="relative bg-gradient-to-b from-navy-darker to-black border-t border-white/5">
@@ -129,15 +136,30 @@ export default function Footer() {
               © {new Date().getFullYear()} DevPortfolio. All rights reserved.
             </p>
             <div className="flex flex-wrap gap-4 md:gap-6 text-sm justify-center md:justify-end">
-              {legalLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-gray-400 hover:text-electric-blue transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
+              <button
+                onClick={() => setActiveLegal('privacy')}
+                className="text-gray-400 hover:text-electric-blue transition-colors"
+              >
+                Privacy Policy
+              </button>
+              <button
+                onClick={() => setActiveLegal('terms')}
+                className="text-gray-400 hover:text-electric-blue transition-colors"
+              >
+                Terms of Service
+              </button>
+              <button
+                onClick={() => setActiveLegal('cookies')}
+                className="text-gray-400 hover:text-electric-blue transition-colors"
+              >
+                Cookie Policy
+              </button>
+              <button
+                onClick={() => setActiveLegal('disclaimer')}
+                className="text-gray-400 hover:text-electric-blue transition-colors"
+              >
+                Disclaimer
+              </button>
             </div>
           </div>
         </div>
@@ -151,6 +173,13 @@ export default function Footer() {
       >
         <ArrowUp className="w-6 h-6 text-white group-hover:-translate-y-1 transition-transform" />
       </motion.button>
+
+      <LegalModal
+        isOpen={activeLegal !== null}
+        onClose={() => setActiveLegal(null)}
+        title={title}
+        content={content}
+      />
     </footer>
   );
 }
