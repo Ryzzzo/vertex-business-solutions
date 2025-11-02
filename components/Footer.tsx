@@ -69,7 +69,9 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/in/rystacy/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg glass flex items-center justify-center hover:bg-electric-blue/20 transition-colors"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -77,7 +79,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://github.com/Ryzzzo"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg glass flex items-center justify-center hover:bg-vibrant-purple/20 transition-colors"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -135,7 +139,7 @@ export default function Footer() {
             <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} DevPortfolio. All rights reserved.
             </p>
-            <div className="flex flex-wrap gap-3 text-sm text-gray-400 justify-center items-center">
+            <div className="flex flex-wrap gap-3 text-sm text-gray-400 justify-center items-center relative z-50">
               <button
                 onClick={() => setActiveLegal('privacy')}
                 className="hover:text-electric-blue transition-colors underline underline-offset-2"
@@ -172,7 +176,7 @@ export default function Footer() {
         initial={{ opacity: 0, scale: 0 }}
         animate={showBackToTop ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-electric-blue to-vibrant-purple flex items-center justify-center shadow-lg shadow-electric-blue/50 hover:shadow-2xl hover:shadow-electric-blue/70 transition-all z-40 group"
+        className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-electric-blue to-vibrant-purple flex items-center justify-center shadow-lg shadow-electric-blue/50 hover:shadow-2xl hover:shadow-electric-blue/70 transition-all z-30 group"
       >
         <ArrowUp className="w-6 h-6 text-white group-hover:-translate-y-1 transition-transform" />
       </motion.button>
