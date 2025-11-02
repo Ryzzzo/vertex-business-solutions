@@ -6,6 +6,7 @@ import ServicesSection from '@/components/vx/ServicesSection';
 import PortfolioSection from '@/components/vx/PortfolioSection';
 import TechStackSection from '@/components/vx/TechStackSection';
 import AboutSection from '@/components/vx/AboutSection';
+import PricingSection from '@/components/vx/PricingSection';
 import ContactSection from '@/components/vx/ContactSection';
 import Footer from '@/components/vx/Footer';
 
@@ -18,6 +19,7 @@ export default function Home() {
       <PortfolioSection />
       <TechStackSection />
       <AboutSection />
+      <PricingSection />
       <ContactSection />
       <Footer />
     </main>

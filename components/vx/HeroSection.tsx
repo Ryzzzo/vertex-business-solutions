@@ -4,15 +4,48 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Database, ChartBar as BarChart3, Zap, Code as Code2 } from 'lucide-react';
 import SpaceBackground from './SpaceBackground';
+import { useState } from 'react';
+import ProjectQuestionnaireModal from './ProjectQuestionnaireModal';
 
 const floatingCards = [
-  { icon: Database, title: 'CRM Systems', position: 'top-left', delay: 0 },
-  { icon: BarChart3, title: 'Analytics', position: 'top-right', delay: 0.2 },
-  { icon: Zap, title: 'Automation', position: 'bottom-left', delay: 0.4 },
-  { icon: Code2, title: 'Modern Stack', position: 'bottom-right', delay: 0.6 },
+  {
+    icon: Zap,
+    title: 'Fast Delivery',
+    subtitle: '2-Week Turnaround',
+    position: 'top-left',
+    delay: 0,
+    hoverText: 'Using modern frameworks and AI-assisted development, we deliver professional applications in weeks, not months. Most projects complete in 1-3 weeks.',
+  },
+  {
+    icon: Database,
+    title: 'US-Based',
+    subtitle: 'Charlotte, NC',
+    position: 'top-right',
+    delay: 0.2,
+    hoverText: 'Direct communication with no account managers or offshore teams. Based in Charlotte, NC, serving clients nationwide with real-time collaboration.',
+  },
+  {
+    icon: Code2,
+    title: 'Modern Tech',
+    subtitle: 'React • Next.js',
+    position: 'bottom-left',
+    delay: 0.4,
+    hoverText: 'Built with React, Next.js, and modern cloud infrastructure. Your applications are fast, responsive, and scalable from day one.',
+  },
+  {
+    icon: BarChart3,
+    title: '14+ Years Experience',
+    subtitle: 'USPS Operations',
+    position: 'bottom-right',
+    delay: 0.6,
+    hoverText: 'Backed by extensive operational experience with enterprise systems at USPS. We understand real business workflows and what teams actually use.',
+  },
 ];
 
 export default function HeroSection() {
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -31,6 +64,7 @@ export default function HeroSection() {
         <div className="relative max-w-6xl mx-auto">
           {floatingCards.map((card, index) => {
             const Icon = card.icon;
+            const isHovered = hoveredCard === card.title;
             const positions = {
               'top-left': 'lg:absolute lg:-top-20 lg:-left-32',
               'top-right': 'lg:absolute lg:-top-20 lg:-right-32',
@@ -42,18 +76,40 @@ export default function HeroSection() {
               <motion.div
                 key={card.title}
                 initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: card.delay }}
-                className={`glass hidden lg:block w-[300px] h-[200px] rounded-[20px] p-8 ${positions[card.position as keyof typeof positions]}`}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: isHovered ? 1.05 : 1,
+                  zIndex: isHovered ? 20 : index % 2 === 0 ? 5 : 15,
+                }}
+                transition={{ duration: 0.3 }}
+                onMouseEnter={() => setHoveredCard(card.title)}
+                onMouseLeave={() => setHoveredCard(null)}
+                className={`glass hidden lg:block rounded-[20px] p-8 cursor-pointer ${positions[card.position as keyof typeof positions]}`}
                 style={{
-                  animation: 'float 6s ease-in-out infinite',
+                  animation: isHovered ? 'none' : 'float 6s ease-in-out infinite',
                   animationDelay: `${index * 0.2}s`,
-                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)',
-                  zIndex: index % 2 === 0 ? 5 : 15,
+                  boxShadow: isHovered
+                    ? '0 30px 80px rgba(74, 144, 226, 0.3)'
+                    : '0 20px 60px rgba(0, 0, 0, 0.4)',
+                  width: isHovered ? '350px' : '300px',
+                  height: isHovered ? 'auto' : '200px',
+                  minHeight: '200px',
                 }}
               >
                 <Icon className="w-12 h-12 text-calm-blue mb-4" strokeWidth={1.5} />
-                <h3 className="text-xl font-semibold text-white">{card.title}</h3>
+                <h3 className="text-xl font-semibold text-white mb-1">{card.title}</h3>
+                <p className="text-sm text-soft-gray mb-3">{card.subtitle}</p>
+                {isHovered && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-4 pt-4 border-t border-calm-blue/30"
+                  >
+                    <p className="text-sm text-light-gray leading-relaxed">{card.hoverText}</p>
+                  </motion.div>
+                )}
               </motion.div>
             );
           })}
@@ -112,7 +168,7 @@ export default function HeroSection() {
               </Button>
               <Button
                 size="lg"
-                onClick={() => scrollToSection('#contact')}
+                onClick={() => setIsModalOpen(true)}
                 className="bg-calm-blue hover:bg-sky-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/50 hover:scale-105"
               >
                 Get Started
@@ -130,6 +186,8 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+
+      <ProjectQuestionnaireModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }

@@ -4,9 +4,11 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Button } from '@/components/ui/button';
 import { Mail } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import ProjectQuestionnaireModal from './ProjectQuestionnaireModal';
 
 export default function ContactSection() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -100,6 +102,7 @@ export default function ContactSection() {
               <Button
                 ref={buttonRef}
                 size="lg"
+                onClick={() => setIsModalOpen(true)}
                 className="glass-subtle border-2 border-calm-blue text-white w-[240px] h-16 rounded-xl text-lg font-semibold hover:bg-calm-blue transition-all duration-300 magnetic-button animate-glow-pulse"
               >
                 Start Your Project
@@ -118,11 +121,11 @@ export default function ContactSection() {
             </p>
 
             <a
-              href="mailto:contact@vertex.business"
+              href="mailto:contact@vertexapps.dev"
               className="inline-flex items-center gap-2 text-sm text-calm-blue hover:text-sky-blue transition-colors"
             >
               <Mail className="w-4 h-4" />
-              contact@vertex.business
+              contact@vertexapps.dev
             </a>
           </motion.div>
         </motion.div>
@@ -130,6 +133,8 @@ export default function ContactSection() {
         <div className="absolute top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-calm-blue/20" />
         <div className="absolute bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-calm-blue/20" />
       </div>
+
+      <ProjectQuestionnaireModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }

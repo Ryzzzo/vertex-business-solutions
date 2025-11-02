@@ -34,6 +34,12 @@ export default function AboutSection() {
               <h2 className="heading-3 text-glow">Built for Real Business Needs</h2>
             </div>
 
+            <div className="pl-6 border-l-2 border-calm-blue/40 mb-6">
+              <p className="text-[17px] text-light-gray leading-[1.8] italic">
+                Vertex. In mathematics, it's the point where lines converge—where separate paths meet to create something unified. That's exactly what we do: bring together your business challenges, modern technology, and 14+ years of operational expertise to create solutions that actually work.
+              </p>
+            </div>
+
             <p className="text-[17px] text-light-gray leading-[1.8]">
               I understand business operations from 14+ years of hands-on experience with USPS systems. I've seen what works in enterprise environments and what doesn't—that knowledge drives every application I build.
             </p>
