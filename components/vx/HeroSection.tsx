@@ -59,8 +59,8 @@ export default function HeroSection() {
     >
       <SpaceBackground />
 
-      <div className="container relative z-10 py-32">
-        <div className="relative max-w-6xl mx-auto">
+      <div className="container relative py-32" style={{ zIndex: 10 }}>
+        <div className="relative max-w-6xl mx-auto" style={{ isolation: 'isolate' }}>
           {floatingCards.map((card, index) => {
             const Icon = card.icon;
             const positions = {
@@ -76,7 +76,11 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: card.delay }}
-                className={positions[card.position as keyof typeof positions]}
+                className={`${positions[card.position as keyof typeof positions]} hidden lg:block`}
+                style={{
+                  zIndex: 5,
+                  pointerEvents: 'auto',
+                }}
               >
                 <div
                   className="hero-card glass rounded-[20px] p-8 cursor-pointer"
@@ -85,13 +89,14 @@ export default function HeroSection() {
                     animationDelay: `${index * 0.2}s`,
                     width: '300px',
                     minHeight: '200px',
-                    zIndex: index % 2 === 0 ? 5 : 15,
+                    position: 'relative',
+                    zIndex: 1,
                   }}
                 >
-                  <Icon className="w-12 h-12 text-calm-blue mb-4" strokeWidth={1.5} />
-                  <h3 className="text-xl font-semibold text-white mb-1">{card.title}</h3>
-                  <p className="text-sm text-soft-gray mb-3">{card.subtitle}</p>
-                  <div className="hero-card-details overflow-hidden border-t border-calm-blue/30">
+                  <Icon className="w-12 h-12 text-calm-blue mb-4 pointer-events-none" strokeWidth={1.5} />
+                  <h3 className="text-xl font-semibold text-white mb-1 pointer-events-none">{card.title}</h3>
+                  <p className="text-sm text-soft-gray mb-3 pointer-events-none">{card.subtitle}</p>
+                  <div className="hero-card-details overflow-hidden border-t border-calm-blue/30 pointer-events-none">
                     <p className="text-sm text-light-gray leading-relaxed pt-4">{card.hoverText}</p>
                   </div>
                 </div>
@@ -99,7 +104,7 @@ export default function HeroSection() {
             );
           })}
 
-          <div className="text-center relative z-10">
+          <div className="text-center relative" style={{ zIndex: 1 }}>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
