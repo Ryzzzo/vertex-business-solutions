@@ -78,39 +78,49 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: card.delay }}
-                onMouseEnter={() => setHoveredCard(card.title)}
-                onMouseLeave={() => setHoveredCard(null)}
-                className={`glass hidden lg:block rounded-[20px] p-8 cursor-pointer transition-all duration-300 ease-out ${positions[card.position as keyof typeof positions]}`}
-                style={{
-                  animation: 'float 6s ease-in-out infinite',
-                  animationDelay: `${index * 0.2}s`,
-                  width: '300px',
-                  minHeight: '200px',
-                  zIndex: isHovered ? 20 : index % 2 === 0 ? 5 : 15,
-                  willChange: isHovered ? 'transform, box-shadow' : 'auto',
-                  transform: isHovered ? 'scale(1.05) translateY(-4px)' : 'scale(1) translateY(0)',
-                  boxShadow: isHovered
-                    ? '0 30px 80px rgba(74, 144, 226, 0.3)'
-                    : '0 20px 60px rgba(0, 0, 0, 0.4)',
-                }}
+                className={positions[card.position as keyof typeof positions]}
               >
-                <Icon className="w-12 h-12 text-calm-blue mb-4" strokeWidth={1.5} />
-                <h3 className="text-xl font-semibold text-white mb-1">{card.title}</h3>
-                <p className="text-sm text-soft-gray mb-3">{card.subtitle}</p>
-                <motion.div
-                  initial={false}
-                  animate={{
-                    height: isHovered ? 'auto' : 0,
-                    opacity: isHovered ? 1 : 0,
-                    marginTop: isHovered ? 16 : 0,
-                    paddingTop: isHovered ? 16 : 0,
+                <div
+                  className="glass rounded-[20px] p-8 cursor-pointer group"
+                  style={{
+                    animation: 'float 6s ease-in-out infinite',
+                    animationDelay: `${index * 0.2}s`,
+                    width: '300px',
+                    minHeight: '200px',
+                    zIndex: index % 2 === 0 ? 5 : 15,
+                    transition: 'transform 0.3s ease-out, box-shadow 0.3s ease-out, z-index 0s',
+                    willChange: 'transform, box-shadow',
+                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)',
                   }}
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
-                  className="overflow-hidden border-t border-calm-blue/30"
-                  style={{ willChange: isHovered ? 'height, opacity' : 'auto' }}
+                  onMouseEnter={(e) => {
+                    const target = e.currentTarget;
+                    target.style.transform = 'scale(1.05) translateY(-4px)';
+                    target.style.boxShadow = '0 30px 80px rgba(74, 144, 226, 0.3)';
+                    target.style.zIndex = '20';
+                    setHoveredCard(card.title);
+                  }}
+                  onMouseLeave={(e) => {
+                    const target = e.currentTarget;
+                    target.style.transform = 'scale(1) translateY(0)';
+                    target.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.4)';
+                    target.style.zIndex = (index % 2 === 0 ? 5 : 15).toString();
+                    setHoveredCard(null);
+                  }}
                 >
-                  <p className="text-sm text-light-gray leading-relaxed">{card.hoverText}</p>
-                </motion.div>
+                  <Icon className="w-12 h-12 text-calm-blue mb-4 pointer-events-none" strokeWidth={1.5} />
+                  <h3 className="text-xl font-semibold text-white mb-1 pointer-events-none">{card.title}</h3>
+                  <p className="text-sm text-soft-gray mb-3 pointer-events-none">{card.subtitle}</p>
+                  <div
+                    className={`overflow-hidden border-t border-calm-blue/30 transition-all duration-300 ease-out pointer-events-none ${
+                      isHovered ? 'mt-4 pt-4 opacity-100' : 'mt-0 pt-0 opacity-0 h-0'
+                    }`}
+                    style={{
+                      maxHeight: isHovered ? '500px' : '0px',
+                    }}
+                  >
+                    <p className="text-sm text-light-gray leading-relaxed">{card.hoverText}</p>
+                  </div>
+                </div>
               </motion.div>
             );
           })}

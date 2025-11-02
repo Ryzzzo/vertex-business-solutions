@@ -31,16 +31,7 @@ export default function SpaceBackground() {
       interactivity: {
         events: {
           onHover: {
-            enable: true,
-            mode: 'grab',
-          },
-        },
-        modes: {
-          grab: {
-            distance: 180,
-            links: {
-              opacity: 0.3,
-            },
+            enable: false,
           },
         },
       },
