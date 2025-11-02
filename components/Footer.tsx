@@ -131,32 +131,35 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-white/5">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div className="flex flex-col items-center space-y-3 text-center">
             <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} DevPortfolio. All rights reserved.
             </p>
-            <div className="flex flex-wrap gap-4 md:gap-6 text-sm justify-center md:justify-end">
+            <div className="flex flex-wrap gap-3 text-xs text-gray-500 justify-center">
               <button
                 onClick={() => setActiveLegal('privacy')}
-                className="text-gray-400 hover:text-electric-blue transition-colors"
+                className="hover:text-electric-blue transition-colors underline"
               >
                 Privacy Policy
               </button>
+              <span>•</span>
               <button
                 onClick={() => setActiveLegal('terms')}
-                className="text-gray-400 hover:text-electric-blue transition-colors"
+                className="hover:text-electric-blue transition-colors underline"
               >
                 Terms of Service
               </button>
+              <span>•</span>
               <button
                 onClick={() => setActiveLegal('cookies')}
-                className="text-gray-400 hover:text-electric-blue transition-colors"
+                className="hover:text-electric-blue transition-colors underline"
               >
                 Cookie Policy
               </button>
+              <span>•</span>
               <button
                 onClick={() => setActiveLegal('disclaimer')}
-                className="text-gray-400 hover:text-electric-blue transition-colors"
+                className="hover:text-electric-blue transition-colors underline"
               >
                 Disclaimer
               </button>
