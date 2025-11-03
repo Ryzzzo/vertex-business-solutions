@@ -102,7 +102,7 @@ export default function ProjectQuestionnaireModal({
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/submit-inquiry', {
+      const response = await fetch('https://hook.us2.make.com/tu8em26netjr67prhwrfp27um547vx9c', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -119,16 +119,14 @@ export default function ProjectQuestionnaireModal({
         }),
       });
 
-      const result = await response.json();
-
-      if (result.success) {
+      if (response.ok) {
         setIsSubmitted(true);
       } else {
-        throw new Error(result.error || 'Failed to submit form');
+        throw new Error('Failed to submit form');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Something went wrong. Please try again or email us directly at contact@yourcompany.com');
+      alert('Something went wrong. Please try again or email us directly.');
     } finally {
       setIsSubmitting(false);
     }
