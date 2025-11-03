@@ -102,31 +102,43 @@ export default function ProjectQuestionnaireModal({
     setIsSubmitting(true);
 
     try {
-      const combinedMessage = `${formData.challenges}\n\n${formData.additionalInfo ? `Additional Info: ${formData.additionalInfo}` : ''}`.trim();
-
-      const notionData = {
+      // Prepare data for API
+      const submissionData = {
         name: formData.name,
         email: formData.email,
-        phone: formData.phone || 'Not provided',
+        phone: formData.phone,
         company: formData.company,
         industry: formData.industry,
-        services: formData.services,
+        teamSize: formData.teamSize,
+        challenges: formData.challenges,
         budget: formData.budget,
         timeline: formData.timeline,
-        message: combinedMessage,
-        source: 'Website Form',
-        status: 'New',
-        submissionDate: new Date().toISOString(),
+        additionalInfo: formData.additionalInfo,
       };
 
-      console.log('Form data ready for Notion:', notionData);
+      // Call Supabase Edge Function
+      const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/submit-inquiry`;
 
-      setTimeout(() => {
-        setIsSubmitting(false);
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
         setIsSubmitted(true);
-      }, 1000);
+      } else {
+        throw new Error(result.error || 'Failed to submit form');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
+      alert('Something went wrong. Please try again or email us directly at contact@yourcompany.com');
+    } finally {
       setIsSubmitting(false);
     }
   };
