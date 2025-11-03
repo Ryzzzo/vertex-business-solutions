@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { submitToNotion } from '@/lib/notionSubmit';
 
 interface ProjectQuestionnaireModalProps {
   isOpen: boolean;
@@ -102,35 +103,18 @@ export default function ProjectQuestionnaireModal({
     setIsSubmitting(true);
 
     try {
-      // Prepare data for API
-      const submissionData = {
+      const result = await submitToNotion({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         company: formData.company,
         industry: formData.industry,
-        teamSize: formData.teamSize,
-        challenges: formData.challenges,
         services: formData.services,
         budget: formData.budget,
         timeline: formData.timeline,
+        challenges: formData.challenges,
         additionalInfo: formData.additionalInfo,
-      };
-
-      // Call Supabase Edge Function
-      const apiUrl = 'https://ebznxguiodgtcwtevtwy.supabase.co/functions/v1/submit-inquiry';
-      const anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImViem54Z3Vpb2RndGN3dGV2dHd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxMTUzMDQsImV4cCI6MjA3NzY5MTMwNH0.Wq5t4FJenBOibEOCnfrY5rfozCKrW0V8dYg2X_KQnx8';
-
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${anonKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(submissionData),
       });
-
-      const result = await response.json();
 
       if (result.success) {
         setIsSubmitted(true);
