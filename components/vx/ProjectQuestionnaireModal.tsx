@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { submitToNotion } from '@/lib/notionSubmit';
 
 interface ProjectQuestionnaireModalProps {
   isOpen: boolean;
@@ -103,18 +102,24 @@ export default function ProjectQuestionnaireModal({
     setIsSubmitting(true);
 
     try {
-      const result = await submitToNotion({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company,
-        industry: formData.industry,
-        services: formData.services,
-        budget: formData.budget,
-        timeline: formData.timeline,
-        challenges: formData.challenges,
-        additionalInfo: formData.additionalInfo,
+      const response = await fetch('/api/submit-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          industry: formData.industry,
+          services: formData.services,
+          budget: formData.budget,
+          timeline: formData.timeline,
+          challenges: formData.challenges,
+          additionalInfo: formData.additionalInfo,
+        }),
       });
+
+      const result = await response.json();
 
       if (result.success) {
         setIsSubmitted(true);
