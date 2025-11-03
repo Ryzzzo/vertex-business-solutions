@@ -8,7 +8,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
 };
 
-const NOTION_DATABASE_ID = "efc6e00a0f1449bbb26c13d96fd80750";
+const NOTION_DATABASE_ID = "118c4ff318fb44bd9b0fa0505c1162e1";
 
 Deno.serve(async (req: Request) => {
   // Handle CORS preflight
