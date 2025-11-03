@@ -406,11 +406,11 @@ export default function ProjectQuestionnaireModal({
                           } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
                         >
                           <option value="" className="bg-space-navy text-white">Select budget range</option>
-                          <option value="Under $2,000" className="bg-space-navy text-white">Under $2,000</option>
-                          <option value="$2,000 - $5,000" className="bg-space-navy text-white">$2,000 - $5,000</option>
-                          <option value="$5,000 - $10,000" className="bg-space-navy text-white">$5,000 - $10,000</option>
-                          <option value="$10,000+" className="bg-space-navy text-white">$10,000+</option>
-                          <option value="Need help determining budget" className="bg-space-navy text-white">Need help determining budget</option>
+                          <option value="Under $2K" className="bg-space-navy text-white">Under $2K</option>
+                          <option value="$2K-$5K" className="bg-space-navy text-white">$2K-$5K</option>
+                          <option value="$5K-$10K" className="bg-space-navy text-white">$5K-$10K</option>
+                          <option value="$10K+" className="bg-space-navy text-white">$10K+</option>
+                          <option value="Not Sure" className="bg-space-navy text-white">Not Sure</option>
                         </select>
                         {errors.budget && (
                           <p className="text-red-400 text-sm mt-1">{errors.budget}</p>
