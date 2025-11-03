@@ -111,6 +111,7 @@ export default function ProjectQuestionnaireModal({
         industry: formData.industry,
         teamSize: formData.teamSize,
         challenges: formData.challenges,
+        services: formData.services,
         budget: formData.budget,
         timeline: formData.timeline,
         additionalInfo: formData.additionalInfo,

@@ -57,6 +57,9 @@ Deno.serve(async (req: Request) => {
         "Name": {
           title: [{ text: { content: body.name || "Unknown" } }],
         },
+        "Contact Name": {
+          rich_text: [{ text: { content: body.name || "" } }],
+        },
         "Email": {
           email: body.email || null,
         },
@@ -67,31 +70,28 @@ Deno.serve(async (req: Request) => {
           rich_text: [{ text: { content: body.company || "" } }],
         },
         "Industry": {
-          select: body.industry ? { name: body.industry } : null,
-        },
-        "Current Team Size": {
-          rich_text: [{ text: { content: body.teamSize || "" } }],
+          rich_text: [{ text: { content: body.industry || "" } }],
         },
         "Project Budget": {
-          select: body.budget ? { name: body.budget } : null,
+          rich_text: [{ text: { content: body.budget || "" } }],
         },
-        "Timeline": {
-          select: body.timeline ? { name: body.timeline } : null,
+        "Services Interested In": {
+          multi_select: body.services ? body.services.map((s: string) => ({ name: s })) : [],
         },
         "Message": {
           rich_text: [
             {
               text: {
-                content: `Challenges: ${body.challenges || "N/A"}\n\nAdditional Info: ${body.additionalInfo || "N/A"}`,
+                content: `Team Size: ${body.teamSize || "N/A"}\nTimeline: ${body.timeline || "N/A"}\n\nChallenges:\n${body.challenges || "N/A"}\n\nAdditional Info:\n${body.additionalInfo || "N/A"}`,
               },
             },
           ],
         },
         "Source": {
-          select: { name: "Website Form" },
+          rich_text: [{ text: { content: "Website Form" } }],
         },
         "Status": {
-          select: { name: "New" },
+          rich_text: [{ text: { content: "New" } }],
         },
       },
     });
