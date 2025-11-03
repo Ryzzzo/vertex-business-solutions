@@ -118,19 +118,13 @@ export default function ProjectQuestionnaireModal({
       };
 
       // Call Supabase Edge Function
-      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-      const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-      if (!supabaseUrl || !supabaseAnonKey) {
-        throw new Error('Supabase configuration missing');
-      }
-
-      const apiUrl = `${supabaseUrl}/functions/v1/submit-inquiry`;
+      const apiUrl = 'https://ebznxguiodgtcwtevtwy.supabase.co/functions/v1/submit-inquiry';
+      const anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImViem54Z3Vpb2RndGN3dGV2dHd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxMTUzMDQsImV4cCI6MjA3NzY5MTMwNH0.Wq5t4FJenBOibEOCnfrY5rfozCKrW0V8dYg2X_KQnx8';
 
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${supabaseAnonKey}`,
+          'Authorization': `Bearer ${anonKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(submissionData),
