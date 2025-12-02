@@ -169,7 +169,9 @@ export default function HeroSection() {
                   textShadow: '0 0 40px rgba(74, 144, 226, 0.8), 0 0 80px rgba(74, 144, 226, 0.4)'
                 }}
               >
-                V<span className="relative inline-block" style={{ background: 'transparent' }}><span className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-calm-blue via-sky-blue to-calm-blue" style={{ width: '120%', left: '-10%' }} /></span>X
+                V<span className="relative inline-block" style={{ background: 'transparent' }}>
+                  <span className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-calm-blue via-sky-blue to-calm-blue" style={{ width: '120%', left: '-10%' }} />
+                </span>X
               </h1>
 
               <div className="flex items-center justify-center mb-4">
