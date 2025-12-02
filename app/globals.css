@@ -40,6 +40,21 @@
   html {
     scroll-behavior: smooth;
   }
+  html.lenis {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
 }
 
 @layer utilities {
@@ -163,6 +178,37 @@
     opacity: 1;
     margin-top: 1rem;
     padding-top: 1rem;
+  }
+
+  .aurora-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.4;
+    background:
+      conic-gradient(from 0deg at 50% 0%, #06b6d4 0deg, transparent 120deg),
+      conic-gradient(from 120deg at 80% 30%, #8b5cf6 0deg, transparent 120deg),
+      conic-gradient(from 240deg at 20% 60%, #3b82f6 0deg, transparent 120deg);
+    filter: blur(80px);
+    animation: aurora-rotate 20s linear infinite;
+  }
+
+  @keyframes aurora-rotate {
+    0% {
+      transform: rotate(0deg) scale(1);
+    }
+    50% {
+      transform: rotate(180deg) scale(1.2);
+    }
+    100% {
+      transform: rotate(360deg) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-background {
+      animation: none;
+    }
   }
 }
 

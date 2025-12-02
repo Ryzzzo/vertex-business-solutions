@@ -9,19 +9,24 @@ import AboutSection from '@/components/vx/AboutSection';
 import PricingSection from '@/components/vx/PricingSection';
 import ContactSection from '@/components/vx/ContactSection';
 import Footer from '@/components/vx/Footer';
+import SmoothScroll from '@/components/vx/SmoothScroll';
+import CustomCursor from '@/components/vx/CustomCursor';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-space-navy text-light-gray overflow-x-hidden">
-      <Navigation />
-      <HeroSection />
-      <ServicesSection />
-      <PortfolioSection />
-      <TechStackSection />
-      <AboutSection />
-      <PricingSection />
-      <ContactSection />
-      <Footer />
-    </main>
+    <SmoothScroll>
+      <CustomCursor />
+      <main className="min-h-screen bg-space-navy text-light-gray overflow-x-hidden">
+        <Navigation />
+        <HeroSection />
+        <ServicesSection />
+        <PortfolioSection />
+        <TechStackSection />
+        <AboutSection />
+        <PricingSection />
+        <ContactSection />
+        <Footer />
+      </main>
+    </SmoothScroll>
   );
 }

@@ -4,7 +4,10 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Database, ChartBar as BarChart3, Zap, Code as Code2 } from 'lucide-react';
 import SpaceBackground from './SpaceBackground';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import SplitType from 'split-type';
+import MagneticButton from './MagneticButton';
 import ProjectQuestionnaireModal from './ProjectQuestionnaireModal';
 
 const floatingCards = [
@@ -44,6 +47,7 @@ const floatingCards = [
 
 export default function HeroSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const headingRef = useRef<HTMLParagraphElement>(null);
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -52,11 +56,43 @@ export default function HeroSection() {
     }
   };
 
+  useEffect(() => {
+    if (!headingRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const text = new SplitType(headingRef.current, { types: 'chars' });
+
+    gsap.fromTo(
+      text.chars,
+      {
+        opacity: 0,
+        y: 50,
+        rotationX: -90,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        stagger: 0.05,
+        duration: 1,
+        ease: 'back.out(1.7)',
+        delay: 0.5,
+      }
+    );
+
+    return () => {
+      text.revert();
+    };
+  }, []);
+
   return (
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
+      <div className="aurora-background" />
       <SpaceBackground />
 
       <div className="container relative py-32" style={{ zIndex: 10 }}>
@@ -138,7 +174,7 @@ export default function HeroSection() {
               <p className="text-[20px] tracking-[0.3em] text-light-gray uppercase mb-3">
                 Vertex Business Solutions
               </p>
-              <p className="text-base text-soft-gray">
+              <p ref={headingRef} className="text-base text-soft-gray">
                 Custom Business Application Development
               </p>
             </motion.div>
@@ -149,20 +185,18 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-5 mt-12"
             >
-              <Button
-                size="lg"
+              <MagneticButton
                 onClick={() => scrollToSection('#portfolio')}
-                className="glass-subtle hover:border-calm-blue border-2 border-calm-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold hover:bg-calm-blue/10 transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/40 group"
+                className="glass-subtle hover:border-calm-blue border-2 border-calm-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold hover:bg-calm-blue/10 transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/40 group hover:scale-105"
               >
                 <span>View Portfolio</span>
-              </Button>
-              <Button
-                size="lg"
+              </MagneticButton>
+              <MagneticButton
                 onClick={() => scrollToSection('#contact')}
                 className="bg-calm-blue hover:bg-sky-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/50 hover:scale-105"
               >
                 Get Started
-              </Button>
+              </MagneticButton>
             </motion.div>
 
             <motion.p

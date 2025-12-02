@@ -1,9 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import FadeUpSection from './FadeUpSection';
 
 const projects = [
   {
@@ -33,35 +32,23 @@ const projects = [
 ];
 
 export default function PortfolioSection() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   return (
     <section id="portfolio" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-space-navy" />
 
-      <div className="container relative z-10" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
+      <div className="container relative z-10">
+        <FadeUpSection className="text-center mb-20">
           <h2 className="heading-2 text-glow mb-4">Featured Work</h2>
           <p className="text-lg text-soft-gray max-w-2xl mx-auto">
             Solutions built for real businesses
           </p>
-        </motion.div>
+        </FadeUpSection>
 
         <div className="grid md:grid-cols-3 gap-7 max-w-6xl mx-auto">
           {projects.map((project, index) => (
-            <motion.div
+            <FadeUpSection
               key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.12 }}
+              delay={index * 0.15}
               className="group relative overflow-hidden rounded-[24px] cursor-pointer h-[420px]"
               style={{
                 backgroundImage: `url(${project.image})`,
@@ -107,7 +94,7 @@ export default function PortfolioSection() {
               </div>
 
               <div className="absolute inset-0 border border-white/8 rounded-[24px] group-hover:border-calm-blue/50 transition-all duration-400 group-hover:shadow-[0_8px_32px_rgba(74,144,226,0.2)]" />
-            </motion.div>
+            </FadeUpSection>
           ))}
         </div>
       </div>

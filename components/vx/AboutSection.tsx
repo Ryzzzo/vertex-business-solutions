@@ -1,34 +1,25 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { Award, MapPin, Code2, Zap } from 'lucide-react';
+import FadeUpSection from './FadeUpSection';
+import AnimatedCounter from './AnimatedCounter';
 
 const stats = [
-  { icon: Award, title: 'Enterprise Experience', subtitle: 'Years of Operations' },
-  { icon: Code2, title: 'Modern Stack', subtitle: 'React • Next.js • Node' },
-  { icon: MapPin, title: 'US-Based', subtitle: 'Direct Communication' },
-  { icon: Zap, title: 'Fast Delivery', subtitle: '2-Week Turnaround' },
+  { icon: Award, title: 'Enterprise Experience', subtitle: 'Years of Operations', count: 8 },
+  { icon: Code2, title: 'Modern Stack', subtitle: 'React • Next.js • Node', count: 100 },
+  { icon: MapPin, title: 'US-Based', subtitle: 'Direct Communication', count: 50 },
+  { icon: Zap, title: 'Fast Delivery', subtitle: '2-Week Turnaround', count: 14 },
 ];
 
 export default function AboutSection() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
 
   return (
     <section id="about" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-space-navy" />
 
-      <div className="container relative z-10" ref={ref}>
+      <div className="container relative z-10">
         <div className="grid lg:grid-cols-5 gap-16 items-center max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-3 space-y-6"
-          >
+          <FadeUpSection className="lg:col-span-3 space-y-6">
             <div className="flex items-start gap-4 mb-8">
               <div className="w-1 h-16 bg-calm-blue rounded-full" />
               <h2 className="heading-3 text-glow">Built for Real Business Needs</h2>
@@ -51,23 +42,15 @@ export default function AboutSection() {
             <p className="text-[17px] text-light-gray leading-[1.8]">
               Based in the US, serving clients nationwide. From initial consultation to deployment and ongoing support, you work directly with me—no account managers, no offshore teams, just straightforward communication and solutions that work.
             </p>
-          </motion.div>
+          </FadeUpSection>
 
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2"
-          >
+          <FadeUpSection delay={0.2} className="lg:col-span-2">
             <div className="grid grid-cols-2 gap-6">
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <motion.div
+                  <div
                     key={stat.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
                     className="glass rounded-[20px] p-8 hover-glow"
                     style={{
                       animation: `float ${6 + index}s ease-in-out infinite`,
@@ -77,11 +60,11 @@ export default function AboutSection() {
                     <Icon className="w-8 h-8 text-calm-blue mb-4" strokeWidth={1.5} />
                     <h3 className="text-xl font-semibold text-white mb-2">{stat.title}</h3>
                     <p className="text-sm text-soft-gray">{stat.subtitle}</p>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
-          </motion.div>
+          </FadeUpSection>
         </div>
       </div>
     </section>

@@ -1,7 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import FadeUpSection from './FadeUpSection';
 
 const technologies = [
   { name: 'React', category: 'Frontend', color: '#61DAFB' },
@@ -95,35 +94,23 @@ const TechLogo = ({ name, color }: { name: string; color: string }) => {
 };
 
 export default function TechStackSection() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   return (
     <section id="tech" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-space-navy via-midnight-blue to-space-navy opacity-60" />
 
-      <div className="container relative z-10" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
+      <div className="container relative z-10">
+        <FadeUpSection className="text-center mb-20">
           <h2 className="heading-2 text-glow mb-4">Technology Stack</h2>
           <p className="text-lg text-soft-gray max-w-2xl mx-auto">
             Modern frameworks and tools
           </p>
-        </motion.div>
+        </FadeUpSection>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 max-w-5xl mx-auto">
           {technologies.map((tech, index) => (
-            <motion.div
+            <FadeUpSection
               key={tech.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
+              delay={index * 0.05}
               className="flex flex-col items-center gap-4 group cursor-pointer"
               style={{
                 animation: `float ${4 + (index % 3)}s ease-in-out infinite`,
@@ -136,7 +123,7 @@ export default function TechStackSection() {
               <span className="text-sm text-soft-gray text-center group-hover:text-calm-blue transition-colors">
                 {tech.name}
               </span>
-            </motion.div>
+            </FadeUpSection>
           ))}
         </div>
       </div>
