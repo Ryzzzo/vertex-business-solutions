@@ -8,6 +8,8 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import SplitType from 'split-type';
 import MagneticButton from './MagneticButton';
+import TiltCard from './TiltCard';
+import ConstellationParallax from './ConstellationParallax';
 import ProjectQuestionnaireModal from './ProjectQuestionnaireModal';
 
 const floatingCards = [
@@ -93,6 +95,7 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <div className="aurora-background" />
+      <ConstellationParallax />
       <SpaceBackground />
 
       <div className="container relative py-32" style={{ zIndex: 10 }}>
@@ -118,24 +121,26 @@ export default function HeroSection() {
                   pointerEvents: 'auto',
                 }}
               >
-                <div
+                <TiltCard
                   className="hero-card glass rounded-[20px] p-8 cursor-pointer"
+                  hoverScale={1.05}
+                  hoverGlow={true}
+                  floatDistance={30}
+                  maxTilt={15}
                   style={{
                     animation: 'float 6s ease-in-out infinite',
                     animationDelay: `${index * 0.2}s`,
                     width: '300px',
                     minHeight: '200px',
-                    position: 'relative',
-                    zIndex: 1,
                   }}
                 >
-                  <Icon className="w-12 h-12 text-calm-blue mb-4 pointer-events-none" strokeWidth={1.5} />
-                  <h3 className="text-xl font-semibold text-white mb-1 pointer-events-none">{card.title}</h3>
-                  <p className="text-sm text-soft-gray mb-3 pointer-events-none">{card.subtitle}</p>
-                  <div className="hero-card-details overflow-hidden border-t border-calm-blue/30 pointer-events-none">
+                  <Icon className="w-12 h-12 text-calm-blue mb-4" strokeWidth={1.5} />
+                  <h3 className="text-xl font-semibold text-white mb-1">{card.title}</h3>
+                  <p className="text-sm text-soft-gray mb-3">{card.subtitle}</p>
+                  <div className="hero-card-details overflow-hidden border-t border-calm-blue/30">
                     <p className="text-sm text-light-gray leading-relaxed pt-4">{card.hoverText}</p>
                   </div>
-                </div>
+                </TiltCard>
               </motion.div>
             );
           })}
@@ -183,17 +188,17 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-5 mt-12"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12"
             >
               <MagneticButton
                 onClick={() => scrollToSection('#portfolio')}
-                className="glass-subtle hover:border-calm-blue border-2 border-calm-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold hover:bg-calm-blue/10 transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/40 group hover:scale-105"
+                className="glass-subtle hover:border-calm-blue border-2 border-calm-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold hover:bg-calm-blue/10 transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/40 group"
               >
                 <span>View Portfolio</span>
               </MagneticButton>
               <MagneticButton
                 onClick={() => scrollToSection('#contact')}
-                className="bg-calm-blue hover:bg-sky-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/50 hover:scale-105"
+                className="bg-calm-blue hover:bg-sky-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/50"
               >
                 Get Started
               </MagneticButton>

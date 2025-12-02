@@ -210,6 +210,32 @@
       animation: none;
     }
   }
+
+  .star {
+    position: absolute;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.8) 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .star.twinkle {
+    animation: twinkle 2s ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .star.twinkle {
+      animation: none;
+    }
+  }
 }
 
 @layer components {

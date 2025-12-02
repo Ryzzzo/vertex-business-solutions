@@ -27,33 +27,40 @@ export default function MagneticButton({
     const button = buttonRef.current;
     if (!button) return;
 
+    const xTo = gsap.quickTo(button, 'x', { duration: 0.3, ease: 'power2.out' });
+    const yTo = gsap.quickTo(button, 'y', { duration: 0.3, ease: 'power2.out' });
+    const scaleTo = gsap.quickTo(button, 'scale', { duration: 0.3, ease: 'power2.out' });
+
     const handleMouseMove = (e: MouseEvent) => {
       const rect = button.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
 
-      gsap.to(button, {
-        x: x * strength,
-        y: y * strength,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
+      xTo(x * strength);
+      yTo(y * strength);
+    };
+
+    const handleMouseEnter = () => {
+      scaleTo(1.02);
     };
 
     const handleMouseLeave = () => {
       gsap.to(button, {
         x: 0,
         y: 0,
+        scale: 1,
         duration: 0.5,
-        ease: 'elastic.out(1, 0.5)',
+        ease: 'power2.out',
       });
     };
 
     button.addEventListener('mousemove', handleMouseMove);
+    button.addEventListener('mouseenter', handleMouseEnter);
     button.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       button.removeEventListener('mousemove', handleMouseMove);
+      button.removeEventListener('mouseenter', handleMouseEnter);
       button.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, [strength]);
