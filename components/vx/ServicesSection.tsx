@@ -88,7 +88,8 @@ export default function ServicesSection() {
               <TiltCard
                 key={service.title}
                 className="service-card glass rounded-[24px] p-12 hover-glow group cursor-pointer relative overflow-hidden"
-                floatDistance={40}
+                maxTilt={20}
+                hoverGlow={true}
               >
                 <div className="absolute top-0 right-0 w-20 h-20 bg-calm-blue/5 rounded-full blur-3xl" />
 
@@ -96,13 +97,17 @@ export default function ServicesSection() {
                   <Icon className="w-14 h-14 text-calm-blue mb-6" strokeWidth={1.5} />
                 </div>
 
-                <h3 className="text-[26px] font-semibold text-white mb-4 leading-tight">
-                  {service.title}
-                </h3>
+                <div style={{ transform: 'translateZ(40px)', transformStyle: 'preserve-3d' }}>
+                  <h3 className="text-[26px] font-semibold text-white mb-4 leading-tight">
+                    {service.title}
+                  </h3>
+                </div>
 
-                <p className="text-base text-light-gray leading-[1.7]">
-                  {service.description}
-                </p>
+                <div style={{ transform: 'translateZ(25px)', transformStyle: 'preserve-3d' }}>
+                  <p className="text-base text-light-gray leading-[1.7]">
+                    {service.description}
+                  </p>
+                </div>
 
                 <div className="absolute bottom-6 right-6 w-12 h-12 border-t-2 border-r-2 border-calm-blue/20" />
               </TiltCard>

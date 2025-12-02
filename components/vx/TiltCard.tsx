@@ -6,29 +6,27 @@ interface TiltCardProps {
   children: ReactNode;
   className?: string;
   maxTilt?: number;
-  floatDistance?: number;
   hoverScale?: number;
   hoverGlow?: boolean;
-  style?: React.CSSProperties;
 }
 
 export default function TiltCard({
   children,
   className = '',
-  maxTilt = 15,
-  floatDistance = 40,
+  maxTilt = 20,
   hoverScale = 1,
   hoverGlow = false,
-  style = {},
 }: TiltCardProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const [transform, setTransform] = useState({ rotateX: 0, rotateY: 0 });
   const [glarePosition, setGlarePosition] = useState({ x: 50, y: 50 });
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || !wrapperRef.current) return;
 
-    const card = cardRef.current;
+    const card = wrapperRef.current;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -36,10 +34,10 @@ export default function TiltCard({
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotateX = ((y - centerY) / centerY) * maxTilt;
-    const rotateY = ((x - centerX) / centerX) * maxTilt;
+    const rotateY = ((x - centerX) / rect.width) * maxTilt;
+    const rotateX = ((y - centerY) / rect.height) * -maxTilt;
 
-    card.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale3d(${hoverScale}, ${hoverScale}, ${hoverScale})`;
+    setTransform({ rotateX, rotateY });
 
     const glareX = (x / rect.width) * 100;
     const glareY = (y / rect.height) * 100;
@@ -51,53 +49,65 @@ export default function TiltCard({
   };
 
   const handleMouseLeave = () => {
-    if (!cardRef.current) return;
-    cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    setTransform({ rotateX: 0, rotateY: 0 });
     setGlarePosition({ x: 50, y: 50 });
     setIsHovering(false);
   };
 
   return (
     <div
-      ref={cardRef}
-      className={`tilt-card ${className}`}
+      ref={wrapperRef}
+      className="tilt-card-wrapper"
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
         perspective: '1000px',
-        transformStyle: 'preserve-3d',
-        transition: 'transform 0.1s ease-out, box-shadow 0.3s ease-out',
-        willChange: 'transform',
-        position: 'relative',
-        boxShadow: isHovering && hoverGlow
-          ? '0 0 30px rgba(6, 182, 212, 0.3)'
-          : undefined,
-        ...style,
+        width: '100%',
+        height: '100%',
       }}
     >
       <div
-        className="tilt-card-glare"
+        ref={cardRef}
+        className={`tilt-card ${className}`}
         style={{
-          position: 'absolute',
-          inset: 0,
-          background: `radial-gradient(circle at ${glarePosition.x}% ${glarePosition.y}%, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`,
-          borderRadius: 'inherit',
-          pointerEvents: 'none',
-          opacity: 0.5,
-          transition: 'background 0.1s ease-out',
-          zIndex: 1,
-        }}
-      />
-      <div
-        style={{
-          transform: `translateZ(${floatDistance}px)`,
           transformStyle: 'preserve-3d',
+          transform: `rotateX(${transform.rotateX}deg) rotateY(${transform.rotateY}deg) scale3d(${hoverScale}, ${hoverScale}, ${hoverScale})`,
+          transition: 'transform 0.1s ease-out, box-shadow 0.3s ease-out',
+          willChange: 'transform',
           position: 'relative',
-          zIndex: 2,
+          width: '100%',
+          height: '100%',
+          boxShadow: isHovering && hoverGlow
+            ? '0 0 30px rgba(255, 255, 255, 0.1)'
+            : undefined,
         }}
       >
-        {children}
+        <div
+          className="tilt-card-glare"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: `radial-gradient(circle at ${glarePosition.x}% ${glarePosition.y}%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)`,
+            borderRadius: 'inherit',
+            pointerEvents: 'none',
+            transition: 'background 0.1s ease-out',
+            zIndex: 1,
+            transformStyle: 'preserve-3d',
+          }}
+        />
+        <div
+          className="tilt-card-content"
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            transformStyle: 'preserve-3d',
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
