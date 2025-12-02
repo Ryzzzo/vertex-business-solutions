@@ -7,27 +7,36 @@ import FadeUpSection from './FadeUpSection';
 const projects = [
   {
     id: 1,
-    title: 'CRM Dashboard Pro',
-    description: 'Complete customer relationship management system with sales pipeline tracking, contact management, and real-time analytics',
-    tech: ['React', 'TypeScript', 'Tailwind CSS'],
+    title: 'Civic Strategy Partners',
+    subtitle: 'Government Consultant Website',
+    description: 'Professional website for a government contracting consultant with HubSpot blog integration and strategic service positioning.',
+    tech: ['React', 'HubSpot API', 'Vercel'],
     image: 'https://images.pexels.com/photos/8867482/pexels-photo-8867482.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    link: 'https://crm-dashboard-v1.bolt.host/',
+    link: 'https://civicstrategypartners.com',
+    badge: 'Live Client Project',
+    badgeType: 'live',
   },
   {
     id: 2,
-    title: 'Business Intelligence Suite',
-    description: 'Real-time reporting dashboard with KPI tracking, data visualization, and custom report generation',
-    tech: ['Next.js', 'Chart.js', 'PostgreSQL'],
+    title: 'Executive Analytics Dashboard',
+    subtitle: 'Business Intelligence Demo',
+    description: 'Real-time KPI tracking with multi-source data visualization and interactive reporting.',
+    tech: ['React', 'Chart.js', 'Tailwind'],
     image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1200',
     link: '#',
+    badge: 'Concept Demo',
+    badgeType: 'concept',
   },
   {
     id: 3,
-    title: 'Inventory Management',
-    description: 'Track products, manage stock levels, automate reordering, and generate comprehensive inventory reports',
-    tech: ['React', 'Node.js', 'MongoDB'],
+    title: 'ServicePro CRM',
+    subtitle: 'Field Service Management',
+    description: 'Customer management for service businesses with scheduling, job tracking, and automated follow-ups.',
+    tech: ['React', 'Node.js', 'PostgreSQL'],
     image: 'https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1200',
     link: '#',
+    badge: 'Concept Demo',
+    badgeType: 'concept',
   },
 ];
 
@@ -60,9 +69,24 @@ export default function PortfolioSection() {
 
               <div className="absolute inset-0 flex flex-col justify-end p-8 transition-transform duration-400 group-hover:translate-y-[-8px]">
                 <div className="glass-strong rounded-[20px] p-8 transform transition-all duration-400">
-                  <h3 className="text-[22px] font-semibold text-white mb-3">
-                    {project.title}
-                  </h3>
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h3 className="text-[22px] font-semibold text-white mb-1">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm text-soft-gray">{project.subtitle}</p>
+                    </div>
+                    <Badge
+                      className={`${
+                        project.badgeType === 'live'
+                          ? 'bg-green-500/20 border-green-400/40 text-green-300'
+                          : 'bg-gray-500/20 border-gray-400/30 text-gray-300'
+                      } border px-3 py-1 rounded-[20px] text-xs whitespace-nowrap`}
+                    >
+                      {project.badgeType === 'live' && '✓ '}
+                      {project.badge}
+                    </Badge>
+                  </div>
 
                   <p className="text-sm text-light-gray mb-4 line-clamp-2 leading-relaxed">
                     {project.description}

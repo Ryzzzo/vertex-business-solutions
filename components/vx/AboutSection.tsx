@@ -36,7 +36,7 @@ export default function AboutSection() {
             </p>
 
             <p className="text-[17px] text-light-gray leading-[1.8]">
-              Specializing in CRM systems, dashboards, and workflow automation for growing businesses. I use modern development frameworks to deliver custom tools quickly, without the enterprise price tag. Every application is built to solve your specific challenges, not generic problems.
+              Specializing in business websites, custom dashboards, and workflow automation for growing businesses. I use modern development frameworks to deliver professional solutions quickly, without the enterprise price tag.
             </p>
 
             <p className="text-[17px] text-light-gray leading-[1.8]">

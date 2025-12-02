@@ -51,9 +51,9 @@ const included = [
 ];
 
 const timelines = [
-  { type: 'Simple dashboards', time: '1-2 weeks' },
-  { type: 'Custom CRMs', time: '2-3 weeks' },
-  { type: 'Complex integrations', time: '3-4 weeks' },
+  { type: 'Landing pages & simple sites', time: '1-2 weeks' },
+  { type: 'Multi-page websites & dashboards', time: '2-3 weeks' },
+  { type: 'Web apps with integrations', time: '3-4 weeks' },
 ];
 
 export default function PricingSection() {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Database, BarChart3, Settings } from 'lucide-react';
+import { Globe, LayoutDashboard, Settings } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TiltCard from './TiltCard';
@@ -13,19 +13,19 @@ if (typeof window !== 'undefined') {
 
 const services = [
   {
-    icon: Database,
-    title: 'Custom CRM Systems',
-    description: 'Sales pipelines, contact management, and analytics dashboards that scale with your team and adapt to your workflow',
+    icon: Globe,
+    title: 'Business Websites',
+    description: 'Professional websites that convert visitors into customers. Modern design, fast loading, mobile-optimized. From landing pages to full company sites.',
   },
   {
-    icon: BarChart3,
-    title: 'Business Dashboards',
-    description: 'Real-time data visualization and reporting tools that transform complex data into clear, actionable insights',
+    icon: LayoutDashboard,
+    title: 'Custom Web Applications',
+    description: 'Dashboards, CRMs, and internal tools tailored to your workflow. Real-time data, user authentication, seamless integrations.',
   },
   {
     icon: Settings,
     title: 'Workflow Automation',
-    description: 'Custom applications that streamline repetitive processes, eliminate manual work, and boost operational efficiency',
+    description: 'Connect your tools and eliminate manual work. Form submissions to CRM, bookings to calendar, payments to receipts - all automated.',
   },
 ];
 
