@@ -63,8 +63,6 @@ export default function TiltCard({
       onMouseLeave={handleMouseLeave}
       style={{
         perspective: '1000px',
-        width: '100%',
-        height: '100%',
       }}
     >
       <div
@@ -76,8 +74,6 @@ export default function TiltCard({
           transition: 'transform 0.1s ease-out, box-shadow 0.3s ease-out',
           willChange: 'transform',
           position: 'relative',
-          width: '100%',
-          height: '100%',
           boxShadow: isHovering && hoverGlow
             ? '0 0 30px rgba(255, 255, 255, 0.1)'
             : undefined,
@@ -102,8 +98,6 @@ export default function TiltCard({
             position: 'relative',
             zIndex: 2,
             transformStyle: 'preserve-3d',
-            width: '100%',
-            height: '100%',
           }}
         >
           {children}

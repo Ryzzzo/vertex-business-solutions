@@ -119,6 +119,8 @@ export default function HeroSection() {
                 style={{
                   zIndex: 5,
                   pointerEvents: 'auto',
+                  width: '300px',
+                  maxWidth: '320px',
                 }}
               >
                 <TiltCard
