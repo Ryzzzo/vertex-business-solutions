@@ -236,6 +236,12 @@
       animation: none;
     }
   }
+
+  @media (hover: none) {
+    .custom-cursor {
+      display: none;
+    }
+  }
 }
 
 @layer components {

@@ -88,10 +88,13 @@ export default function ServicesSection() {
               <TiltCard
                 key={service.title}
                 className="service-card glass rounded-[24px] p-12 hover-glow group cursor-pointer relative overflow-hidden"
+                floatDistance={40}
               >
                 <div className="absolute top-0 right-0 w-20 h-20 bg-calm-blue/5 rounded-full blur-3xl" />
 
-                <Icon className="w-14 h-14 text-calm-blue mb-6" strokeWidth={1.5} />
+                <div style={{ transform: 'translateZ(60px)', transformStyle: 'preserve-3d' }}>
+                  <Icon className="w-14 h-14 text-calm-blue mb-6" strokeWidth={1.5} />
+                </div>
 
                 <h3 className="text-[26px] font-semibold text-white mb-4 leading-tight">
                   {service.title}
