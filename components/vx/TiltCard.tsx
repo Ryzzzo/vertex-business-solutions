@@ -74,6 +74,8 @@ export default function TiltCard({
           transition: 'transform 0.1s ease-out, box-shadow 0.3s ease-out',
           willChange: 'transform',
           position: 'relative',
+          backfaceVisibility: 'hidden',
+          WebkitFontSmoothing: 'antialiased',
           boxShadow: isHovering && hoverGlow
             ? '0 0 30px rgba(255, 255, 255, 0.1)'
             : undefined,
@@ -84,7 +86,7 @@ export default function TiltCard({
           style={{
             position: 'absolute',
             inset: 0,
-            background: `radial-gradient(circle at ${glarePosition.x}% ${glarePosition.y}%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)`,
+            background: `radial-gradient(600px circle at ${glarePosition.x}% ${glarePosition.y}%, rgba(255, 255, 255, 0.05) 0%, transparent 70%)`,
             borderRadius: 'inherit',
             pointerEvents: 'none',
             transition: 'background 0.1s ease-out',

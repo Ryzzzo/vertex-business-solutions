@@ -129,16 +129,16 @@ export default function HeroSection() {
                   hoverGlow={true}
                   maxTilt={20}
                 >
-                  <div style={{ transform: 'translateZ(60px)', transformStyle: 'preserve-3d' }}>
+                  <div style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d' }}>
                     <Icon className="w-12 h-12 text-calm-blue mb-4" strokeWidth={1.5} />
                   </div>
-                  <div style={{ transform: 'translateZ(40px)', transformStyle: 'preserve-3d' }}>
+                  <div style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitFontSmoothing: 'antialiased' }}>
                     <h3 className="text-xl font-semibold text-white mb-1">{card.title}</h3>
                   </div>
-                  <div style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d' }}>
+                  <div style={{ transform: 'translateZ(15px)', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitFontSmoothing: 'antialiased' }}>
                     <p className="text-sm text-soft-gray mb-3">{card.subtitle}</p>
                   </div>
-                  <div className="hero-card-details overflow-hidden border-t border-calm-blue/30" style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d' }}>
+                  <div className="hero-card-details overflow-hidden border-t border-calm-blue/30" style={{ transform: 'translateZ(10px)', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitFontSmoothing: 'antialiased' }}>
                     <p className="text-sm text-light-gray leading-relaxed pt-4">{card.hoverText}</p>
                   </div>
                 </TiltCard>

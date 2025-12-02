@@ -93,17 +93,17 @@ export default function ServicesSection() {
               >
                 <div className="absolute top-0 right-0 w-20 h-20 bg-calm-blue/5 rounded-full blur-3xl" />
 
-                <div style={{ transform: 'translateZ(60px)', transformStyle: 'preserve-3d' }}>
+                <div style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d' }}>
                   <Icon className="w-14 h-14 text-calm-blue mb-6" strokeWidth={1.5} />
                 </div>
 
-                <div style={{ transform: 'translateZ(40px)', transformStyle: 'preserve-3d' }}>
+                <div style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitFontSmoothing: 'antialiased' }}>
                   <h3 className="text-[26px] font-semibold text-white mb-4 leading-tight">
                     {service.title}
                   </h3>
                 </div>
 
-                <div style={{ transform: 'translateZ(25px)', transformStyle: 'preserve-3d' }}>
+                <div style={{ transform: 'translateZ(15px)', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitFontSmoothing: 'antialiased' }}>
                   <p className="text-base text-light-gray leading-[1.7]">
                     {service.description}
                   </p>
