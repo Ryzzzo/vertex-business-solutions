@@ -114,7 +114,7 @@ export default function HeroSection() {
                 key={card.title}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: card.delay }}
+                transition={{ duration: 1.2, delay: card.delay, ease: [0.25, 0.1, 0.25, 1] }}
                 className={`${positions[card.position as keyof typeof positions]} hidden lg:block`}
                 style={{
                   zIndex: 5,
