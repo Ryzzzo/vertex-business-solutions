@@ -90,6 +90,10 @@ export default function SpaceBackground() {
         },
       },
       fpsLimit: 60,
+      fullScreen: {
+        enable: false,
+        zIndex: 0,
+      },
       interactivity: {
         events: {
           onHover: {
@@ -160,6 +164,7 @@ export default function SpaceBackground() {
           particlesLoaded={particlesLoaded}
           options={options}
           className="absolute inset-0"
+          style={{ width: '100%', height: '100%' }}
         />
       </div>
 
