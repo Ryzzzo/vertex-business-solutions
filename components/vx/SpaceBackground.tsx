@@ -43,13 +43,21 @@ const ConstellationParticles = memo(function ConstellationParticles() {
         },
         move: {
           direction: 'none',
-          enable: false,
+          enable: true,
           outModes: {
             default: 'bounce',
           },
-          random: false,
-          speed: 0,
+          random: true,
+          speed: {
+            min: 0.3,
+            max: 1.2,
+          },
           straight: false,
+          bounce: true,
+          attract: {
+            enable: false,
+          },
+          warp: false,
         },
         number: {
           density: {
@@ -58,13 +66,29 @@ const ConstellationParticles = memo(function ConstellationParticles() {
           value: 60,
         },
         opacity: {
-          value: 0.4,
+          value: {
+            min: 0.2,
+            max: 0.6,
+          },
+          animation: {
+            enable: true,
+            speed: 0.5,
+            sync: false,
+          },
         },
         shape: {
           type: 'circle',
         },
         size: {
           value: { min: 1, max: 2 },
+        },
+        wobble: {
+          enable: true,
+          distance: 5,
+          speed: {
+            min: 1,
+            max: 3,
+          },
         },
       },
       detectRetina: true,
