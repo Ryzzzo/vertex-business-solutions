@@ -115,12 +115,12 @@ export default function SpaceBackground() {
         },
         move: {
           direction: 'none',
-          enable: true,
+          enable: false,
           outModes: {
             default: 'bounce',
           },
           random: false,
-          speed: 0.1,
+          speed: 0,
           straight: false,
         },
         number: {
