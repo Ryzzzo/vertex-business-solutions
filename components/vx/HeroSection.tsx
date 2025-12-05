@@ -94,7 +94,6 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      <div className="aurora-background" />
       <ConstellationParallax />
       <SpaceBackground />
 
