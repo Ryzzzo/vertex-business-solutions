@@ -1,15 +1,91 @@
 'use client';
 
-import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
+import { useEffect, useMemo, useState, useRef, useCallback, memo } from 'react';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { type Container, type ISourceOptions } from '@tsparticles/engine';
 import { loadSlim } from '@tsparticles/slim';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 
+const ConstellationParticles = memo(function ConstellationParticles() {
+  const particlesLoaded = useCallback(async (container?: Container): Promise<void> => {
+    console.log(container);
+  }, []);
+
+  const options: ISourceOptions = useMemo(
+    () => ({
+      background: {
+        color: {
+          value: 'transparent',
+        },
+      },
+      fpsLimit: 60,
+      fullScreen: {
+        enable: false,
+        zIndex: 0,
+      },
+      interactivity: {
+        events: {
+          onHover: {
+            enable: false,
+          },
+        },
+      },
+      particles: {
+        color: {
+          value: '#FFFFFF',
+        },
+        links: {
+          color: '#ffffff',
+          distance: 150,
+          enable: true,
+          opacity: 0.15,
+          width: 0.5,
+        },
+        move: {
+          direction: 'none',
+          enable: false,
+          outModes: {
+            default: 'bounce',
+          },
+          random: false,
+          speed: 0,
+          straight: false,
+        },
+        number: {
+          density: {
+            enable: true,
+          },
+          value: 60,
+        },
+        opacity: {
+          value: 0.4,
+        },
+        shape: {
+          type: 'circle',
+        },
+        size: {
+          value: { min: 1, max: 2 },
+        },
+      },
+      detectRetina: true,
+    }),
+    []
+  );
+
+  return (
+    <Particles
+      id="space-particles"
+      particlesLoaded={particlesLoaded}
+      options={options}
+      className="absolute inset-0"
+      style={{ width: '100%', height: '100%' }}
+    />
+  );
+});
+
 export default function SpaceBackground() {
   const [init, setInit] = useState(false);
   const gradientRef = useRef<HTMLDivElement>(null);
-  const particlesRef = useRef<HTMLDivElement>(null);
   const starfieldRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>();
   const mousePosition = useMouseParallax();
@@ -66,10 +142,6 @@ export default function SpaceBackground() {
     };
   }, []);
 
-  const particlesLoaded = useCallback(async (container?: Container): Promise<void> => {
-    console.log(container);
-  }, []);
-
   const starfield = useMemo(
     () =>
       Array.from({ length: 50 }, (_, i) => ({
@@ -79,68 +151,6 @@ export default function SpaceBackground() {
         animationDelay: Math.random() * 3,
         animationDuration: 2 + Math.random() * 2,
       })),
-    []
-  );
-
-  const options: ISourceOptions = useMemo(
-    () => ({
-      background: {
-        color: {
-          value: 'transparent',
-        },
-      },
-      fpsLimit: 120,
-      fullScreen: {
-        enable: false,
-        zIndex: 0,
-      },
-      interactivity: {
-        events: {
-          onHover: {
-            enable: false,
-          },
-        },
-      },
-      smooth: true,
-      particles: {
-        color: {
-          value: '#FFFFFF',
-        },
-        links: {
-          color: '#ffffff',
-          distance: 150,
-          enable: true,
-          opacity: 0.15,
-          width: 0.5,
-        },
-        move: {
-          direction: 'none',
-          enable: false,
-          outModes: {
-            default: 'bounce',
-          },
-          random: false,
-          speed: 0,
-          straight: false,
-        },
-        number: {
-          density: {
-            enable: true,
-          },
-          value: 60,
-        },
-        opacity: {
-          value: 0.4,
-        },
-        shape: {
-          type: 'circle',
-        },
-        size: {
-          value: { min: 1, max: 2 },
-        },
-      },
-      detectRetina: true,
-    }),
     []
   );
 
@@ -156,17 +166,8 @@ export default function SpaceBackground() {
         style={{ willChange: 'transform' }}
       />
 
-      <div
-        ref={particlesRef}
-        className="absolute inset-0 z-0"
-      >
-        <Particles
-          id="space-particles"
-          particlesLoaded={particlesLoaded}
-          options={options}
-          className="absolute inset-0"
-          style={{ width: '100%', height: '100%' }}
-        />
+      <div className="absolute inset-0 z-0">
+        <ConstellationParticles />
       </div>
 
       <div
