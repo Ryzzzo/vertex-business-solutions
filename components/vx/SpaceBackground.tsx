@@ -89,7 +89,7 @@ export default function SpaceBackground() {
           value: 'transparent',
         },
       },
-      fpsLimit: 60,
+      fpsLimit: 120,
       fullScreen: {
         enable: false,
         zIndex: 0,
@@ -101,16 +101,17 @@ export default function SpaceBackground() {
           },
         },
       },
+      smooth: true,
       particles: {
         color: {
           value: '#FFFFFF',
         },
         links: {
-          color: '#4A90E2',
-          distance: 100,
+          color: '#ffffff',
+          distance: 150,
           enable: true,
-          opacity: 0.2,
-          width: 1,
+          opacity: 0.15,
+          width: 0.5,
         },
         move: {
           direction: 'none',
@@ -119,14 +120,14 @@ export default function SpaceBackground() {
             default: 'bounce',
           },
           random: false,
-          speed: 0.3,
+          speed: 0.1,
           straight: false,
         },
         number: {
           density: {
             enable: true,
           },
-          value: 100,
+          value: 60,
         },
         opacity: {
           value: 0.4,
