@@ -13,6 +13,7 @@ export default function SpaceBackground() {
   const starfieldRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>();
   const mousePosition = useMouseParallax();
+  const mousePositionRef = useRef(mousePosition);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -21,6 +22,10 @@ export default function SpaceBackground() {
       setInit(true);
     });
   }, []);
+
+  useEffect(() => {
+    mousePositionRef.current = mousePosition;
+  }, [mousePosition]);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -34,12 +39,12 @@ export default function SpaceBackground() {
     let currentStarfieldY = 0;
 
     const animate = () => {
-      const targetGradientX = -mousePosition.normalizedX * 5;
-      const targetGradientY = -mousePosition.normalizedY * 5;
-      const targetParticlesX = -mousePosition.normalizedX * 15;
-      const targetParticlesY = -mousePosition.normalizedY * 15;
-      const targetStarfieldX = -mousePosition.normalizedX * 10;
-      const targetStarfieldY = -mousePosition.normalizedY * 10;
+      const targetGradientX = -mousePositionRef.current.normalizedX * 5;
+      const targetGradientY = -mousePositionRef.current.normalizedY * 5;
+      const targetParticlesX = -mousePositionRef.current.normalizedX * 15;
+      const targetParticlesY = -mousePositionRef.current.normalizedY * 15;
+      const targetStarfieldX = -mousePositionRef.current.normalizedX * 10;
+      const targetStarfieldY = -mousePositionRef.current.normalizedY * 10;
 
       currentGradientX += (targetGradientX - currentGradientX) * 0.1;
       currentGradientY += (targetGradientY - currentGradientY) * 0.1;
@@ -68,7 +73,7 @@ export default function SpaceBackground() {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [mousePosition]);
+  }, []);
 
   const particlesLoaded = async (container?: Container): Promise<void> => {
     console.log(container);

@@ -21,6 +21,11 @@ export default function ConstellationParallax() {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>();
   const mousePosition = useMouseParallax();
+  const mousePositionRef = useRef(mousePosition);
+
+  useEffect(() => {
+    mousePositionRef.current = mousePosition;
+  }, [mousePosition]);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -85,17 +90,17 @@ export default function ConstellationParallax() {
     let currentRotateY = 0;
 
     const animate = () => {
-      const targetX1 = -mousePosition.normalizedX * 7;
-      const targetY1 = -mousePosition.normalizedY * 7;
-      const targetX2 = -mousePosition.normalizedX * 17;
-      const targetY2 = -mousePosition.normalizedY * 17;
-      const targetX3 = -mousePosition.normalizedX * 27;
-      const targetY3 = -mousePosition.normalizedY * 27;
-      const targetX4 = -mousePosition.normalizedX * 30;
-      const targetY4 = -mousePosition.normalizedY * 30;
+      const targetX1 = -mousePositionRef.current.normalizedX * 7;
+      const targetY1 = -mousePositionRef.current.normalizedY * 7;
+      const targetX2 = -mousePositionRef.current.normalizedX * 17;
+      const targetY2 = -mousePositionRef.current.normalizedY * 17;
+      const targetX3 = -mousePositionRef.current.normalizedX * 27;
+      const targetY3 = -mousePositionRef.current.normalizedY * 27;
+      const targetX4 = -mousePositionRef.current.normalizedX * 30;
+      const targetY4 = -mousePositionRef.current.normalizedY * 30;
 
-      const targetRotateX = mousePosition.normalizedY * 2;
-      const targetRotateY = -mousePosition.normalizedX * 2;
+      const targetRotateX = mousePositionRef.current.normalizedY * 2;
+      const targetRotateY = -mousePositionRef.current.normalizedX * 2;
 
       currentX1 += (targetX1 - currentX1) * 0.1;
       currentY1 += (targetY1 - currentY1) * 0.1;
@@ -135,7 +140,7 @@ export default function ConstellationParallax() {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [mousePosition]);
+  }, []);
 
   return (
     <div
