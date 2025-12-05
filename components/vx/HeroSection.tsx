@@ -4,9 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Database, ChartBar as BarChart3, Zap, Code as Code2 } from 'lucide-react';
 import SpaceBackground from './SpaceBackground';
-import { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import SplitType from 'split-type';
+import { useState } from 'react';
 import MagneticButton from './MagneticButton';
 import TiltCard from './TiltCard';
 import ConstellationParallax from './ConstellationParallax';
@@ -49,7 +47,6 @@ const floatingCards = [
 
 export default function HeroSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const headingRef = useRef<HTMLParagraphElement>(null);
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -57,37 +54,6 @@ export default function HeroSection() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  useEffect(() => {
-    if (!headingRef.current) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const text = new SplitType(headingRef.current, { types: 'chars' });
-
-    gsap.fromTo(
-      text.chars,
-      {
-        opacity: 0,
-        y: 50,
-        rotationX: -90,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        rotationX: 0,
-        stagger: 0.05,
-        duration: 1,
-        ease: 'back.out(1.7)',
-        delay: 0.5,
-      }
-    );
-
-    return () => {
-      text.revert();
-    };
-  }, []);
 
   return (
     <section
@@ -161,7 +127,7 @@ export default function HeroSection() {
               }}
             >
               <h1
-                className="font-bold tracking-tighter leading-none text-white mb-6 animate-text-glow-pulse"
+                className="font-bold tracking-tighter leading-none text-white mb-6"
                 style={{
                   fontSize: 'clamp(80px, 14vw, 140px)',
                   background: 'transparent',
@@ -181,7 +147,7 @@ export default function HeroSection() {
               <p className="text-[20px] tracking-[0.3em] text-light-gray uppercase mb-3">
                 Vertex Business Solutions
               </p>
-              <p ref={headingRef} className="text-base text-soft-gray">
+              <p className="text-base text-soft-gray">
                 Custom Business Application Development
               </p>
             </motion.div>
