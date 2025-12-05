@@ -90,17 +90,17 @@ export default function ConstellationParallax() {
     let currentRotateY = 0;
 
     const animate = () => {
-      const targetX1 = -mousePositionRef.current.normalizedX * 7;
-      const targetY1 = -mousePositionRef.current.normalizedY * 7;
-      const targetX2 = -mousePositionRef.current.normalizedX * 17;
-      const targetY2 = -mousePositionRef.current.normalizedY * 17;
-      const targetX3 = -mousePositionRef.current.normalizedX * 27;
-      const targetY3 = -mousePositionRef.current.normalizedY * 27;
-      const targetX4 = -mousePositionRef.current.normalizedX * 30;
-      const targetY4 = -mousePositionRef.current.normalizedY * 30;
+      const targetX1 = -mousePositionRef.current.normalizedX * 3;
+      const targetY1 = -mousePositionRef.current.normalizedY * 3;
+      const targetX2 = -mousePositionRef.current.normalizedX * 8;
+      const targetY2 = -mousePositionRef.current.normalizedY * 8;
+      const targetX3 = -mousePositionRef.current.normalizedX * 13;
+      const targetY3 = -mousePositionRef.current.normalizedY * 13;
+      const targetX4 = -mousePositionRef.current.normalizedX * 18;
+      const targetY4 = -mousePositionRef.current.normalizedY * 18;
 
-      const targetRotateX = mousePositionRef.current.normalizedY * 2;
-      const targetRotateY = -mousePositionRef.current.normalizedX * 2;
+      const targetRotateX = mousePositionRef.current.normalizedY * 0.5;
+      const targetRotateY = -mousePositionRef.current.normalizedX * 0.5;
 
       currentX1 += (targetX1 - currentX1) * 0.1;
       currentY1 += (targetY1 - currentY1) * 0.1;
