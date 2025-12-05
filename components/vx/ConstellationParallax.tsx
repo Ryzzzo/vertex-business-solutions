@@ -35,15 +35,14 @@ export default function ConstellationParallax() {
     if (!container) return;
 
     const generateStars = (count: number, minSize: number, maxSize: number, baseOpacity: number): Star[] => {
-      const colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#06b6d4', '#3b82f6'];
       return Array.from({ length: count }, () => ({
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: minSize + Math.random() * (maxSize - minSize),
         opacity: baseOpacity - 0.2 + Math.random() * 0.2,
-        twinkle: Math.random() > 0.9,
-        twinkleSpeed: 1 + Math.random() * 2,
-        color: colors[Math.floor(Math.random() * colors.length)],
+        twinkle: Math.random() > 0.7,
+        twinkleSpeed: 1.5 + Math.random() * 1.5,
+        color: '#ffffff',
       }));
     };
 
