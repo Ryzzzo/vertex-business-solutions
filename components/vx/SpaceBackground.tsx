@@ -79,6 +79,18 @@ export default function SpaceBackground() {
     console.log(container);
   };
 
+  const starfield = useMemo(
+    () =>
+      Array.from({ length: 50 }, (_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        animationDelay: Math.random() * 3,
+        animationDuration: 2 + Math.random() * 2,
+      })),
+    []
+  );
+
   const options: ISourceOptions = useMemo(
     () => ({
       background: {
@@ -166,15 +178,15 @@ export default function SpaceBackground() {
         className="absolute inset-0"
         style={{ willChange: 'transform' }}
       >
-        {[...Array(50)].map((_, i) => (
+        {starfield.map((star) => (
           <div
-            key={i}
+            key={star.id}
             className="starfield animate-twinkle"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
+              left: `${star.left}%`,
+              top: `${star.top}%`,
+              animationDelay: `${star.animationDelay}s`,
+              animationDuration: `${star.animationDuration}s`,
             }}
           />
         ))}
