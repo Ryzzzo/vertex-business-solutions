@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useMouseParallax } from '@/hooks/useMouseParallax';
 
 interface Star {
   x: number;
@@ -19,6 +20,7 @@ export default function ConstellationParallax() {
   const layer4Ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>();
+  const mousePosition = useMouseParallax();
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -28,7 +30,7 @@ export default function ConstellationParallax() {
     if (!container) return;
 
     const generateStars = (count: number, minSize: number, maxSize: number, baseOpacity: number): Star[] => {
-      const colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#06b6d4', '#8b5cf6', '#3b82f6'];
+      const colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#06b6d4', '#3b82f6'];
       return Array.from({ length: count }, () => ({
         x: Math.random() * 100,
         y: Math.random() * 100,
@@ -71,8 +73,6 @@ export default function ConstellationParallax() {
     if (layer3Ref.current) renderStars(layer3Stars, layer3Ref.current);
     if (layer4Ref.current) renderStars(layer4Stars, layer4Ref.current);
 
-    let mouseX = 0;
-    let mouseY = 0;
     let currentX1 = 0;
     let currentY1 = 0;
     let currentX2 = 0;
@@ -81,22 +81,21 @@ export default function ConstellationParallax() {
     let currentY3 = 0;
     let currentX4 = 0;
     let currentY4 = 0;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 100;
-      mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 100;
-    };
+    let currentRotateX = 0;
+    let currentRotateY = 0;
 
     const animate = () => {
-      const targetX1 = mouseX * -0.5;
-      const targetY1 = mouseY * -0.5;
-      const targetX2 = mouseX * -2;
-      const targetY2 = mouseY * -2;
-      const targetX3 = mouseX * -5;
-      const targetY3 = mouseY * -5;
-      const targetX4 = mouseX * -8;
-      const targetY4 = mouseY * -8;
+      const targetX1 = -mousePosition.normalizedX * 7;
+      const targetY1 = -mousePosition.normalizedY * 7;
+      const targetX2 = -mousePosition.normalizedX * 17;
+      const targetY2 = -mousePosition.normalizedY * 17;
+      const targetX3 = -mousePosition.normalizedX * 27;
+      const targetY3 = -mousePosition.normalizedY * 27;
+      const targetX4 = -mousePosition.normalizedX * 30;
+      const targetY4 = -mousePosition.normalizedY * 30;
+
+      const targetRotateX = mousePosition.normalizedY * 2;
+      const targetRotateY = -mousePosition.normalizedX * 2;
 
       currentX1 += (targetX1 - currentX1) * 0.1;
       currentY1 += (targetY1 - currentY1) * 0.1;
@@ -106,6 +105,12 @@ export default function ConstellationParallax() {
       currentY3 += (targetY3 - currentY3) * 0.1;
       currentX4 += (targetX4 - currentX4) * 0.1;
       currentY4 += (targetY4 - currentY4) * 0.1;
+      currentRotateX += (targetRotateX - currentRotateX) * 0.1;
+      currentRotateY += (targetRotateY - currentRotateY) * 0.1;
+
+      if (container) {
+        container.style.transform = `perspective(1000px) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+      }
 
       if (layer1Ref.current) {
         layer1Ref.current.style.transform = `translate3d(${currentX1}px, ${currentY1}px, 0)`;
@@ -123,16 +128,14 @@ export default function ConstellationParallax() {
       rafRef.current = requestAnimationFrame(animate);
     };
 
-    container.addEventListener('mousemove', handleMouseMove);
     animate();
 
     return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, []);
+  }, [mousePosition]);
 
   return (
     <div
@@ -143,6 +146,8 @@ export default function ConstellationParallax() {
         inset: 0,
         overflow: 'hidden',
         pointerEvents: 'none',
+        willChange: 'transform',
+        transformStyle: 'preserve-3d',
       }}
     >
       <div

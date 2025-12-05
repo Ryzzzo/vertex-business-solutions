@@ -1,12 +1,18 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { type Container, type ISourceOptions } from '@tsparticles/engine';
 import { loadSlim } from '@tsparticles/slim';
+import { useMouseParallax } from '@/hooks/useMouseParallax';
 
 export default function SpaceBackground() {
   const [init, setInit] = useState(false);
+  const gradientRef = useRef<HTMLDivElement>(null);
+  const particlesRef = useRef<HTMLDivElement>(null);
+  const starfieldRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>();
+  const mousePosition = useMouseParallax();
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -15,6 +21,54 @@ export default function SpaceBackground() {
       setInit(true);
     });
   }, []);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    let currentGradientX = 0;
+    let currentGradientY = 0;
+    let currentParticlesX = 0;
+    let currentParticlesY = 0;
+    let currentStarfieldX = 0;
+    let currentStarfieldY = 0;
+
+    const animate = () => {
+      const targetGradientX = -mousePosition.normalizedX * 5;
+      const targetGradientY = -mousePosition.normalizedY * 5;
+      const targetParticlesX = -mousePosition.normalizedX * 15;
+      const targetParticlesY = -mousePosition.normalizedY * 15;
+      const targetStarfieldX = -mousePosition.normalizedX * 10;
+      const targetStarfieldY = -mousePosition.normalizedY * 10;
+
+      currentGradientX += (targetGradientX - currentGradientX) * 0.1;
+      currentGradientY += (targetGradientY - currentGradientY) * 0.1;
+      currentParticlesX += (targetParticlesX - currentParticlesX) * 0.1;
+      currentParticlesY += (targetParticlesY - currentParticlesY) * 0.1;
+      currentStarfieldX += (targetStarfieldX - currentStarfieldX) * 0.1;
+      currentStarfieldY += (targetStarfieldY - currentStarfieldY) * 0.1;
+
+      if (gradientRef.current) {
+        gradientRef.current.style.transform = `translate3d(${currentGradientX}px, ${currentGradientY}px, 0)`;
+      }
+      if (particlesRef.current) {
+        particlesRef.current.style.transform = `translate3d(${currentParticlesX}px, ${currentParticlesY}px, 0)`;
+      }
+      if (starfieldRef.current) {
+        starfieldRef.current.style.transform = `translate3d(${currentStarfieldX}px, ${currentStarfieldY}px, 0)`;
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [mousePosition]);
 
   const particlesLoaded = async (container?: Container): Promise<void> => {
     console.log(container);
@@ -83,27 +137,43 @@ export default function SpaceBackground() {
 
   return (
     <>
-      <div className="absolute inset-0 gradient-mesh" />
-
-      <Particles
-        id="space-particles"
-        particlesLoaded={particlesLoaded}
-        options={options}
-        className="absolute inset-0 z-0"
+      <div
+        ref={gradientRef}
+        className="absolute inset-0 gradient-mesh"
+        style={{ willChange: 'transform' }}
       />
 
-      {[...Array(50)].map((_, i) => (
-        <div
-          key={i}
-          className="starfield animate-twinkle"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 3}s`,
-            animationDuration: `${2 + Math.random() * 2}s`,
-          }}
+      <div
+        ref={particlesRef}
+        className="absolute inset-0 z-0"
+        style={{ willChange: 'transform' }}
+      >
+        <Particles
+          id="space-particles"
+          particlesLoaded={particlesLoaded}
+          options={options}
+          className="absolute inset-0"
         />
-      ))}
+      </div>
+
+      <div
+        ref={starfieldRef}
+        className="absolute inset-0"
+        style={{ willChange: 'transform' }}
+      >
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={i}
+            className="starfield animate-twinkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
     </>
   );
 }
