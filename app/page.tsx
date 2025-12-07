@@ -1,18 +1,55 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Navigation from '@/components/vx/Navigation';
 import HeroSection from '@/components/vx/HeroSection';
-import ServicesSection from '@/components/vx/ServicesSection';
-import PortfolioSection from '@/components/vx/PortfolioSection';
-import TestimonialsSection from '@/components/vx/TestimonialsSection';
-import HowWeWorkSection from '@/components/vx/HowWeWorkSection';
-import TechStackSection from '@/components/vx/TechStackSection';
-import AboutSection from '@/components/vx/AboutSection';
-import PricingSection from '@/components/vx/PricingSection';
-import ContactSection from '@/components/vx/ContactSection';
-import Footer from '@/components/vx/Footer';
 import SmoothScroll from '@/components/vx/SmoothScroll';
 import CustomCursor from '@/components/vx/CustomCursor';
+
+const ServicesSection = dynamic(() => import('@/components/vx/ServicesSection'), {
+  loading: () => null,
+  ssr: false
+});
+
+const PortfolioSection = dynamic(() => import('@/components/vx/PortfolioSection'), {
+  loading: () => null,
+  ssr: false
+});
+
+const TestimonialsSection = dynamic(() => import('@/components/vx/TestimonialsSection'), {
+  loading: () => null,
+  ssr: false
+});
+
+const HowWeWorkSection = dynamic(() => import('@/components/vx/HowWeWorkSection'), {
+  loading: () => null,
+  ssr: false
+});
+
+const TechStackSection = dynamic(() => import('@/components/vx/TechStackSection'), {
+  loading: () => null,
+  ssr: false
+});
+
+const AboutSection = dynamic(() => import('@/components/vx/AboutSection'), {
+  loading: () => null,
+  ssr: false
+});
+
+const PricingSection = dynamic(() => import('@/components/vx/PricingSection'), {
+  loading: () => null,
+  ssr: false
+});
+
+const ContactSection = dynamic(() => import('@/components/vx/ContactSection'), {
+  loading: () => null,
+  ssr: false
+});
+
+const Footer = dynamic(() => import('@/components/vx/Footer'), {
+  loading: () => null,
+  ssr: false
+});
 
 export default function Home() {
   return (
