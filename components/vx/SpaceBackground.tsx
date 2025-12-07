@@ -63,7 +63,7 @@ const ConstellationParticles = memo(function ConstellationParticles({ isMobile }
           density: {
             enable: true,
           },
-          value: isMobile ? 8 : 30,
+          value: isMobile ? 4 : 15,
         },
         opacity: {
           value: {
@@ -204,7 +204,7 @@ export default function SpaceBackground() {
 
   const starfield = useMemo(
     () => {
-      const count = isMobile ? 13 : 25;
+      const count = isMobile ? 3 : 12;
       return Array.from({ length: count }, (_, i) => ({
         id: i,
         left: Math.random() * 100,

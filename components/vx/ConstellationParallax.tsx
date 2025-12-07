@@ -65,8 +65,9 @@ export default function ConstellationParallax() {
     if (!container) return;
 
     const generateStars = (count: number, minSize: number, maxSize: number, baseOpacity: number): Star[] => {
-      const mobileMultiplier = isMobile ? 0.25 : 0.5;
-      const adjustedCount = Math.floor(count * mobileMultiplier);
+      const desktopMultiplier = 0.25;
+      const mobileMultiplier = desktopMultiplier * 0.25;
+      const adjustedCount = Math.floor(count * (isMobile ? mobileMultiplier : desktopMultiplier));
 
       return Array.from({ length: adjustedCount }, () => ({
         x: Math.random() * 100,

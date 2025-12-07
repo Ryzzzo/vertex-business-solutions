@@ -107,7 +107,7 @@ export default function ParticleBackground() {
           density: {
             enable: true,
           },
-          value: isMobile ? 10 : 40,
+          value: isMobile ? 5 : 20,
         },
         opacity: {
           value: 0.3,
