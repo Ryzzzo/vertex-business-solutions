@@ -51,8 +51,6 @@ export default function Navigation() {
 
   return (
     <nav
-      role="navigation"
-      aria-label="Main navigation"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'glass-strong' : 'glass-subtle'
       } border-b border-white/5`}
@@ -65,7 +63,6 @@ export default function Navigation() {
         <button
           onClick={() => scrollToSection('#hero')}
           className="flex flex-col items-center group"
-          aria-label="Vertex Business Solutions - Return to homepage"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -96,7 +93,6 @@ export default function Navigation() {
             <button
               key={link.name}
               onClick={() => scrollToSection(link.href)}
-              aria-label={`Navigate to ${link.name} section`}
               className={`text-[15px] transition-all duration-300 relative ${
                 activeSection === link.href.replace('#', '')
                   ? 'text-calm-blue'
@@ -118,7 +114,6 @@ export default function Navigation() {
           <Button
             onClick={() => scrollToSection('#contact')}
             className="glass-subtle hover:bg-calm-blue/20 border border-calm-blue text-white h-[42px] px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/30"
-            aria-label="Get started with a free consultation"
           >
             Get Started
           </Button>
@@ -127,8 +122,6 @@ export default function Navigation() {
         <button
           className="md:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isMobileMenuOpen}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -142,7 +135,6 @@ export default function Navigation() {
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
                 className="block text-light-gray hover:text-calm-blue transition-colors text-left w-full py-3"
-                aria-label={`Navigate to ${link.name} section`}
               >
                 {link.name}
               </button>
@@ -150,7 +142,6 @@ export default function Navigation() {
             <Button
               onClick={() => scrollToSection('#contact')}
               className="bg-calm-blue hover:bg-sky-blue text-white w-full rounded-xl h-12"
-              aria-label="Get started with a free consultation"
             >
               Get Started
             </Button>
