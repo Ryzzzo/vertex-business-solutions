@@ -78,7 +78,7 @@ Disallow: /supabase/
 
 ### Sitemap Reference
 ```
-Sitemap: https://vertexwebdesign.com/sitemap.xml
+Sitemap: https://vertexapps.dev/sitemap.xml
 ```
 
 ---
@@ -100,7 +100,7 @@ Instead of static XML/TXT files, we use Next.js 13+ TypeScript files:
 ### Environment Variables
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://vertexwebdesign.com
+NEXT_PUBLIC_SITE_URL=https://vertexapps.dev
 ```
 
 **Production Deployment:** Update this URL to match your production domain.
@@ -110,8 +110,8 @@ NEXT_PUBLIC_SITE_URL=https://vertexwebdesign.com
 ## Accessing the Files
 
 Once deployed, search engines can access:
-- **Sitemap:** `https://vertexwebdesign.com/sitemap.xml`
-- **Robots:** `https://vertexwebdesign.com/robots.txt`
+- **Sitemap:** `https://vertexapps.dev/sitemap.xml`
+- **Robots:** `https://vertexapps.dev/robots.txt`
 
 ---
 
@@ -145,19 +145,19 @@ Once deployed, search engines can access:
 ### Test the Sitemap
 ```bash
 # Visit in browser
-https://vertexwebdesign.com/sitemap.xml
+https://vertexapps.dev/sitemap.xml
 
 # Validate XML structure
-curl https://vertexwebdesign.com/sitemap.xml | xmllint --format -
+curl https://vertexapps.dev/sitemap.xml | xmllint --format -
 ```
 
 ### Test Robots.txt
 ```bash
 # Visit in browser
-https://vertexwebdesign.com/robots.txt
+https://vertexapps.dev/robots.txt
 
 # Verify syntax
-curl https://vertexwebdesign.com/robots.txt
+curl https://vertexapps.dev/robots.txt
 ```
 
 ### Search Console Submission

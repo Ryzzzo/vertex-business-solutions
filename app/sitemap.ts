@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vertexwebdesign.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vertexapps.dev';
   const lastModified = new Date();
 
   return [
