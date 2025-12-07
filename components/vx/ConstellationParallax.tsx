@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 
 interface Star {
@@ -22,10 +22,40 @@ export default function ConstellationParallax() {
   const rafRef = useRef<number>();
   const mousePosition = useMouseParallax();
   const mousePositionRef = useRef(mousePosition);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     mousePositionRef.current = mousePosition;
   }, [mousePosition]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -35,7 +65,10 @@ export default function ConstellationParallax() {
     if (!container) return;
 
     const generateStars = (count: number, minSize: number, maxSize: number, baseOpacity: number): Star[] => {
-      return Array.from({ length: count }, () => ({
+      const mobileMultiplier = isMobile ? 0.25 : 0.5;
+      const adjustedCount = Math.floor(count * mobileMultiplier);
+
+      return Array.from({ length: adjustedCount }, () => ({
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: minSize + Math.random() * (maxSize - minSize),
@@ -89,6 +122,11 @@ export default function ConstellationParallax() {
     let currentRotateY = 0;
 
     const animate = () => {
+      if (!isVisible) {
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
       const targetX1 = -mousePositionRef.current.normalizedX * 3;
       const targetY1 = -mousePositionRef.current.normalizedY * 3;
       const targetX2 = -mousePositionRef.current.normalizedX * 8;
@@ -139,7 +177,7 @@ export default function ConstellationParallax() {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, []);
+  }, [isMobile, isVisible]);
 
   return (
     <div

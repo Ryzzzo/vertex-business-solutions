@@ -1,12 +1,43 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { type Container, type ISourceOptions } from '@tsparticles/engine';
 import { loadSlim } from '@tsparticles/slim';
 
 export default function ParticleBackground() {
   const [init, setInit] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -31,11 +62,11 @@ export default function ParticleBackground() {
       interactivity: {
         events: {
           onClick: {
-            enable: true,
+            enable: !isMobile,
             mode: 'push',
           },
           onHover: {
-            enable: true,
+            enable: !isMobile,
             mode: 'grab',
           },
         },
@@ -64,7 +95,7 @@ export default function ParticleBackground() {
         },
         move: {
           direction: 'none',
-          enable: true,
+          enable: isVisible,
           outModes: {
             default: 'bounce',
           },
@@ -76,7 +107,7 @@ export default function ParticleBackground() {
           density: {
             enable: true,
           },
-          value: 80,
+          value: isMobile ? 10 : 40,
         },
         opacity: {
           value: 0.3,
@@ -90,7 +121,7 @@ export default function ParticleBackground() {
       },
       detectRetina: true,
     }),
-    []
+    [isMobile, isVisible]
   );
 
   if (!init) {
@@ -98,11 +129,13 @@ export default function ParticleBackground() {
   }
 
   return (
-    <Particles
-      id="tsparticles"
-      particlesLoaded={particlesLoaded}
-      options={options}
-      className="absolute inset-0 z-0"
-    />
+    <div ref={containerRef} className="absolute inset-0 z-0">
+      <Particles
+        id="tsparticles"
+        particlesLoaded={particlesLoaded}
+        options={options}
+        className="absolute inset-0"
+      />
+    </div>
   );
 }

@@ -6,7 +6,7 @@ import { type Container, type ISourceOptions } from '@tsparticles/engine';
 import { loadSlim } from '@tsparticles/slim';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 
-const ConstellationParticles = memo(function ConstellationParticles() {
+const ConstellationParticles = memo(function ConstellationParticles({ isMobile }: { isMobile: boolean }) {
   const particlesLoaded = useCallback(async (container?: Container): Promise<void> => {
     console.log(container);
   }, []);
@@ -63,7 +63,7 @@ const ConstellationParticles = memo(function ConstellationParticles() {
           density: {
             enable: true,
           },
-          value: 60,
+          value: isMobile ? 8 : 30,
         },
         opacity: {
           value: {
@@ -93,7 +93,7 @@ const ConstellationParticles = memo(function ConstellationParticles() {
       },
       detectRetina: true,
     }),
-    []
+    [isMobile]
   );
 
   return (
@@ -109,11 +109,42 @@ const ConstellationParticles = memo(function ConstellationParticles() {
 
 export default function SpaceBackground() {
   const [init, setInit] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const gradientRef = useRef<HTMLDivElement>(null);
   const starfieldRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>();
   const mousePosition = useMouseParallax();
   const mousePositionRef = useRef(mousePosition);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -137,6 +168,11 @@ export default function SpaceBackground() {
     let currentStarfieldY = 0;
 
     const animate = () => {
+      if (!isVisible) {
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
       const targetGradientX = -mousePositionRef.current.normalizedX * 5;
       const targetGradientY = -mousePositionRef.current.normalizedY * 5;
       const targetStarfieldX = -mousePositionRef.current.normalizedX * 10;
@@ -164,18 +200,20 @@ export default function SpaceBackground() {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, []);
+  }, [isVisible]);
 
   const starfield = useMemo(
-    () =>
-      Array.from({ length: 50 }, (_, i) => ({
+    () => {
+      const count = isMobile ? 13 : 25;
+      return Array.from({ length: count }, (_, i) => ({
         id: i,
         left: Math.random() * 100,
         top: Math.random() * 100,
         animationDelay: Math.random() * 3,
         animationDuration: 2 + Math.random() * 2,
-      })),
-    []
+      }));
+    },
+    [isMobile]
   );
 
   if (!init) {
@@ -183,7 +221,7 @@ export default function SpaceBackground() {
   }
 
   return (
-    <>
+    <div ref={containerRef} className="absolute inset-0">
       <div
         ref={gradientRef}
         className="absolute inset-0 gradient-mesh"
@@ -191,7 +229,7 @@ export default function SpaceBackground() {
       />
 
       <div className="absolute inset-0 z-0">
-        <ConstellationParticles />
+        <ConstellationParticles isMobile={isMobile} />
       </div>
 
       <div
@@ -212,6 +250,6 @@ export default function SpaceBackground() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
