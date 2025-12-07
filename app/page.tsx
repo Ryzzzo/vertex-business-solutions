@@ -4,6 +4,7 @@ import Navigation from '@/components/vx/Navigation';
 import HeroSection from '@/components/vx/HeroSection';
 import ServicesSection from '@/components/vx/ServicesSection';
 import PortfolioSection from '@/components/vx/PortfolioSection';
+import TestimonialsSection from '@/components/vx/TestimonialsSection';
 import TechStackSection from '@/components/vx/TechStackSection';
 import AboutSection from '@/components/vx/AboutSection';
 import PricingSection from '@/components/vx/PricingSection';
@@ -21,6 +22,7 @@ export default function Home() {
         <HeroSection />
         <ServicesSection />
         <PortfolioSection />
+        <TestimonialsSection />
         <TechStackSection />
         <AboutSection />
         <PricingSection />
