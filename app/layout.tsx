@@ -8,7 +8,7 @@ const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm', weight: ['40
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vertexapps.dev'),
-  title: 'Custom Business Applications | Vertex Business Solutions',
+  title: 'Vertex Business Solutions | Custom Business Applications & Websites',
   description: 'Charlotte-based developer creating custom websites, dashboards, and CRM systems for growing businesses. Modern web applications that solve real problems.',
   keywords: 'custom business applications, business websites, custom dashboards, CRM systems, workflow automation, web development Charlotte, custom software development, business application developer',
   authors: [{ name: 'Vertex Business Solutions' }],
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://www.vertexapps.dev',
     siteName: 'Vertex Business Solutions',
-    title: 'Custom Business Applications | Vertex Business Solutions',
+    title: 'Vertex Business Solutions | Custom Business Applications & Websites',
     description: 'Charlotte-based developer creating custom websites, dashboards, and CRM systems for growing businesses. Modern web applications that solve real problems.',
     images: [
       {
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Custom Business Applications | Vertex Business Solutions',
+    title: 'Vertex Business Solutions | Custom Business Applications & Websites',
     description: 'Charlotte-based developer creating custom websites, dashboards, and CRM systems for growing businesses. Modern web applications that solve real problems.',
     images: ['/twitter-image.jpg'],
     creator: '@vertexapps',
