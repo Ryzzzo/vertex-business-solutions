@@ -69,11 +69,9 @@ export default function RootLayout({
       addressRegion: 'NC',
       addressCountry: 'US',
     },
-    areaServed: {
-      '@type': 'Country',
-      name: 'United States',
-    },
+    areaServed: 'United States',
     priceRange: '$$',
+    serviceType: ['Web Development', 'Custom Software Development', 'CRM Development', 'Business Automation'],
   };
 
   const servicesSchema = [
