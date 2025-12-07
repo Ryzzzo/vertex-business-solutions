@@ -5,6 +5,7 @@ import HeroSection from '@/components/vx/HeroSection';
 import ServicesSection from '@/components/vx/ServicesSection';
 import PortfolioSection from '@/components/vx/PortfolioSection';
 import TestimonialsSection from '@/components/vx/TestimonialsSection';
+import HowWeWorkSection from '@/components/vx/HowWeWorkSection';
 import TechStackSection from '@/components/vx/TechStackSection';
 import AboutSection from '@/components/vx/AboutSection';
 import PricingSection from '@/components/vx/PricingSection';
@@ -23,6 +24,7 @@ export default function Home() {
         <ServicesSection />
         <PortfolioSection />
         <TestimonialsSection />
+        <HowWeWorkSection />
         <TechStackSection />
         <AboutSection />
         <PricingSection />
