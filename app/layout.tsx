@@ -56,9 +56,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const localBusinessSchema = {
+  const businessSchema = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
+    '@id': 'https://www.vertexapps.dev/#business',
     name: 'Vertex Business Solutions',
     description: 'Custom business application development including websites, dashboards, CRM systems, and workflow automation',
     url: 'https://www.vertexapps.dev',
@@ -71,63 +72,41 @@ export default function RootLayout({
     },
     areaServed: 'United States',
     priceRange: '$$',
-    serviceType: ['Web Development', 'Custom Software Development', 'CRM Development', 'Business Automation'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Business Application Services',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Business Website Development',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Custom Dashboard Development',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'CRM System Development',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Workflow Automation & Integration',
+          },
+        },
+      ],
+    },
   };
-
-  const servicesSchema = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      serviceType: 'Business Website Development',
-      provider: {
-        '@type': 'LocalBusiness',
-        name: 'Vertex Business Solutions',
-      },
-      areaServed: {
-        '@type': 'Country',
-        name: 'United States',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      serviceType: 'Custom Dashboard Development',
-      provider: {
-        '@type': 'LocalBusiness',
-        name: 'Vertex Business Solutions',
-      },
-      areaServed: {
-        '@type': 'Country',
-        name: 'United States',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      serviceType: 'CRM System Development',
-      provider: {
-        '@type': 'LocalBusiness',
-        name: 'Vertex Business Solutions',
-      },
-      areaServed: {
-        '@type': 'Country',
-        name: 'United States',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      serviceType: 'Workflow Automation & Integration',
-      provider: {
-        '@type': 'LocalBusiness',
-        name: 'Vertex Business Solutions',
-      },
-      areaServed: {
-        '@type': 'Country',
-        name: 'United States',
-      },
-    },
-  ];
 
   return (
     <html lang="en" className="dark">
@@ -135,13 +114,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessSchema),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(servicesSchema),
+            __html: JSON.stringify(businessSchema),
           }}
         />
       </head>
