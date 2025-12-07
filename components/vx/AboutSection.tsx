@@ -22,7 +22,7 @@ export default function AboutSection() {
           <FadeUpSection className="lg:col-span-3 space-y-6">
             <div className="flex items-start gap-4 mb-8">
               <div className="w-1 h-16 bg-calm-blue rounded-full" />
-              <h2 className="heading-3 text-glow">Built for Real Business Needs</h2>
+              <h2 className="heading-2 text-glow">Built for Real Business Needs</h2>
             </div>
 
             <div className="pl-6 border-l-2 border-calm-blue/40 mb-6">

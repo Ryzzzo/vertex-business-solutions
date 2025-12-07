@@ -13,9 +13,11 @@ interface FadeUpSectionProps {
   delay?: number;
   className?: string;
   style?: React.CSSProperties;
+  role?: string;
+  'aria-label'?: string;
 }
 
-export default function FadeUpSection({ children, delay = 0, className = '', style = {} }: FadeUpSectionProps) {
+export default function FadeUpSection({ children, delay = 0, className = '', style = {}, role, 'aria-label': ariaLabel }: FadeUpSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -60,7 +62,13 @@ export default function FadeUpSection({ children, delay = 0, className = '', sty
   }, [delay]);
 
   return (
-    <div ref={sectionRef} className={className} style={{ willChange: 'transform, opacity', ...style }}>
+    <div
+      ref={sectionRef}
+      className={className}
+      style={{ willChange: 'transform, opacity', ...style }}
+      role={role}
+      aria-label={ariaLabel}
+    >
       {children}
     </div>
   );

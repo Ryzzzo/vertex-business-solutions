@@ -71,6 +71,7 @@ export default function Navigation() {
             padding: 0,
             margin: 0
           }}
+          aria-label="Navigate to home section - Vertex Business Solutions"
         >
           <span
             className="text-2xl font-bold tracking-tight text-white group-hover:text-calm-blue transition-colors"
@@ -98,6 +99,8 @@ export default function Navigation() {
                   ? 'text-calm-blue'
                   : 'text-light-gray hover:text-calm-blue'
               }`}
+              aria-label={`Navigate to ${link.name} section`}
+              aria-current={activeSection === link.href.replace('#', '') ? 'page' : undefined}
             >
               {link.name}
               {activeSection === link.href.replace('#', '') && (
@@ -114,6 +117,7 @@ export default function Navigation() {
           <Button
             onClick={() => scrollToSection('#contact')}
             className="glass-subtle hover:bg-calm-blue/20 border border-calm-blue text-white h-[42px] px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/30"
+            aria-label="Navigate to contact section to start your project"
           >
             Get Started
           </Button>
@@ -122,6 +126,8 @@ export default function Navigation() {
         <button
           className="md:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMobileMenuOpen}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -142,6 +148,7 @@ export default function Navigation() {
             <Button
               onClick={() => scrollToSection('#contact')}
               className="bg-calm-blue hover:bg-sky-blue text-white w-full rounded-xl h-12"
+              aria-label="Navigate to contact section to start your project"
             >
               Get Started
             </Button>

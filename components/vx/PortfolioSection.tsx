@@ -64,6 +64,8 @@ export default function PortfolioSection() {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}
+              role="article"
+              aria-label={`${project.title} - ${project.subtitle}`}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-space-navy via-space-navy/70 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-400" />
 
@@ -109,9 +111,10 @@ export default function PortfolioSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm text-calm-blue hover:text-sky-blue transition-colors"
+                      aria-label={`View ${project.title} live project website`}
                     >
                       View Project
-                      <ExternalLink className="w-4 h-4" />
+                      <ExternalLink className="w-4 h-4" aria-hidden="true" />
                     </a>
                   )}
                 </div>

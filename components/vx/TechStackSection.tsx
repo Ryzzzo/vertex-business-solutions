@@ -116,8 +116,10 @@ export default function TechStackSection() {
                 animation: `float ${4 + (index % 3)}s ease-in-out infinite`,
                 animationDelay: `${index * 0.2}s`,
               }}
+              role="article"
+              aria-label={`${tech.name} - ${tech.category} technology`}
             >
-              <div className="glass w-[100px] h-[100px] rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:border-calm-blue/50 group-hover:shadow-[0_8px_24px_rgba(74,144,226,0.2)]">
+              <div className="glass w-[100px] h-[100px] rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:border-calm-blue/50 group-hover:shadow-[0_8px_24px_rgba(74,144,226,0.2)]" aria-hidden="true">
                 <TechLogo name={tech.name} color={tech.color} />
               </div>
               <span className="text-sm text-soft-gray text-center group-hover:text-calm-blue transition-colors">

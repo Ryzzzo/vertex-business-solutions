@@ -126,7 +126,11 @@ export default function HeroSection() {
                 height: 'auto'
               }}
             >
-              <h1
+              <div className="sr-only">
+                <h1>Vertex Business Solutions | Custom Business Applications & Websites</h1>
+              </div>
+
+              <div
                 className="font-bold tracking-tighter leading-none text-white mb-6"
                 style={{
                   fontSize: 'clamp(80px, 14vw, 140px)',
@@ -134,11 +138,12 @@ export default function HeroSection() {
                   border: 'none',
                   textShadow: '0 0 40px rgba(74, 144, 226, 0.8), 0 0 80px rgba(74, 144, 226, 0.4)'
                 }}
+                aria-hidden="true"
               >
                 V<span className="relative inline-block" style={{ background: 'transparent' }}>
                   <span className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-calm-blue via-sky-blue to-calm-blue" style={{ width: '120%', left: '-10%' }} />
                 </span>X
-              </h1>
+              </div>
 
               <div className="flex items-center justify-center mb-4">
                 <div className="h-px w-24 bg-gradient-to-r from-transparent via-calm-blue to-transparent" />
@@ -161,12 +166,14 @@ export default function HeroSection() {
               <MagneticButton
                 onClick={() => scrollToSection('#portfolio')}
                 className="glass-subtle hover:border-calm-blue border-2 border-calm-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold hover:bg-calm-blue/10 transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/40 group"
+                aria-label="View portfolio of business applications and websites"
               >
                 <span>View Portfolio</span>
               </MagneticButton>
               <MagneticButton
                 onClick={() => scrollToSection('#contact')}
                 className="bg-calm-blue hover:bg-sky-blue text-white w-[180px] h-14 rounded-xl text-base font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/50"
+                aria-label="Get started with your custom business application project"
               >
                 Get Started
               </MagneticButton>

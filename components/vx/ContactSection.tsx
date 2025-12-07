@@ -104,6 +104,7 @@ export default function ContactSection() {
                 size="lg"
                 onClick={() => setIsModalOpen(true)}
                 className="glass-subtle border-2 border-calm-blue text-white w-[240px] h-16 rounded-xl text-lg font-semibold hover:bg-calm-blue transition-all duration-300 magnetic-button animate-glow-pulse"
+                aria-label="Start your custom business application project - Open project questionnaire"
               >
                 Start Your Project
               </Button>
@@ -123,8 +124,9 @@ export default function ContactSection() {
             <a
               href="mailto:contact@vertexapps.dev"
               className="inline-flex items-center gap-2 text-sm text-calm-blue hover:text-sky-blue transition-colors"
+              aria-label="Email Vertex Business Solutions at contact@vertexapps.dev"
             >
-              <Mail className="w-4 h-4" />
+              <Mail className="w-4 h-4" aria-hidden="true" />
               contact@vertexapps.dev
             </a>
           </motion.div>
