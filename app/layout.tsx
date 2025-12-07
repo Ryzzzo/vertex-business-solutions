@@ -8,14 +8,49 @@ const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm', weight: ['40
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vertexapps.dev'),
-  title: 'VX | Vertex Business Solutions - Custom Business Application Development',
-  description: 'Custom CRM systems, dashboards, and workflow automation built with modern frameworks. Enterprise-grade business applications that solve real problems for growing businesses.',
-  keywords: 'business application developer, custom CRM, dashboards, workflow automation, React, Next.js, TypeScript, enterprise software',
-  authors: [{ name: 'Vertex Business Solutions' }],
+  title: 'Astral AI | AI Data Analytics & Real-Time Pattern Detection',
+  description: 'Transform your data with Astral AI. Advanced AI data analytics platform delivering real-time pattern detection and actionable insights. Start detecting patterns today.',
+  keywords: 'AI data analytics, real-time pattern detection, data insights, machine learning, predictive analytics, AI analytics platform, data intelligence, pattern recognition',
+  authors: [{ name: 'Astral AI' }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'VX | Vertex Business Solutions',
-    description: 'Custom business applications that scale with your team',
     type: 'website',
+    locale: 'en_US',
+    url: 'https://vertexapps.dev',
+    siteName: 'Astral AI',
+    title: 'Astral AI | AI Data Analytics & Real-Time Pattern Detection',
+    description: 'Transform your data with Astral AI. Advanced AI data analytics platform delivering real-time pattern detection and actionable insights.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Astral AI - AI Data Analytics Platform',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Astral AI | AI Data Analytics & Real-Time Pattern Detection',
+    description: 'Transform your data with Astral AI. Advanced AI data analytics platform delivering real-time pattern detection and actionable insights.',
+    images: ['/twitter-image.jpg'],
+    creator: '@astralai',
+  },
+  alternates: {
+    canonical: 'https://vertexapps.dev',
+  },
+  verification: {
+    google: 'verification_token',
   },
 };
 
@@ -26,6 +61,49 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Astral AI',
+              description: 'Advanced AI data analytics platform delivering real-time pattern detection and actionable insights',
+              url: 'https://vertexapps.dev',
+              logo: 'https://vertexapps.dev/logo.png',
+              sameAs: [
+                'https://twitter.com/astralai',
+                'https://linkedin.com/company/astralai',
+              ],
+              contactPoint: {
+                '@type': 'ContactPoint',
+                contactType: 'Customer Service',
+                email: 'contact@vertexapps.dev',
+              },
+              address: {
+                '@type': 'PostalAddress',
+                addressCountry: 'US',
+              },
+              foundingDate: '2024',
+              keywords: 'AI data analytics, real-time pattern detection, data insights, machine learning, predictive analytics',
+              brand: {
+                '@type': 'Brand',
+                name: 'Astral AI',
+              },
+              offers: {
+                '@type': 'Offer',
+                category: 'AI Data Analytics Services',
+                description: 'Real-time pattern detection and AI-powered data insights',
+              },
+            }),
+          }}
+        />
+      </head>
       <body className={`${inter.variable} ${dmSans.variable} font-sans antialiased`}>
         {children}
         <Script
