@@ -76,11 +76,14 @@ export default function RootLayout({
 }) {
   const businessSchema = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'ProfessionalService',
     '@id': 'https://www.vertexapps.dev/#business',
     name: 'Vertex Business Solutions',
-    description: 'Custom business application development including websites, dashboards, CRM systems, and workflow automation',
+    alternateName: 'VX',
     url: 'https://www.vertexapps.dev',
+    logo: 'https://www.vertexapps.dev/android-chrome-512x512.png',
+    image: 'https://www.vertexapps.dev/og-image.jpg',
+    description: 'Custom business application development using modern frameworks and AI-assisted development. We deliver professional applications in weeks, not months. Based in Charlotte, NC, serving clients nationwide.',
     email: 'contact@vertexapps.dev',
     address: {
       '@type': 'PostalAddress',
@@ -88,42 +91,79 @@ export default function RootLayout({
       addressRegion: 'NC',
       addressCountry: 'US',
     },
-    areaServed: 'United States',
-    priceRange: '$$',
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Business Application Services',
-      itemListElement: [
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Business Website Development',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Custom Dashboard Development',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'CRM System Development',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Workflow Automation & Integration',
-          },
-        },
-      ],
+    founder: {
+      '@type': 'Person',
+      name: 'Ryan Stacy',
+      jobTitle: 'Founder & Lead Developer',
     },
+    areaServed: {
+      '@type': 'Country',
+      name: 'United States',
+    },
+    serviceType: [
+      'Custom Business Applications',
+      'Web Development',
+      'Dashboard Development',
+      'Website Design',
+      'CRM Development',
+      'Workflow Automation',
+    ],
+    priceRange: '$$',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5.0',
+      reviewCount: '3',
+      bestRating: '5',
+      worstRating: '5',
+    },
+    review: [
+      {
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: 'Kevin M.',
+        },
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5',
+        },
+        reviewBody: "You'll be hard pressed to find better value anywhere. Ryan's pricing is very fair for the product he delivers, and he's very communicative and responsive. He's extremely friendly and I really enjoyed working with him on my project!",
+        datePublished: '2024-11-01',
+      },
+      {
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: 'Gerry F.',
+        },
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5',
+        },
+        reviewBody: "Super responsive, did great work, and covered some gaps that I didn't see.",
+        datePublished: '2024-10-01',
+      },
+      {
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: 'Janelle B.',
+        },
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5',
+        },
+        reviewBody: 'Ryan is an exceptionally diligent, thoughtful, and honest individual. He consistently approaches every portion of the project with care and attention to detail. I highly recommend Ryan to anyone looking for someone who embodies professionalism, respect, and genuine character.',
+        datePublished: '2024-09-01',
+      },
+    ],
+    sameAs: [
+      'https://www.linkedin.com/in/rystacy/',
+      'https://www.upwork.com/freelancers/ryans108',
+    ],
   };
 
   return (
