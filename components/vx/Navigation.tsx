@@ -56,7 +56,7 @@ export default function Navigation() {
       } border-b border-white/5`}
       style={{
         height: isScrolled ? '70px' : '80px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.2)',
+        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
       }}
     >
       <div className="container h-full flex items-center justify-between">

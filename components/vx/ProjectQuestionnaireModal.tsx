@@ -181,7 +181,7 @@ export default function ProjectQuestionnaireModal({
             onClick={(e) => e.stopPropagation()}
             className="glass w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-[24px] p-8 relative"
             style={{
-              boxShadow: '0 0 60px rgba(74, 144, 226, 0.2)',
+              boxShadow: '0 0 40px rgba(74, 144, 226, 0.2)',
             }}
           >
             <button
@@ -216,7 +216,7 @@ export default function ProjectQuestionnaireModal({
                           name="name"
                           value={formData.name}
                           onChange={handleChange}
-                          className={`w-full bg-white/10 backdrop-blur-sm border ${
+                          className={`w-full form-input-glass border ${
                             errors.name ? 'border-red-500' : 'border-calm-blue/30'
                           } rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors`}
                           placeholder="John Smith"
@@ -235,7 +235,7 @@ export default function ProjectQuestionnaireModal({
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
-                          className={`w-full bg-white/10 backdrop-blur-sm border ${
+                          className={`w-full form-input-glass border ${
                             errors.email ? 'border-red-500' : 'border-calm-blue/30'
                           } rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors`}
                           placeholder="john@company.com"
@@ -256,7 +256,7 @@ export default function ProjectQuestionnaireModal({
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full bg-white/10 backdrop-blur-sm border border-calm-blue/30 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors"
+                          className="w-full form-input-glass border border-calm-blue/30 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors"
                           placeholder="(555) 123-4567"
                         />
                       </div>
@@ -270,7 +270,7 @@ export default function ProjectQuestionnaireModal({
                           name="company"
                           value={formData.company}
                           onChange={handleChange}
-                          className={`w-full bg-white/10 backdrop-blur-sm border ${
+                          className={`w-full form-input-glass border ${
                             errors.company ? 'border-red-500' : 'border-calm-blue/30'
                           } rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors`}
                           placeholder="Acme Inc."
@@ -296,7 +296,7 @@ export default function ProjectQuestionnaireModal({
                           name="industry"
                           value={formData.industry}
                           onChange={handleChange}
-                          className={`w-full bg-white/10 backdrop-blur-sm border ${
+                          className={`w-full form-input-glass border ${
                             errors.industry ? 'border-red-500' : 'border-calm-blue/30'
                           } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
                         >
@@ -323,7 +323,7 @@ export default function ProjectQuestionnaireModal({
                           name="teamSize"
                           value={formData.teamSize}
                           onChange={handleChange}
-                          className={`w-full bg-white/10 backdrop-blur-sm border ${
+                          className={`w-full form-input-glass border ${
                             errors.teamSize ? 'border-red-500' : 'border-calm-blue/30'
                           } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
                         >
@@ -355,7 +355,7 @@ export default function ProjectQuestionnaireModal({
                         value={formData.challenges}
                         onChange={handleChange}
                         rows={4}
-                        className={`w-full bg-white/10 backdrop-blur-sm border ${
+                        className={`w-full form-input-glass border ${
                           errors.challenges ? 'border-red-500' : 'border-calm-blue/30'
                         } rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors resize-none`}
                         placeholder="Tell us about the specific challenges or pain points you're facing..."
@@ -401,7 +401,7 @@ export default function ProjectQuestionnaireModal({
                           name="budget"
                           value={formData.budget}
                           onChange={handleChange}
-                          className={`w-full bg-white/10 backdrop-blur-sm border ${
+                          className={`w-full form-input-glass border ${
                             errors.budget ? 'border-red-500' : 'border-calm-blue/30'
                           } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
                         >
@@ -425,7 +425,7 @@ export default function ProjectQuestionnaireModal({
                           name="timeline"
                           value={formData.timeline}
                           onChange={handleChange}
-                          className={`w-full bg-white/10 backdrop-blur-sm border ${
+                          className={`w-full form-input-glass border ${
                             errors.timeline ? 'border-red-500' : 'border-calm-blue/30'
                           } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
                         >
@@ -457,7 +457,7 @@ export default function ProjectQuestionnaireModal({
                         value={formData.additionalInfo}
                         onChange={handleChange}
                         rows={3}
-                        className="w-full bg-white/10 backdrop-blur-sm border border-calm-blue/30 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors resize-none"
+                        className="w-full form-input-glass border border-calm-blue/30 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors resize-none"
                         placeholder="Any additional context, requirements, or questions..."
                       />
                     </div>
