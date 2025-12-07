@@ -16,7 +16,7 @@ const floatingCards = [
     title: 'Fast Delivery',
     subtitle: '2-Week Turnaround',
     position: 'top-left',
-    delay: 0,
+    delay: 0.1,
     hoverText: 'Using modern frameworks and AI-assisted development, we deliver professional applications in weeks, not months. Most projects complete in 1-3 weeks.',
   },
   {
@@ -32,7 +32,7 @@ const floatingCards = [
     title: 'Modern Tech',
     subtitle: 'React • Next.js',
     position: 'bottom-left',
-    delay: 0.4,
+    delay: 0.3,
     hoverText: 'Built with React, Next.js, and modern cloud infrastructure. Your applications are fast, responsive, and scalable from day one.',
   },
   {
@@ -40,7 +40,7 @@ const floatingCards = [
     title: 'Years of Experience',
     subtitle: 'Enterprise Operations',
     position: 'bottom-right',
-    delay: 0.6,
+    delay: 0.4,
     hoverText: 'Backed by extensive operational experience with enterprise systems. We understand real business workflows and what teams actually use.',
   },
 ];
@@ -77,9 +77,9 @@ export default function HeroSection() {
             return (
               <motion.div
                 key={card.title}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.2, delay: card.delay, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 0.6, delay: card.delay, ease: [0.25, 0.1, 0.25, 1] }}
                 className={`${positions[card.position as keyof typeof positions]} hidden lg:block`}
                 style={{
                   zIndex: 5,
@@ -112,10 +112,7 @@ export default function HeroSection() {
           })}
 
           <div className="text-center relative" style={{ zIndex: 1 }}>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
+            <div
               className="mb-6"
               style={{
                 background: 'transparent',
@@ -136,7 +133,9 @@ export default function HeroSection() {
                   fontSize: 'clamp(80px, 14vw, 140px)',
                   background: 'transparent',
                   border: 'none',
-                  textShadow: '0 0 40px rgba(74, 144, 226, 0.8), 0 0 80px rgba(74, 144, 226, 0.4)'
+                  textShadow: '0 0 40px rgba(74, 144, 226, 0.8), 0 0 80px rgba(74, 144, 226, 0.4)',
+                  willChange: 'auto',
+                  transform: 'translateZ(0)'
                 }}
                 aria-hidden="true"
               >
@@ -145,22 +144,28 @@ export default function HeroSection() {
                 </span>X
               </div>
 
-              <div className="flex items-center justify-center mb-4">
-                <div className="h-px w-24 bg-gradient-to-r from-transparent via-calm-blue to-transparent" />
-              </div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="flex items-center justify-center mb-4">
+                  <div className="h-px w-24 bg-gradient-to-r from-transparent via-calm-blue to-transparent" />
+                </div>
 
-              <p className="text-[20px] tracking-[0.3em] text-light-gray uppercase mb-3">
-                Vertex Business Solutions
-              </p>
-              <p className="text-base text-soft-gray">
-                Custom Business Application Development
-              </p>
-            </motion.div>
+                <p className="text-[20px] tracking-[0.3em] text-light-gray uppercase mb-3">
+                  Vertex Business Solutions
+                </p>
+                <p className="text-base text-soft-gray">
+                  Custom Business Application Development
+                </p>
+              </motion.div>
+            </div>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12"
             >
               <MagneticButton
@@ -182,7 +187,7 @@ export default function HeroSection() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
               className="mt-12 text-sm text-soft-gray"
             >
               Free consultation • No obligation • Nationwide service
