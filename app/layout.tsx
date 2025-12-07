@@ -154,6 +154,18 @@ export default function RootLayout({
       <body className={`${inter.variable} ${dmSans.variable} font-sans antialiased`}>
         {children}
         <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-JMBHGHJWGY"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JMBHGHJWGY');
+          `}
+        </Script>
+        <Script
           id="chatbase-widget"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
