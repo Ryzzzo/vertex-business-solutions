@@ -59,14 +59,15 @@ export default function PortfolioSection() {
               key={project.id}
               delay={index * 0.15}
               className="group relative overflow-hidden rounded-[24px] cursor-pointer h-[420px]"
-              style={{
-                backgroundImage: `url(${project.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
               role="article"
               aria-label={`${project.title} - ${project.subtitle}`}
             >
+              <img
+                src={project.image}
+                alt={`${project.title} - ${project.subtitle} screenshot`}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-space-navy via-space-navy/70 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-400" />
 
               <div className="absolute inset-0 flex flex-col justify-end p-8 transition-transform duration-400 group-hover:translate-y-[-8px]">
