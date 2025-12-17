@@ -5,13 +5,13 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ExternalLink, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
-const cspScreenshots = [
-  'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1200',
+const cspImages = [
+  '/csp_hero.png',
+  '/csp_what_we_do.png',
+  '/csp_animated_measurables.png',
+  '/csp_why.png',
+  '/csp_dynamic_automated_blog.png',
+  '/csp_cta.png',
 ];
 
 const supportingProjects = [
@@ -159,10 +159,10 @@ export default function FeaturedProjectSection() {
 
                 <div className="browser-content">
                   <div className="screenshot-scroll">
-                    {cspScreenshots.map((screenshot, index) => (
+                    {cspImages.map((image, index) => (
                       <div key={index} className="screenshot-item">
                         <img
-                          src={screenshot}
+                          src={image}
                           alt={`CSP website section ${index + 1}`}
                           className="w-full h-auto"
                           loading="lazy"
