@@ -11,7 +11,7 @@ const ServicesSection = dynamic(() => import('@/components/vx/ServicesSection'),
   ssr: false
 });
 
-const PortfolioSection = dynamic(() => import('@/components/vx/PortfolioSection'), {
+const FeaturedProjectSection = dynamic(() => import('@/components/vx/FeaturedProjectSection'), {
   loading: () => null,
   ssr: false
 });
@@ -59,7 +59,7 @@ export default function Home() {
         <Navigation />
         <HeroSection />
         <ServicesSection />
-        <PortfolioSection />
+        <FeaturedProjectSection />
         <TestimonialsSection />
         <HowWeWorkSection />
         <TechStackSection />

@@ -239,4 +239,99 @@
   .body-text {
     @apply text-base md:text-lg text-light-gray leading-relaxed;
   }
+
+  .browser-frame {
+    @apply rounded-xl overflow-hidden shadow-2xl;
+    background: #1a1a2e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .browser-header {
+    @apply flex items-center gap-4 px-4 py-3;
+    background: linear-gradient(180deg, #2a2a3e 0%, #1f1f32 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .browser-dots {
+    @apply flex items-center gap-2;
+  }
+
+  .dot {
+    @apply w-3 h-3 rounded-full;
+  }
+
+  .dot-red {
+    background: #ff5f57;
+  }
+
+  .dot-yellow {
+    background: #ffbd2e;
+  }
+
+  .dot-green {
+    background: #28c840;
+  }
+
+  .browser-url {
+    @apply flex-1 flex items-center justify-center;
+  }
+
+  .url-text {
+    @apply text-xs text-gray-400 bg-white/5 px-4 py-1.5 rounded-md;
+  }
+
+  .browser-actions {
+    @apply flex items-center;
+  }
+
+  .browser-content {
+    @apply relative overflow-hidden;
+    height: 400px;
+  }
+
+  @media (min-width: 768px) {
+    .browser-content {
+      height: 450px;
+    }
+  }
+
+  .screenshot-scroll {
+    @apply absolute top-0 left-0 w-full;
+    animation: scrollContent 24s ease-in-out infinite;
+  }
+
+  .screenshot-item {
+    @apply w-full;
+  }
+
+  .screenshot-item img {
+    @apply w-full h-auto block;
+  }
+
+  @keyframes scrollContent {
+    0%, 15% {
+      transform: translateY(0);
+    }
+    20%, 35% {
+      transform: translateY(-16.66%);
+    }
+    40%, 55% {
+      transform: translateY(-33.33%);
+    }
+    60%, 75% {
+      transform: translateY(-50%);
+    }
+    80%, 95% {
+      transform: translateY(-66.66%);
+    }
+    100% {
+      transform: translateY(-83.33%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .screenshot-scroll {
+      animation: none;
+    }
+  }
 }
