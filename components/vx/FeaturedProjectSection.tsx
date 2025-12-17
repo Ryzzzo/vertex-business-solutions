@@ -14,24 +14,38 @@ const cspImages = [
   '/csp_cta.png',
 ];
 
-const supportingProjects = [
+const portfolioProjects = [
+  {
+    id: 1,
+    title: 'Sales CRM Dashboard',
+    description: 'Pipeline tracking, contact management, and activity feeds',
+    image: '/2025-10-30_18_46_08-.png',
+    badge: 'Interactive Demo',
+    link: 'https://crm-prototype-mu.vercel.app',
+  },
   {
     id: 2,
-    title: 'Executive Analytics Dashboard',
-    subtitle: 'Business Intelligence Demo',
-    description: 'Real-time KPI tracking with multi-source data visualization.',
-    tech: ['React', 'Chart.js', 'Tailwind'],
-    image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
-    badge: 'Concept Demo',
+    title: 'Commission Tracker',
+    description: 'Real-time sales performance and payout management',
+    image: '/live_commission_tracking_mockup.png',
+    badge: 'Concept',
+    link: null,
   },
   {
     id: 3,
-    title: 'ServicePro CRM',
-    subtitle: 'Field Service Management',
-    description: 'Customer management with scheduling and job tracking.',
-    tech: ['React', 'Node.js', 'PostgreSQL'],
-    image: 'https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=800',
-    badge: 'Concept Demo',
+    title: 'Purchase Management',
+    description: 'Spending analytics, vendor tracking, and receipt management',
+    image: '/purchase_management_dashboard_draft.png',
+    badge: 'Concept',
+    link: null,
+  },
+  {
+    id: 4,
+    title: 'Portfolio Analytics',
+    description: 'Real-time portfolio tracking and performance visualization',
+    image: '/2025-11-11_17_59_11-.png',
+    badge: 'Concept',
+    link: null,
   },
 ];
 
@@ -187,59 +201,69 @@ export default function FeaturedProjectSection() {
             className="text-center mb-12"
           >
             <h3 className="text-2xl font-semibold text-white mb-2">More Work</h3>
-            <p className="text-soft-gray">Concept demonstrations and case studies</p>
+            <p className="text-soft-gray">Dashboards & applications built for real business needs</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {supportingProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl bg-deep-space/50 border border-white/5 hover:border-calm-blue/30 transition-all duration-400"
-              >
-                <div className="aspect-video overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-deep-space via-deep-space/50 to-transparent" />
-                </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {portfolioProjects.map((project, index) => {
+              const CardWrapper = project.link ? 'a' : 'div';
+              const linkProps = project.link
+                ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' }
+                : {};
 
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">
-                        {project.title}
-                      </h4>
-                      <p className="text-sm text-soft-gray">{project.subtitle}</p>
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <CardWrapper
+                    {...linkProps}
+                    className="group relative block overflow-hidden rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/10 hover:border-calm-blue/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-calm-blue/10"
+                  >
+                    <div className="aspect-[16/10] overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-space via-deep-space/30 to-transparent" />
                     </div>
-                    <Badge className="bg-gray-500/20 border-gray-400/30 text-gray-300 px-2.5 py-0.5 rounded-full text-xs">
-                      {project.badge}
-                    </Badge>
-                  </div>
 
-                  <p className="text-sm text-light-gray mb-4">
-                    {project.description}
-                  </p>
+                    <div className="p-5">
+                      <div className="flex items-start justify-between gap-3 mb-2">
+                        <h4 className="text-lg font-semibold text-white group-hover:text-sky-blue transition-colors">
+                          {project.title}
+                        </h4>
+                        <Badge
+                          className={`shrink-0 px-2.5 py-0.5 rounded-full text-xs ${
+                            project.badge === 'Interactive Demo'
+                              ? 'bg-emerald-500/20 border-emerald-400/30 text-emerald-300'
+                              : 'bg-gray-500/20 border-gray-400/30 text-gray-300'
+                          }`}
+                        >
+                          {project.badge}
+                        </Badge>
+                      </div>
 
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((tech) => (
-                      <Badge
-                        key={tech}
-                        className="bg-calm-blue/10 border border-calm-blue/20 text-sky-blue px-2 py-0.5 rounded-full text-xs"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                      <p className="text-sm text-light-gray">
+                        {project.description}
+                      </p>
+
+                      {project.link && (
+                        <div className="mt-3 flex items-center gap-1.5 text-sky-blue text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                          <span>View Demo</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </div>
+                      )}
+                    </div>
+                  </CardWrapper>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>
