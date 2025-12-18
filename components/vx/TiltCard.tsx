@@ -57,7 +57,7 @@ export default function TiltCard({
   return (
     <div
       ref={wrapperRef}
-      className="tilt-card-wrapper"
+      className="tilt-card-wrapper h-full"
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -67,7 +67,7 @@ export default function TiltCard({
     >
       <div
         ref={cardRef}
-        className={`tilt-card ${className}`}
+        className={`tilt-card h-full ${className}`}
         style={{
           transformStyle: 'preserve-3d',
           transform: `rotateX(${transform.rotateX}deg) rotateY(${transform.rotateY}deg) scale3d(${hoverScale}, ${hoverScale}, ${hoverScale})`,
@@ -95,7 +95,7 @@ export default function TiltCard({
           }}
         />
         <div
-          className="tilt-card-content"
+          className="tilt-card-content h-full"
           style={{
             position: 'relative',
             zIndex: 2,

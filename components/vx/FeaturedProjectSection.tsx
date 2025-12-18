@@ -10,12 +10,12 @@ import { AutoScrollImages } from '@/components/ui/auto-scroll-images';
 import { PortfolioGalleryModal } from '@/components/ui/portfolio-gallery-modal';
 
 const cspImages = [
-  '/csp_hero.png',
-  '/csp_what_we_do.png',
-  '/csp_animated_measurables.png',
-  '/csp_why.png',
-  '/csp_dynamic_automated_blog.png',
-  '/csp_cta.png',
+  { src: '/csp_hero.png', alt: 'Civic Strategy Partners website hero section - federal consulting firm homepage' },
+  { src: '/csp_what_we_do.png', alt: 'Civic Strategy Partners services section - government contracting expertise' },
+  { src: '/csp_animated_measurables.png', alt: 'Civic Strategy Partners metrics and results - performance statistics' },
+  { src: '/csp_why.png', alt: 'Civic Strategy Partners value proposition - why choose CSP' },
+  { src: '/csp_dynamic_automated_blog.png', alt: 'Civic Strategy Partners blog section - HubSpot integrated articles' },
+  { src: '/csp_cta.png', alt: 'Civic Strategy Partners contact section - call to action for consultations' },
 ];
 
 const portfolioProjects = [
@@ -30,6 +30,7 @@ const portfolioProjects = [
       '/2025-10-30_18_46_59-.png',
       '/2025-10-30_18_48_25-.png',
     ],
+    altText: 'Sales CRM dashboard with pipeline tracking, contact management, and real-time activity feeds',
     tags: ['React', 'Supabase', 'Real-time'],
     badge: 'Interactive Demo',
     liveUrl: 'https://crm-prototype-mu.vercel.app',
@@ -39,6 +40,7 @@ const portfolioProjects = [
     title: 'Commission Tracker',
     description: 'Real-time sales performance and payout management for restaurants.',
     images: ['/live_commission_tracking_mockup.png'],
+    altText: 'Restaurant commission tracking dashboard with real-time sales performance data',
     tags: ['Dashboard', 'Analytics'],
     badge: 'Concept',
   },
@@ -47,6 +49,7 @@ const portfolioProjects = [
     title: 'Purchase Management',
     description: 'Spending analytics, vendor tracking, and receipt management.',
     images: ['/purchase_management_dashboard_draft.png'],
+    altText: 'Purchase management dashboard with spending analytics and vendor tracking',
     tags: ['Finance', 'Reporting'],
     badge: 'Concept',
   },
@@ -55,6 +58,7 @@ const portfolioProjects = [
     title: 'Portfolio Analytics',
     description: 'Real-time portfolio tracking and performance visualization.',
     images: ['/2025-11-11_17_59_11-.png'],
+    altText: 'Portfolio analytics dashboard for wealth management with performance visualization',
     tags: ['Finance', 'Data Viz'],
     badge: 'Interactive Demo',
     liveUrl: '/premium_financial_dashboard.html',
@@ -145,7 +149,7 @@ export default function FeaturedProjectSection() {
                   <div className="aspect-[16/10] overflow-hidden">
                     <img
                       src={project.images[0]}
-                      alt={project.title}
+                      alt={project.altText}
                       className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />

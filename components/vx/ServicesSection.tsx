@@ -81,13 +81,13 @@ export default function ServicesSection() {
           </p>
         </FadeUpSection>
 
-        <div ref={cardsRef} className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {services.map((service, index) => {
+        <div ref={cardsRef} className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+          {services.map((service) => {
             const Icon = service.icon;
             return (
               <TiltCard
                 key={service.title}
-                className="service-card glass rounded-[24px] p-12 hover-glow group cursor-pointer relative overflow-hidden"
+                className="service-card glass rounded-[24px] p-12 hover-glow group cursor-pointer relative overflow-hidden flex flex-col"
                 maxTilt={20}
                 hoverGlow={true}
               >
@@ -103,7 +103,7 @@ export default function ServicesSection() {
                   </h3>
                 </div>
 
-                <div style={{ transform: 'translateZ(15px)', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitFontSmoothing: 'antialiased' }}>
+                <div className="flex-1" style={{ transform: 'translateZ(15px)', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitFontSmoothing: 'antialiased' }}>
                   <p className="text-base text-light-gray leading-[1.7]">
                     {service.description}
                   </p>
