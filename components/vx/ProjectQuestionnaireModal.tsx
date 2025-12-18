@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -73,6 +73,7 @@ export default function ProjectQuestionnaireModal({
   isOpen,
   onClose,
 }: ProjectQuestionnaireModalProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -89,6 +90,12 @@ export default function ProjectQuestionnaireModal({
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (isOpen && scrollRef.current) {
+      scrollRef.current.focus();
+    }
+  }, [isOpen]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -227,7 +234,9 @@ export default function ProjectQuestionnaireModal({
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl relative"
+            ref={scrollRef}
+            tabIndex={-1}
+            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl relative outline-none overscroll-contain"
             style={{
               background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(11, 17, 32, 0.98) 100%)',
               boxShadow: '0 0 60px rgba(74, 144, 226, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05)',

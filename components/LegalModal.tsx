@@ -1,7 +1,7 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface LegalModalProps {
   isOpen: boolean;
@@ -11,17 +11,29 @@ interface LegalModalProps {
 }
 
 export default function LegalModal({ isOpen, onClose, title, content }: LegalModalProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && scrollRef.current) {
+      scrollRef.current.focus();
+    }
+  }, [isOpen]);
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[80vh] bg-navy-darker border-white/10">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-white">{title}</DialogTitle>
         </DialogHeader>
-        <ScrollArea className="h-[60vh] pr-4">
+        <div
+          ref={scrollRef}
+          tabIndex={-1}
+          className="h-[60vh] pr-4 overflow-y-auto outline-none overscroll-contain"
+        >
           <div className="text-gray-300 space-y-6">
             {content}
           </div>
-        </ScrollArea>
+        </div>
       </DialogContent>
     </Dialog>
   );
