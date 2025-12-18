@@ -10,7 +10,6 @@ interface PortfolioProject {
   images: string[];
   tags?: string[];
   liveUrl?: string;
-  additionalDemos?: { label: string; url: string }[];
 }
 
 interface PortfolioGalleryModalProps {
@@ -120,29 +119,16 @@ export const PortfolioGalleryModal = ({ project, isOpen, onClose }: PortfolioGal
                 </div>
               )}
 
-              <div className="flex flex-wrap gap-3">
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors"
-                  >
-                    View Live Demo
-                  </a>
-                )}
-                {project.additionalDemos?.map((demo) => (
-                  <a
-                    key={demo.url}
-                    href={demo.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors"
-                  >
-                    {demo.label}
-                  </a>
-                ))}
-              </div>
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors"
+                >
+                  View Live Demo
+                </a>
+              )}
 
               {project.images.length > 1 && (
                 <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
