@@ -159,26 +159,10 @@ export default function ProjectQuestionnaireModal({
       if (dbError) throw dbError;
 
       try {
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-        await fetch(`${supabaseUrl}/functions/v1/submit-inquiry`, {
+        await fetch('/api/send-notification', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            company: formData.company,
-            industry: formData.industry,
-            teamSize: formData.teamSize,
-            challenges: formData.challenges,
-            services: formData.services,
-            budget: formData.budget,
-            timeline: formData.timeline,
-            additionalInfo: formData.additionalInfo,
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
         });
       } catch {
         // Email notification is non-critical
