@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import Navigation from '@/components/vx/Navigation';
 import HeroSection from '@/components/vx/HeroSection';
 import SmoothScroll from '@/components/vx/SmoothScroll';
-import CustomCursor from '@/components/vx/CustomCursor';
 
 const ServicesSection = dynamic(() => import('@/components/vx/ServicesSection'), {
   loading: () => null,
@@ -54,7 +53,6 @@ const Footer = dynamic(() => import('@/components/vx/Footer'), {
 export default function Home() {
   return (
     <SmoothScroll>
-      <CustomCursor />
       <main className="min-h-screen bg-space-navy text-light-gray overflow-x-hidden">
         <Navigation />
         <HeroSection />
