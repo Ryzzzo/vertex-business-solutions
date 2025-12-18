@@ -1,11 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { ContainerScroll } from '@/components/ui/container-scroll-animation';
 import { BrowserFrame } from '@/components/ui/browser-frame';
 import { AutoScrollImages } from '@/components/ui/auto-scroll-images';
+import { PortfolioGalleryModal } from '@/components/ui/portfolio-gallery-modal';
 
 const cspImages = [
   '/csp_hero.png',
@@ -18,40 +20,45 @@ const cspImages = [
 
 const portfolioProjects = [
   {
-    id: 1,
+    id: 'crm-dashboard',
     title: 'Sales CRM Dashboard',
-    description: 'Pipeline tracking, contact management, and activity feeds',
-    image: '/2025-10-30_18_46_08-.png',
+    description: 'Pipeline tracking, contact management, and activity feeds for sales teams.',
+    images: ['/2025-10-30_18_46_08-.png'],
+    tags: ['React', 'Supabase', 'Real-time'],
     badge: 'Interactive Demo',
-    link: 'https://crm-prototype-mu.vercel.app',
+    liveUrl: 'https://crm-prototype-mu.vercel.app',
   },
   {
-    id: 2,
+    id: 'commission-tracker',
     title: 'Commission Tracker',
-    description: 'Real-time sales performance and payout management',
-    image: '/live_commission_tracking_mockup.png',
+    description: 'Real-time sales performance and payout management for restaurants.',
+    images: ['/live_commission_tracking_mockup.png'],
+    tags: ['Dashboard', 'Analytics'],
     badge: 'Concept',
-    link: null,
   },
   {
-    id: 3,
+    id: 'purchase-management',
     title: 'Purchase Management',
-    description: 'Spending analytics, vendor tracking, and receipt management',
-    image: '/purchase_management_dashboard_draft.png',
+    description: 'Spending analytics, vendor tracking, and receipt management.',
+    images: ['/purchase_management_dashboard_draft.png'],
+    tags: ['Finance', 'Reporting'],
     badge: 'Concept',
-    link: null,
   },
   {
-    id: 4,
+    id: 'portfolio-analytics',
     title: 'Portfolio Analytics',
-    description: 'Real-time portfolio tracking and performance visualization',
-    image: '/2025-11-11_17_59_11-.png',
+    description: 'Real-time portfolio tracking and performance visualization.',
+    images: ['/2025-11-11_17_59_11-.png'],
+    tags: ['Finance', 'Data Viz'],
     badge: 'Concept',
-    link: null,
   },
 ];
 
+type PortfolioProject = (typeof portfolioProjects)[number];
+
 export default function FeaturedProjectSection() {
+  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
+
   return (
     <section id="portfolio" className="relative overflow-hidden">
       <div className="absolute inset-0 bg-space-navy" />
@@ -116,68 +123,65 @@ export default function FeaturedProjectSection() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {portfolioProjects.map((project, index) => {
-              const CardWrapper = project.link ? 'a' : 'div';
-              const linkProps = project.link
-                ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' }
-                : {};
-
-              return (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+            {portfolioProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div
+                  onClick={() => setSelectedProject(project)}
+                  className="cursor-pointer group relative block overflow-hidden rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/10 hover:border-calm-blue/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-calm-blue/10"
                 >
-                  <CardWrapper
-                    {...linkProps}
-                    className="group relative block overflow-hidden rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/10 hover:border-calm-blue/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-calm-blue/10"
-                  >
-                    <div className="aspect-[16/10] overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-deep-space via-deep-space/30 to-transparent" />
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <img
+                      src={project.images[0]}
+                      alt={project.title}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-deep-space via-deep-space/30 to-transparent" />
+                  </div>
+
+                  <div className="p-5">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <h4 className="text-lg font-semibold text-white group-hover:text-sky-blue transition-colors">
+                        {project.title}
+                      </h4>
+                      <Badge
+                        className={`shrink-0 px-2.5 py-0.5 rounded-full text-xs ${
+                          project.badge === 'Interactive Demo'
+                            ? 'bg-emerald-500/20 border-emerald-400/30 text-emerald-300'
+                            : 'bg-gray-500/20 border-gray-400/30 text-gray-300'
+                        }`}
+                      >
+                        {project.badge}
+                      </Badge>
                     </div>
 
-                    <div className="p-5">
-                      <div className="flex items-start justify-between gap-3 mb-2">
-                        <h4 className="text-lg font-semibold text-white group-hover:text-sky-blue transition-colors">
-                          {project.title}
-                        </h4>
-                        <Badge
-                          className={`shrink-0 px-2.5 py-0.5 rounded-full text-xs ${
-                            project.badge === 'Interactive Demo'
-                              ? 'bg-emerald-500/20 border-emerald-400/30 text-emerald-300'
-                              : 'bg-gray-500/20 border-gray-400/30 text-gray-300'
-                          }`}
-                        >
-                          {project.badge}
-                        </Badge>
-                      </div>
+                    <p className="text-sm text-light-gray">
+                      {project.description}
+                    </p>
 
-                      <p className="text-sm text-light-gray">
-                        {project.description}
-                      </p>
-
-                      {project.link && (
-                        <div className="mt-3 flex items-center gap-1.5 text-sky-blue text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span>View Demo</span>
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </div>
-                      )}
+                    <div className="mt-3 flex items-center gap-1.5 text-sky-blue text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span>View Details</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </div>
-                  </CardWrapper>
-                </motion.div>
-              );
-            })}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
+
+      <PortfolioGalleryModal
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }
