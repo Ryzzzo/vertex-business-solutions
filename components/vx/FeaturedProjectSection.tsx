@@ -23,10 +23,13 @@ const portfolioProjects = [
     id: 'crm-dashboard',
     title: 'Sales CRM Dashboard',
     description: 'Pipeline tracking, contact management, and activity feeds for sales teams.',
-    images: ['/2025-10-30_18_46_08-.png'],
+    images: ['/2025-10-30_18_46_08-.png', '/2025-11-11_17_59_11-.png'],
     tags: ['React', 'Supabase', 'Real-time'],
     badge: 'Interactive Demo',
     liveUrl: 'https://crm-prototype-mu.vercel.app',
+    additionalDemos: [
+      { label: 'Wealth Dashboard Demo', url: '/premium_financial_dashboard.html' },
+    ],
   },
   {
     id: 'commission-tracker',
@@ -43,15 +46,6 @@ const portfolioProjects = [
     images: ['/purchase_management_dashboard_draft.png'],
     tags: ['Finance', 'Reporting'],
     badge: 'Concept',
-  },
-  {
-    id: 'portfolio-analytics',
-    title: 'Portfolio Analytics',
-    description: 'Real-time portfolio tracking and performance visualization.',
-    images: ['/2025-11-11_17_59_11-.png'],
-    tags: ['Finance', 'Data Viz'],
-    badge: 'Interactive Demo',
-    liveUrl: '/premium_financial_dashboard.html',
   },
 ];
 
