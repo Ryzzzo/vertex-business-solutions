@@ -50,7 +50,8 @@ const portfolioProjects = [
     description: 'Real-time portfolio tracking and performance visualization.',
     images: ['/2025-11-11_17_59_11-.png'],
     tags: ['Finance', 'Data Viz'],
-    badge: 'Concept',
+    badge: 'Interactive Demo',
+    liveUrl: '/premium_financial_dashboard.html',
   },
 ];
 
