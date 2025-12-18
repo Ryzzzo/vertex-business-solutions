@@ -15,12 +15,20 @@ export default function LegalModal({ isOpen, onClose, title, content }: LegalMod
 
   useEffect(() => {
     if (isOpen) {
+      // Stop Lenis smooth scroll
+      if ((window as any).lenis) {
+        (window as any).lenis.stop();
+      }
       // Prevent body scroll
       document.body.style.overflow = 'hidden';
       if (scrollRef.current) {
         scrollRef.current.focus();
       }
       return () => {
+        // Resume Lenis smooth scroll
+        if ((window as any).lenis) {
+          (window as any).lenis.start();
+        }
         document.body.style.overflow = '';
       };
     }
