@@ -40,8 +40,7 @@ const testimonials: Testimonial[] = [
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-blue via-space-navy to-dark-blue opacity-50"></div>
+    <section id="testimonials" className="section-padding relative overflow-hidden bg-space-navy">
 
       <div className="container relative z-10">
         <FadeUpSection>

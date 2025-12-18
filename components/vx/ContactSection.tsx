@@ -68,8 +68,8 @@ export default function ContactSection() {
           />
         ))}
 
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-space-navy to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-space-navy to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-space-navy to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-space-navy to-transparent" />
       </div>
 
       <div className="container relative z-10" ref={ref}>

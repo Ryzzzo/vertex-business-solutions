@@ -70,8 +70,7 @@ export default function ServicesSection() {
   }, []);
 
   return (
-    <section id="services" className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-space-navy via-dark-blue to-space-navy opacity-50" />
+    <section id="services" className="section-padding relative overflow-hidden bg-space-navy">
 
       <div className="container relative z-10">
         <FadeUpSection className="text-center mb-20">

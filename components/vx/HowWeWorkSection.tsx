@@ -39,7 +39,7 @@ const steps = [
 
 export default function HowWeWorkSection() {
   return (
-    <section id="process" className="relative py-32 overflow-hidden">
+    <section id="process" className="relative py-32 overflow-hidden bg-space-navy">
       <div className="container relative z-10">
         <FadeUpSection>
           <div className="text-center mb-20">

@@ -63,8 +63,7 @@ export default function PricingSection() {
   });
 
   return (
-    <section id="pricing" className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-deep-space via-space-navy to-deep-space" />
+    <section id="pricing" className="section-padding relative overflow-hidden bg-space-navy">
 
       <div className="container relative z-10" ref={ref}>
         <motion.div
