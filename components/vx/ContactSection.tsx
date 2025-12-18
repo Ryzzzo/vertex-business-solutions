@@ -50,27 +50,27 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="section-padding relative overflow-hidden"
-      style={{
-        background: 'linear-gradient(180deg, #0B1120 0%, #1A2332 50%, #0B1120 100%)',
-      }}
+      className="section-padding relative overflow-hidden bg-space-navy"
     >
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-calm-blue/10 rounded-full filter blur-[150px]" />
-      </div>
 
-      {[...Array(80)].map((_, i) => (
-        <div
-          key={i}
-          className="starfield animate-twinkle"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 3}s`,
-            animationDuration: `${2 + Math.random() * 2}s`,
-          }}
-        />
-      ))}
+        {[...Array(80)].map((_, i) => (
+          <div
+            key={i}
+            className="starfield animate-twinkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-space-navy to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-space-navy to-transparent" />
+      </div>
 
       <div className="container relative z-10" ref={ref}>
         <motion.div
