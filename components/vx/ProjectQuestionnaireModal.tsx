@@ -251,10 +251,12 @@ export default function ProjectQuestionnaireModal({
             onClick={(e) => e.stopPropagation()}
             ref={scrollRef}
             tabIndex={-1}
-            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl relative outline-none overscroll-contain"
+            data-lenis-prevent
+            className="w-full max-w-4xl max-h-[85vh] overflow-y-auto rounded-2xl relative outline-none"
             style={{
               background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(11, 17, 32, 0.98) 100%)',
               boxShadow: '0 0 60px rgba(74, 144, 226, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+              overscrollBehavior: 'contain',
             }}
           >
             <button
