@@ -1,9 +1,13 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Navigation from '@/components/vx/Navigation';
 import HeroSection from '@/components/vx/HeroSection';
-import SmoothScroll from '@/components/vx/SmoothScroll';
+
+const SmoothScroll = dynamic(() => import('@/components/vx/SmoothScroll'), {
+  ssr: false,
+});
 
 const ServicesSection = dynamic(() => import('@/components/vx/ServicesSection'), {
   loading: () => null,
@@ -50,9 +54,23 @@ const Footer = dynamic(() => import('@/components/vx/Footer'), {
   ssr: false
 });
 
+function PageContent({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <>{children}</>;
+  }
+
+  return <SmoothScroll>{children}</SmoothScroll>;
+}
+
 export default function Home() {
   return (
-    <SmoothScroll>
+    <PageContent>
       <main className="min-h-screen bg-space-navy text-light-gray overflow-x-hidden">
         <Navigation />
         <HeroSection />
@@ -66,6 +84,6 @@ export default function Home() {
         <ContactSection />
         <Footer />
       </main>
-    </SmoothScroll>
+    </PageContent>
   );
 }

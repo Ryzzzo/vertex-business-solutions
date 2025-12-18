@@ -1,14 +1,23 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 import { Database, ChartBar as BarChart3, Zap, Code as Code2 } from 'lucide-react';
-import SpaceBackground from './SpaceBackground';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import MagneticButton from './MagneticButton';
 import TiltCard from './TiltCard';
-import ConstellationParallax from './ConstellationParallax';
-import ProjectQuestionnaireModal from './ProjectQuestionnaireModal';
+
+const SpaceBackground = dynamic(() => import('./SpaceBackground'), {
+  ssr: false,
+});
+
+const ConstellationParallax = dynamic(() => import('./ConstellationParallax'), {
+  ssr: false,
+});
+
+const ProjectQuestionnaireModal = dynamic(() => import('./ProjectQuestionnaireModal'), {
+  ssr: false,
+});
 
 const floatingCards = [
   {
@@ -59,7 +68,11 @@ export default function HeroSection() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #0B1120 0%, #1A2332 100%)',
+      }}
     >
+      <div className="absolute inset-0 gradient-mesh" />
       <ConstellationParallax />
       <SpaceBackground />
 
