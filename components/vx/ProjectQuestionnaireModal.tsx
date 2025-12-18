@@ -252,7 +252,7 @@ export default function ProjectQuestionnaireModal({
             ref={scrollRef}
             tabIndex={-1}
             data-lenis-prevent
-            className="w-full max-w-4xl max-h-[85vh] overflow-y-auto rounded-2xl relative outline-none"
+            className="w-full max-w-5xl max-h-[85vh] overflow-y-auto rounded-2xl relative outline-none"
             style={{
               background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(11, 17, 32, 0.98) 100%)',
               boxShadow: '0 0 60px rgba(74, 144, 226, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05)',
@@ -277,306 +277,310 @@ export default function ProjectQuestionnaireModal({
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="space-y-5">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
-                        1
-                      </div>
-                      <h3 className="text-lg font-semibold text-white">Contact Information</h3>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm text-gray-300 mb-2">
-                          Your Name <span className="text-cyan-400">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          className={inputClasses(!!errors.name)}
-                          placeholder="John Smith"
-                        />
-                        {errors.name && (
-                          <p className="text-red-400 text-xs mt-1.5">{errors.name}</p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-sm text-gray-300 mb-2">
-                          Work Email <span className="text-cyan-400">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          className={inputClasses(!!errors.email)}
-                          placeholder="john@company.com"
-                        />
-                        {errors.email && (
-                          <p className="text-red-400 text-xs mt-1.5">{errors.email}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm text-gray-300 mb-2">
-                          Phone Number
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className={inputClasses(false)}
-                          placeholder="(555) 123-4567"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm text-gray-300 mb-2">
-                          Company Name
-                        </label>
-                        <input
-                          type="text"
-                          name="company"
-                          value={formData.company}
-                          onChange={handleChange}
-                          className={inputClasses(false)}
-                          placeholder="Acme Inc."
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-5">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
-                        2
-                      </div>
-                      <h3 className="text-lg font-semibold text-white">Your Business</h3>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm text-gray-300 mb-2">
-                          Industry <span className="text-cyan-400">*</span>
-                        </label>
-                        <div className="relative">
-                          <select
-                            name="industry"
-                            value={formData.industry}
-                            onChange={handleChange}
-                            className={selectClasses(!!errors.industry)}
-                          >
-                            <option value="" className="bg-slate-900">Select industry</option>
-                            {industryOptions.map((option) => (
-                              <option key={option} value={option} className="bg-slate-900">
-                                {option}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                    <div className="space-y-6">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-7 h-7 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
+                            1
                           </div>
+                          <h3 className="text-base font-semibold text-white">Contact Information</h3>
                         </div>
-                        {errors.industry && (
-                          <p className="text-red-400 text-xs mt-1.5">{errors.industry}</p>
-                        )}
-                      </div>
 
-                      <div>
-                        <label className="block text-sm text-gray-300 mb-2">
-                          Current Team Size <span className="text-cyan-400">*</span>
-                        </label>
-                        <div className="relative">
-                          <select
-                            name="teamSize"
-                            value={formData.teamSize}
-                            onChange={handleChange}
-                            className={selectClasses(!!errors.teamSize)}
-                          >
-                            <option value="" className="bg-slate-900">Select team size</option>
-                            {teamSizeOptions.map((option) => (
-                              <option key={option} value={option} className="bg-slate-900">
-                                {option}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                          </div>
-                        </div>
-                        {errors.teamSize && (
-                          <p className="text-red-400 text-xs mt-1.5">{errors.teamSize}</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-5">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
-                        3
-                      </div>
-                      <h3 className="text-lg font-semibold text-white">Your Project</h3>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm text-gray-300 mb-2">
-                        What challenges are you looking to solve? <span className="text-cyan-400">*</span>
-                      </label>
-                      <textarea
-                        name="challenges"
-                        value={formData.challenges}
-                        onChange={handleChange}
-                        rows={4}
-                        className={`${inputClasses(!!errors.challenges)} resize-none`}
-                        placeholder="Tell us about the specific challenges or pain points you're facing..."
-                      />
-                      {errors.challenges && (
-                        <p className="text-red-400 text-xs mt-1.5">{errors.challenges}</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-sm text-gray-300 mb-3">
-                        Which solutions are you interested in? <span className="text-cyan-400">*</span>
-                      </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {serviceOptions.map((service) => (
-                          <label
-                            key={service}
-                            className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-                              formData.services.includes(service)
-                                ? 'bg-calm-blue/10 border-calm-blue/40'
-                                : 'bg-white/[0.02] border-white/10 hover:border-white/20'
-                            }`}
-                          >
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-sm text-gray-300 mb-1.5">
+                              Your Name <span className="text-cyan-400">*</span>
+                            </label>
                             <input
-                              type="checkbox"
-                              checked={formData.services.includes(service)}
-                              onChange={() => handleCheckboxChange(service)}
-                              className="w-4 h-4 rounded border-white/20 bg-transparent text-calm-blue focus:ring-calm-blue focus:ring-offset-0"
+                              type="text"
+                              name="name"
+                              value={formData.name}
+                              onChange={handleChange}
+                              className={inputClasses(!!errors.name)}
+                              placeholder="John Smith"
                             />
-                            <span className="text-sm text-gray-200">{service}</span>
-                          </label>
-                        ))}
+                            {errors.name && (
+                              <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+                            )}
+                          </div>
+
+                          <div>
+                            <label className="block text-sm text-gray-300 mb-1.5">
+                              Work Email <span className="text-cyan-400">*</span>
+                            </label>
+                            <input
+                              type="email"
+                              name="email"
+                              value={formData.email}
+                              onChange={handleChange}
+                              className={inputClasses(!!errors.email)}
+                              placeholder="john@company.com"
+                            />
+                            {errors.email && (
+                              <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+                            )}
+                          </div>
+
+                          <div>
+                            <label className="block text-sm text-gray-300 mb-1.5">
+                              Phone Number
+                            </label>
+                            <input
+                              type="tel"
+                              name="phone"
+                              value={formData.phone}
+                              onChange={handleChange}
+                              className={inputClasses(false)}
+                              placeholder="(555) 123-4567"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-sm text-gray-300 mb-1.5">
+                              Company Name
+                            </label>
+                            <input
+                              type="text"
+                              name="company"
+                              value={formData.company}
+                              onChange={handleChange}
+                              className={inputClasses(false)}
+                              placeholder="Acme Inc."
+                            />
+                          </div>
+                        </div>
                       </div>
-                      {errors.services && (
-                        <p className="text-red-400 text-xs mt-2">{errors.services}</p>
-                      )}
+
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-7 h-7 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
+                            3
+                          </div>
+                          <h3 className="text-base font-semibold text-white">Your Project</h3>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm text-gray-300 mb-1.5">
+                            What challenges are you looking to solve? <span className="text-cyan-400">*</span>
+                          </label>
+                          <textarea
+                            name="challenges"
+                            value={formData.challenges}
+                            onChange={handleChange}
+                            rows={4}
+                            className={`${inputClasses(!!errors.challenges)} resize-none`}
+                            placeholder="Tell us about the specific challenges or pain points you're facing..."
+                          />
+                          {errors.challenges && (
+                            <p className="text-red-400 text-xs mt-1">{errors.challenges}</p>
+                          )}
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-sm text-gray-300 mb-1.5">
+                              Project Budget <span className="text-cyan-400">*</span>
+                            </label>
+                            <div className="relative">
+                              <select
+                                name="budget"
+                                value={formData.budget}
+                                onChange={handleChange}
+                                className={selectClasses(!!errors.budget)}
+                              >
+                                <option value="" className="bg-slate-900">Select budget</option>
+                                {budgetOptions.map((option) => (
+                                  <option key={option} value={option} className="bg-slate-900">
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                              </div>
+                            </div>
+                            {errors.budget && (
+                              <p className="text-red-400 text-xs mt-1">{errors.budget}</p>
+                            )}
+                          </div>
+
+                          <div>
+                            <label className="block text-sm text-gray-300 mb-1.5">
+                              Timeline <span className="text-cyan-400">*</span>
+                            </label>
+                            <div className="relative">
+                              <select
+                                name="timeline"
+                                value={formData.timeline}
+                                onChange={handleChange}
+                                className={selectClasses(!!errors.timeline)}
+                              >
+                                <option value="" className="bg-slate-900">Select timeline</option>
+                                {timelineOptions.map((option) => (
+                                  <option key={option} value={option} className="bg-slate-900">
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                              </div>
+                            </div>
+                            {errors.timeline && (
+                              <p className="text-red-400 text-xs mt-1">{errors.timeline}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm text-gray-300 mb-2">
-                          Project Budget <span className="text-cyan-400">*</span>
-                        </label>
-                        <div className="relative">
-                          <select
-                            name="budget"
-                            value={formData.budget}
-                            onChange={handleChange}
-                            className={selectClasses(!!errors.budget)}
-                          >
-                            <option value="" className="bg-slate-900">Select budget range</option>
-                            {budgetOptions.map((option) => (
-                              <option key={option} value={option} className="bg-slate-900">
-                                {option}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
+                    <div className="space-y-6">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-7 h-7 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
+                            2
+                          </div>
+                          <h3 className="text-base font-semibold text-white">Your Business</h3>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div>
+                            <label className="block text-sm text-gray-300 mb-1.5">
+                              Industry <span className="text-cyan-400">*</span>
+                            </label>
+                            <div className="relative">
+                              <select
+                                name="industry"
+                                value={formData.industry}
+                                onChange={handleChange}
+                                className={selectClasses(!!errors.industry)}
+                              >
+                                <option value="" className="bg-slate-900">Select industry</option>
+                                {industryOptions.map((option) => (
+                                  <option key={option} value={option} className="bg-slate-900">
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                              </div>
+                            </div>
+                            {errors.industry && (
+                              <p className="text-red-400 text-xs mt-1">{errors.industry}</p>
+                            )}
+                          </div>
+
+                          <div>
+                            <label className="block text-sm text-gray-300 mb-1.5">
+                              Current Team Size <span className="text-cyan-400">*</span>
+                            </label>
+                            <div className="relative">
+                              <select
+                                name="teamSize"
+                                value={formData.teamSize}
+                                onChange={handleChange}
+                                className={selectClasses(!!errors.teamSize)}
+                              >
+                                <option value="" className="bg-slate-900">Select team size</option>
+                                {teamSizeOptions.map((option) => (
+                                  <option key={option} value={option} className="bg-slate-900">
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                              </div>
+                            </div>
+                            {errors.teamSize && (
+                              <p className="text-red-400 text-xs mt-1">{errors.teamSize}</p>
+                            )}
                           </div>
                         </div>
-                        {errors.budget && (
-                          <p className="text-red-400 text-xs mt-1.5">{errors.budget}</p>
-                        )}
                       </div>
 
-                      <div>
-                        <label className="block text-sm text-gray-300 mb-2">
-                          Timeline <span className="text-cyan-400">*</span>
+                      <div className="space-y-4">
+                        <label className="block text-sm text-gray-300">
+                          Which solutions are you interested in? <span className="text-cyan-400">*</span>
                         </label>
-                        <div className="relative">
-                          <select
-                            name="timeline"
-                            value={formData.timeline}
-                            onChange={handleChange}
-                            className={selectClasses(!!errors.timeline)}
-                          >
-                            <option value="" className="bg-slate-900">Select timeline</option>
-                            {timelineOptions.map((option) => (
-                              <option key={option} value={option} className="bg-slate-900">
-                                {option}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                          </div>
+                        <div className="space-y-2">
+                          {serviceOptions.map((service) => (
+                            <label
+                              key={service}
+                              className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
+                                formData.services.includes(service)
+                                  ? 'bg-calm-blue/10 border-calm-blue/40'
+                                  : 'bg-white/[0.02] border-white/10 hover:border-white/20'
+                              }`}
+                            >
+                              <input
+                                type="checkbox"
+                                checked={formData.services.includes(service)}
+                                onChange={() => handleCheckboxChange(service)}
+                                className="w-4 h-4 rounded border-white/20 bg-transparent text-calm-blue focus:ring-calm-blue focus:ring-offset-0"
+                              />
+                              <span className="text-sm text-gray-200">{service}</span>
+                            </label>
+                          ))}
                         </div>
-                        {errors.timeline && (
-                          <p className="text-red-400 text-xs mt-1.5">{errors.timeline}</p>
+                        {errors.services && (
+                          <p className="text-red-400 text-xs mt-1">{errors.services}</p>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-5">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
+                  <div className="space-y-4 pt-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-7 h-7 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
                         4
                       </div>
-                      <h3 className="text-lg font-semibold text-white">Additional Details</h3>
+                      <h3 className="text-base font-semibold text-white">Additional Details</h3>
                     </div>
 
                     <div>
-                      <label className="block text-sm text-gray-300 mb-2">
+                      <label className="block text-sm text-gray-300 mb-1.5">
                         Anything else we should know?
                       </label>
                       <textarea
                         name="additionalInfo"
                         value={formData.additionalInfo}
                         onChange={handleChange}
-                        rows={3}
+                        rows={2}
                         className={`${inputClasses(false)} resize-none`}
                         placeholder="Any additional context, requirements, or questions..."
                       />
                     </div>
-                  </div>
 
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-calm-blue hover:bg-calm-blue/90 text-white h-12 rounded-xl text-base font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Submitting...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4" />
-                        Submit Inquiry
-                      </>
-                    )}
-                  </Button>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-calm-blue hover:bg-calm-blue/90 text-white h-12 rounded-xl text-base font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          Submit Inquiry
+                        </>
+                      )}
+                    </Button>
+                  </div>
                 </form>
               </div>
             ) : (
