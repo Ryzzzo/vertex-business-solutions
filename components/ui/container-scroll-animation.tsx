@@ -1,6 +1,8 @@
 "use client";
 import React, { useRef } from "react";
-import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import { useScroll, useTransform, useSpring, motion, MotionValue } from "framer-motion";
+
+const springConfig = { stiffness: 100, damping: 30, mass: 1 };
 
 export const ContainerScroll = ({
   titleComponent,
@@ -27,16 +29,20 @@ export const ContainerScroll = ({
   }, []);
 
   const scaleDimensions = () => {
-    return isMobile ? [0.7, 0.9] : [1.05, 1];
+    return isMobile ? [0.7, 0.85, 0.9] : [1.05, 1.02, 1];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const rotate = useTransform(scrollYProgress, [0, 0.5, 1], [20, 10, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], scaleDimensions());
+  const translate = useTransform(scrollYProgress, [0, 0.5, 1], [0, -50, -100]);
+
+  const smoothRotate = useSpring(rotate, springConfig);
+  const smoothScale = useSpring(scale, springConfig);
+  const smoothTranslate = useSpring(translate, springConfig);
 
   return (
     <div
-      className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20"
+      className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20 pt-32 md:pt-48"
       ref={containerRef}
     >
       <div
@@ -45,8 +51,8 @@ export const ContainerScroll = ({
           perspective: "1000px",
         }}
       >
-        <Header translate={translate} titleComponent={titleComponent} />
-        <Card rotate={rotate} scale={scale}>
+        <Header translate={smoothTranslate} titleComponent={titleComponent} />
+        <Card rotate={smoothRotate} scale={smoothScale}>
           {children}
         </Card>
       </div>
