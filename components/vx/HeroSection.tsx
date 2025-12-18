@@ -76,6 +76,8 @@ export default function HeroSection() {
       <ConstellationParallax />
       <SpaceBackground />
 
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-space-navy to-transparent z-[5]" />
+
       <div className="container relative py-32" style={{ zIndex: 10 }}>
         <div className="relative max-w-6xl mx-auto" style={{ isolation: 'isolate' }}>
           {floatingCards.map((card, index) => {
