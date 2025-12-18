@@ -92,8 +92,15 @@ export default function ProjectQuestionnaireModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (isOpen && scrollRef.current) {
-      scrollRef.current.focus();
+    if (isOpen) {
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+      if (scrollRef.current) {
+        scrollRef.current.focus();
+      }
+      return () => {
+        document.body.style.overflow = '';
+      };
     }
   }, [isOpen]);
 
@@ -222,7 +229,7 @@ export default function ProjectQuestionnaireModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleClose}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden"
           style={{
             background: 'rgba(8, 12, 24, 0.9)',
             backdropFilter: 'blur(12px)',

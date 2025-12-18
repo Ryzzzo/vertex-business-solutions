@@ -14,8 +14,15 @@ export default function LegalModal({ isOpen, onClose, title, content }: LegalMod
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen && scrollRef.current) {
-      scrollRef.current.focus();
+    if (isOpen) {
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+      if (scrollRef.current) {
+        scrollRef.current.focus();
+      }
+      return () => {
+        document.body.style.overflow = '';
+      };
     }
   }, [isOpen]);
 
