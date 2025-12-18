@@ -216,10 +216,6 @@ export default function SpaceBackground() {
     [isMobile]
   );
 
-  if (!init) {
-    return null;
-  }
-
   return (
     <div ref={containerRef} className="absolute inset-0">
       <div
@@ -228,9 +224,11 @@ export default function SpaceBackground() {
         style={{ willChange: 'transform' }}
       />
 
-      <div className="absolute inset-0 z-0">
-        <ConstellationParticles isMobile={isMobile} />
-      </div>
+      {init && (
+        <div className="absolute inset-0 z-0">
+          <ConstellationParticles isMobile={isMobile} />
+        </div>
+      )}
 
       <div
         ref={starfieldRef}
