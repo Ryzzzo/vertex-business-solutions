@@ -77,7 +77,7 @@ export default function FeaturedProjectSection() {
       <div className="relative z-10">
         <div className="overflow-hidden">
           <ContainerScroll
-            titleComponent={
+            titleComponent={(buttonOpacity) => (
               <div className="text-center max-w-3xl mx-auto px-4">
                 <Badge className="inline-block bg-calm-blue/20 border-calm-blue/40 text-sky-blue px-4 py-1.5 rounded-full text-sm mb-6">
                   Featured Project
@@ -103,17 +103,19 @@ export default function FeaturedProjectSection() {
                   ))}
                 </div>
 
-                <a
-                  href="https://civicstrategypartners.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-calm-blue hover:bg-calm-blue/90 text-white font-medium rounded-full transition-all duration-300 group"
-                >
-                  View Live Site
-                  <ExternalLink size={18} className="transition-transform group-hover:translate-x-0.5" />
-                </a>
+                <motion.div style={{ opacity: buttonOpacity }}>
+                  <a
+                    href="https://civicstrategypartners.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-calm-blue hover:bg-calm-blue/90 text-white font-medium rounded-full transition-all duration-300 group"
+                  >
+                    View Live Site
+                    <ExternalLink size={18} className="transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                </motion.div>
               </div>
-            }
+            )}
           >
             <BrowserFrame url="civicstrategypartners.com">
               <AutoScrollImages images={cspImages} />

@@ -8,7 +8,7 @@ export const ContainerScroll = ({
   titleComponent,
   children,
 }: {
-  titleComponent: string | React.ReactNode;
+  titleComponent: string | React.ReactNode | ((buttonOpacity: MotionValue<number>) => React.ReactNode);
   children: React.ReactNode;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,14 +35,16 @@ export const ContainerScroll = ({
   const rotate = useTransform(scrollYProgress, [0, 0.5, 1], [20, 10, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], scaleDimensions());
   const translate = useTransform(scrollYProgress, [0, 0.5, 1], [0, -50, -100]);
+  const buttonOpacity = useTransform(scrollYProgress, [0, 0.75, 0.9], [0, 0, 1]);
 
   const smoothRotate = useSpring(rotate, springConfig);
   const smoothScale = useSpring(scale, springConfig);
   const smoothTranslate = useSpring(translate, springConfig);
+  const smoothButtonOpacity = useSpring(buttonOpacity, springConfig);
 
   return (
     <div
-      className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20 pt-32 md:pt-48"
+      className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20 pt-16 md:pt-20"
       ref={containerRef}
     >
       <div
@@ -51,7 +53,7 @@ export const ContainerScroll = ({
           perspective: "1000px",
         }}
       >
-        <Header translate={smoothTranslate} titleComponent={titleComponent} />
+        <Header translate={smoothTranslate} titleComponent={titleComponent} buttonOpacity={smoothButtonOpacity} />
         <Card rotate={smoothRotate} scale={smoothScale}>
           {children}
         </Card>
@@ -63,10 +65,14 @@ export const ContainerScroll = ({
 const Header = ({
   translate,
   titleComponent,
+  buttonOpacity,
 }: {
   translate: MotionValue<number>;
-  titleComponent: string | React.ReactNode;
+  titleComponent: string | React.ReactNode | ((buttonOpacity: MotionValue<number>) => React.ReactNode);
+  buttonOpacity: MotionValue<number>;
 }) => {
+  const content = typeof titleComponent === 'function' ? titleComponent(buttonOpacity) : titleComponent;
+
   return (
     <motion.div
       style={{
@@ -74,7 +80,7 @@ const Header = ({
       }}
       className="max-w-5xl mx-auto text-center"
     >
-      {titleComponent}
+      {content}
     </motion.div>
   );
 };
