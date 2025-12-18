@@ -71,53 +71,55 @@ export default function FeaturedProjectSection() {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
 
   return (
-    <section id="portfolio" className="relative overflow-hidden pt-32 md:pt-48">
+    <section id="portfolio" className="relative">
       <div className="absolute inset-0 bg-space-navy" />
 
       <div className="relative z-10">
-        <ContainerScroll
-          titleComponent={
-            <div className="text-center max-w-3xl mx-auto px-4">
-              <Badge className="inline-block bg-calm-blue/20 border-calm-blue/40 text-sky-blue px-4 py-1.5 rounded-full text-sm mb-6">
-                Featured Project
-              </Badge>
+        <div className="overflow-hidden">
+          <ContainerScroll
+            titleComponent={
+              <div className="text-center max-w-3xl mx-auto px-4">
+                <Badge className="inline-block bg-calm-blue/20 border-calm-blue/40 text-sky-blue px-4 py-1.5 rounded-full text-sm mb-6">
+                  Featured Project
+                </Badge>
 
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-5">
-                Government Consulting Firm Website
-              </h2>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-5">
+                  Government Consulting Firm Website
+                </h2>
 
-              <p className="text-gray-400 text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
-                Professional website for a federal contracting consultant.
-                Modern design, fast performance, mobile-optimized.
-              </p>
+                <p className="text-gray-400 text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
+                  Professional website for a federal contracting consultant.
+                  Modern design, fast performance, mobile-optimized.
+                </p>
 
-              <div className="flex flex-wrap gap-2 justify-center mb-8">
-                {['React', 'HubSpot API', 'Vercel', 'Responsive'].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 bg-white/5 border border-white/10 text-gray-300 rounded-full text-sm"
-                  >
-                    {tag}
-                  </span>
-                ))}
+                <div className="flex flex-wrap gap-2 justify-center mb-8">
+                  {['React', 'HubSpot API', 'Vercel', 'Responsive'].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-white/5 border border-white/10 text-gray-300 rounded-full text-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href="https://civicstrategypartners.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-calm-blue hover:bg-calm-blue/90 text-white font-medium rounded-full transition-all duration-300 group"
+                >
+                  View Live Site
+                  <ExternalLink size={18} className="transition-transform group-hover:translate-x-0.5" />
+                </a>
               </div>
-
-              <a
-                href="https://civicstrategypartners.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-calm-blue hover:bg-calm-blue/90 text-white font-medium rounded-full transition-all duration-300 group"
-              >
-                View Live Site
-                <ExternalLink size={18} className="transition-transform group-hover:translate-x-0.5" />
-              </a>
-            </div>
-          }
-        >
-          <BrowserFrame url="civicstrategypartners.com">
-            <AutoScrollImages images={cspImages} />
-          </BrowserFrame>
-        </ContainerScroll>
+            }
+          >
+            <BrowserFrame url="civicstrategypartners.com">
+              <AutoScrollImages images={cspImages} />
+            </BrowserFrame>
+          </ContainerScroll>
+        </div>
 
         <div className="container pb-24 md:pb-32">
           <motion.div
