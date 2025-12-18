@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, CheckCircle2 } from 'lucide-react';
+import { X, Send, CheckCircle2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/lib/supabase';
 
 interface ProjectQuestionnaireModalProps {
   isOpen: boolean;
@@ -27,6 +28,46 @@ interface FormData {
 interface ValidationErrors {
   [key: string]: string;
 }
+
+const industryOptions = [
+  'E-commerce / Retail',
+  'Healthcare / Medical',
+  'Technology / SaaS',
+  'Manufacturing / Distribution',
+  'Professional Services',
+  'Real Estate',
+  'Financial Services',
+  'Other',
+];
+
+const teamSizeOptions = [
+  'Just me (Solo)',
+  '2-10 employees',
+  '11-50 employees',
+  '51-200 employees',
+  '200+ employees',
+];
+
+const serviceOptions = [
+  'Business Website',
+  'Custom Web Application',
+  'Workflow Automation',
+  "I'm not sure - need consultation",
+];
+
+const budgetOptions = [
+  '$1,500 - $2,500',
+  '$2,500 - $4,000',
+  '$4,000+',
+  'Not sure yet',
+];
+
+const timelineOptions = [
+  '1-2 weeks',
+  '2-3 weeks',
+  '3-4 weeks',
+  'Flexible',
+];
 
 export default function ProjectQuestionnaireModal({
   isOpen,
@@ -80,11 +121,10 @@ export default function ProjectQuestionnaireModal({
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email';
     }
-    if (!formData.company.trim()) newErrors.company = 'Company name is required';
     if (!formData.industry) newErrors.industry = 'Please select an industry';
     if (!formData.teamSize) newErrors.teamSize = 'Please select team size';
     if (!formData.challenges.trim()) newErrors.challenges = 'Please describe your challenges';
-    if (formData.services.length === 0) newErrors.services = 'Please select at least one solution';
+    if (formData.services.length === 0) newErrors.services = 'Please select at least one option';
     if (!formData.budget) newErrors.budget = 'Please select a budget range';
     if (!formData.timeline) newErrors.timeline = 'Please select a timeline';
 
@@ -102,28 +142,49 @@ export default function ProjectQuestionnaireModal({
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://hook.us2.make.com/tu8em26netjr67prhwrfp27um547vx9c', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          company: formData.company,
-          industry: formData.industry,
-          services: formData.services,
-          budget: formData.budget,
-          timeline: formData.timeline,
-          challenges: formData.challenges,
-          additionalInfo: formData.additionalInfo,
-        }),
+      const { error: dbError } = await supabase.from('inquiries').insert({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || null,
+        company: formData.company || null,
+        industry: formData.industry,
+        team_size: formData.teamSize,
+        challenges: formData.challenges,
+        services: formData.services,
+        budget: formData.budget,
+        timeline: formData.timeline,
+        additional_info: formData.additionalInfo || null,
       });
 
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        throw new Error('Failed to submit form');
+      if (dbError) throw dbError;
+
+      try {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        await fetch(`${supabaseUrl}/functions/v1/submit-inquiry`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company,
+            industry: formData.industry,
+            teamSize: formData.teamSize,
+            challenges: formData.challenges,
+            services: formData.services,
+            budget: formData.budget,
+            timeline: formData.timeline,
+            additionalInfo: formData.additionalInfo,
+          }),
+        });
+      } catch {
+        // Email notification is non-critical
       }
+
+      setIsSubmitted(true);
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('Something went wrong. Please try again or email us directly.');
@@ -151,14 +212,15 @@ export default function ProjectQuestionnaireModal({
     onClose();
   };
 
-  const serviceOptions = [
-    'Custom Dashboard Development',
-    'CRM System',
-    'Business Intelligence & Reporting',
-    'Workflow Automation',
-    'Data Visualization',
-    "I'm not sure - need consultation",
-  ];
+  const inputClasses = (hasError: boolean) =>
+    `w-full bg-white/[0.03] backdrop-blur-sm border ${
+      hasError ? 'border-red-500' : 'border-white/10 hover:border-white/20 focus:border-calm-blue'
+    } rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none transition-colors`;
+
+  const selectClasses = (hasError: boolean) =>
+    `w-full bg-white/[0.03] backdrop-blur-sm border ${
+      hasError ? 'border-red-500' : 'border-white/10 hover:border-white/20 focus:border-calm-blue'
+    } rounded-xl px-4 py-3 text-white focus:outline-none transition-colors appearance-none cursor-pointer`;
 
   return (
     <AnimatePresence>
@@ -170,85 +232,88 @@ export default function ProjectQuestionnaireModal({
           onClick={handleClose}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           style={{
-            background: 'rgba(8, 12, 24, 0.85)',
-            backdropFilter: 'blur(8px)',
+            background: 'rgba(8, 12, 24, 0.9)',
+            backdropFilter: 'blur(12px)',
           }}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             onClick={(e) => e.stopPropagation()}
-            className="glass w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-[24px] p-8 relative"
+            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl relative"
             style={{
-              boxShadow: '0 0 40px rgba(74, 144, 226, 0.2)',
+              background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(11, 17, 32, 0.98) 100%)',
+              boxShadow: '0 0 60px rgba(74, 144, 226, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05)',
             }}
           >
             <button
               onClick={handleClose}
-              className="absolute top-6 right-6 text-soft-gray hover:text-white transition-colors z-10"
+              className="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors z-10 p-1"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </button>
 
             {!isSubmitted ? (
-              <>
-                <h2 className="text-3xl font-bold text-white mb-2 text-glow">
-                  Let's Build Something Together
-                </h2>
-                <p className="text-soft-gray mb-8">
-                  Tell us about your project and we'll get back to you within 24 hours.
-                </p>
+              <div className="p-8">
+                <div className="mb-8">
+                  <h2 className="text-2xl font-bold text-white mb-2">
+                    Start Your Project
+                  </h2>
+                  <p className="text-gray-400">
+                    Tell us about your project and we'll get back to you within 24 hours.
+                  </p>
+                </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="space-y-6">
-                    <h3 className="text-lg font-semibold text-white border-b border-calm-blue/20 pb-2">
-                      Contact Information
-                    </h3>
+                  <div className="space-y-5">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
+                        1
+                      </div>
+                      <h3 className="text-lg font-semibold text-white">Contact Information</h3>
+                    </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-light-gray mb-2 font-medium">
-                          Your Name <span className="text-calm-blue">*</span>
+                        <label className="block text-sm text-gray-300 mb-2">
+                          Your Name <span className="text-cyan-400">*</span>
                         </label>
                         <input
                           type="text"
                           name="name"
                           value={formData.name}
                           onChange={handleChange}
-                          className={`w-full form-input-glass border ${
-                            errors.name ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors`}
+                          className={inputClasses(!!errors.name)}
                           placeholder="John Smith"
                         />
                         {errors.name && (
-                          <p className="text-red-400 text-sm mt-1">{errors.name}</p>
+                          <p className="text-red-400 text-xs mt-1.5">{errors.name}</p>
                         )}
                       </div>
 
                       <div>
-                        <label className="block text-light-gray mb-2 font-medium">
-                          Work Email <span className="text-calm-blue">*</span>
+                        <label className="block text-sm text-gray-300 mb-2">
+                          Work Email <span className="text-cyan-400">*</span>
                         </label>
                         <input
                           type="email"
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
-                          className={`w-full form-input-glass border ${
-                            errors.email ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors`}
+                          className={inputClasses(!!errors.email)}
                           placeholder="john@company.com"
                         />
                         {errors.email && (
-                          <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                          <p className="text-red-400 text-xs mt-1.5">{errors.email}</p>
                         )}
                       </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-light-gray mb-2 font-medium">
+                        <label className="block text-sm text-gray-300 mb-2">
                           Phone Number
                         </label>
                         <input
@@ -256,200 +321,221 @@ export default function ProjectQuestionnaireModal({
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full form-input-glass border border-calm-blue/30 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors"
+                          className={inputClasses(false)}
                           placeholder="(555) 123-4567"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-light-gray mb-2 font-medium">
-                          Company Name <span className="text-calm-blue">*</span>
+                        <label className="block text-sm text-gray-300 mb-2">
+                          Company Name
                         </label>
                         <input
                           type="text"
                           name="company"
                           value={formData.company}
                           onChange={handleChange}
-                          className={`w-full form-input-glass border ${
-                            errors.company ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors`}
+                          className={inputClasses(false)}
                           placeholder="Acme Inc."
                         />
-                        {errors.company && (
-                          <p className="text-red-400 text-sm mt-1">{errors.company}</p>
-                        )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-6">
-                    <h3 className="text-lg font-semibold text-white border-b border-calm-blue/20 pb-2">
-                      Your Business
-                    </h3>
+                  <div className="space-y-5">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
+                        2
+                      </div>
+                      <h3 className="text-lg font-semibold text-white">Your Business</h3>
+                    </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-light-gray mb-2 font-medium">
-                          Industry <span className="text-calm-blue">*</span>
+                        <label className="block text-sm text-gray-300 mb-2">
+                          Industry <span className="text-cyan-400">*</span>
                         </label>
-                        <select
-                          name="industry"
-                          value={formData.industry}
-                          onChange={handleChange}
-                          className={`w-full form-input-glass border ${
-                            errors.industry ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
-                        >
-                          <option value="" className="bg-space-navy text-white">Select industry</option>
-                          <option value="E-commerce / Retail" className="bg-space-navy text-white">E-commerce / Retail</option>
-                          <option value="Healthcare / Medical" className="bg-space-navy text-white">Healthcare / Medical</option>
-                          <option value="Technology / SaaS" className="bg-space-navy text-white">Technology / SaaS</option>
-                          <option value="Manufacturing / Distribution" className="bg-space-navy text-white">Manufacturing / Distribution</option>
-                          <option value="Professional Services" className="bg-space-navy text-white">Professional Services</option>
-                          <option value="Real Estate" className="bg-space-navy text-white">Real Estate</option>
-                          <option value="Financial Services" className="bg-space-navy text-white">Financial Services</option>
-                          <option value="Other" className="bg-space-navy text-white">Other</option>
-                        </select>
+                        <div className="relative">
+                          <select
+                            name="industry"
+                            value={formData.industry}
+                            onChange={handleChange}
+                            className={selectClasses(!!errors.industry)}
+                          >
+                            <option value="" className="bg-slate-900">Select industry</option>
+                            {industryOptions.map((option) => (
+                              <option key={option} value={option} className="bg-slate-900">
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </div>
+                        </div>
                         {errors.industry && (
-                          <p className="text-red-400 text-sm mt-1">{errors.industry}</p>
+                          <p className="text-red-400 text-xs mt-1.5">{errors.industry}</p>
                         )}
                       </div>
 
                       <div>
-                        <label className="block text-light-gray mb-2 font-medium">
-                          Current Team Size <span className="text-calm-blue">*</span>
+                        <label className="block text-sm text-gray-300 mb-2">
+                          Current Team Size <span className="text-cyan-400">*</span>
                         </label>
-                        <select
-                          name="teamSize"
-                          value={formData.teamSize}
-                          onChange={handleChange}
-                          className={`w-full form-input-glass border ${
-                            errors.teamSize ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
-                        >
-                          <option value="" className="bg-space-navy text-white">Select team size</option>
-                          <option value="Just me (Solo)" className="bg-space-navy text-white">Just me (Solo)</option>
-                          <option value="2-10 employees" className="bg-space-navy text-white">2-10 employees</option>
-                          <option value="11-50 employees" className="bg-space-navy text-white">11-50 employees</option>
-                          <option value="51-200 employees" className="bg-space-navy text-white">51-200 employees</option>
-                          <option value="200+ employees" className="bg-space-navy text-white">200+ employees</option>
-                        </select>
+                        <div className="relative">
+                          <select
+                            name="teamSize"
+                            value={formData.teamSize}
+                            onChange={handleChange}
+                            className={selectClasses(!!errors.teamSize)}
+                          >
+                            <option value="" className="bg-slate-900">Select team size</option>
+                            {teamSizeOptions.map((option) => (
+                              <option key={option} value={option} className="bg-slate-900">
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </div>
+                        </div>
                         {errors.teamSize && (
-                          <p className="text-red-400 text-sm mt-1">{errors.teamSize}</p>
+                          <p className="text-red-400 text-xs mt-1.5">{errors.teamSize}</p>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-6">
-                    <h3 className="text-lg font-semibold text-white border-b border-calm-blue/20 pb-2">
-                      Your Project
-                    </h3>
+                  <div className="space-y-5">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
+                        3
+                      </div>
+                      <h3 className="text-lg font-semibold text-white">Your Project</h3>
+                    </div>
 
                     <div>
-                      <label className="block text-light-gray mb-2 font-medium">
-                        What challenges are you looking to solve? <span className="text-calm-blue">*</span>
+                      <label className="block text-sm text-gray-300 mb-2">
+                        What challenges are you looking to solve? <span className="text-cyan-400">*</span>
                       </label>
                       <textarea
                         name="challenges"
                         value={formData.challenges}
                         onChange={handleChange}
                         rows={4}
-                        className={`w-full form-input-glass border ${
-                          errors.challenges ? 'border-red-500' : 'border-calm-blue/30'
-                        } rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors resize-none`}
+                        className={`${inputClasses(!!errors.challenges)} resize-none`}
                         placeholder="Tell us about the specific challenges or pain points you're facing..."
                       />
                       {errors.challenges && (
-                        <p className="text-red-400 text-sm mt-1">{errors.challenges}</p>
+                        <p className="text-red-400 text-xs mt-1.5">{errors.challenges}</p>
                       )}
                     </div>
 
                     <div>
-                      <label className="block text-light-gray mb-3 font-medium">
-                        Which solutions are you interested in? <span className="text-calm-blue">*</span>
+                      <label className="block text-sm text-gray-300 mb-3">
+                        Which solutions are you interested in? <span className="text-cyan-400">*</span>
                       </label>
-                      <div className="space-y-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {serviceOptions.map((service) => (
                           <label
                             key={service}
-                            className="flex items-start gap-3 cursor-pointer group"
+                            className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
+                              formData.services.includes(service)
+                                ? 'bg-calm-blue/10 border-calm-blue/40'
+                                : 'bg-white/[0.02] border-white/10 hover:border-white/20'
+                            }`}
                           >
                             <input
                               type="checkbox"
                               checked={formData.services.includes(service)}
                               onChange={() => handleCheckboxChange(service)}
-                              className="mt-1 w-5 h-5 rounded border-calm-blue/30 bg-deep-space/50 text-calm-blue focus:ring-calm-blue focus:ring-offset-0"
+                              className="w-4 h-4 rounded border-white/20 bg-transparent text-calm-blue focus:ring-calm-blue focus:ring-offset-0"
                             />
-                            <span className="text-light-gray group-hover:text-white transition-colors">
-                              {service}
-                            </span>
+                            <span className="text-sm text-gray-200">{service}</span>
                           </label>
                         ))}
                       </div>
                       {errors.services && (
-                        <p className="text-red-400 text-sm mt-2">{errors.services}</p>
+                        <p className="text-red-400 text-xs mt-2">{errors.services}</p>
                       )}
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-light-gray mb-2 font-medium">
-                          Project Budget <span className="text-calm-blue">*</span>
+                        <label className="block text-sm text-gray-300 mb-2">
+                          Project Budget <span className="text-cyan-400">*</span>
                         </label>
-                        <select
-                          name="budget"
-                          value={formData.budget}
-                          onChange={handleChange}
-                          className={`w-full form-input-glass border ${
-                            errors.budget ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
-                        >
-                          <option value="" className="bg-space-navy text-white">Select budget range</option>
-                          <option value="Under $2K" className="bg-space-navy text-white">Under $2K</option>
-                          <option value="$2K-$5K" className="bg-space-navy text-white">$2K-$5K</option>
-                          <option value="$5K-$10K" className="bg-space-navy text-white">$5K-$10K</option>
-                          <option value="$10K+" className="bg-space-navy text-white">$10K+</option>
-                          <option value="Not Sure" className="bg-space-navy text-white">Not Sure</option>
-                        </select>
+                        <div className="relative">
+                          <select
+                            name="budget"
+                            value={formData.budget}
+                            onChange={handleChange}
+                            className={selectClasses(!!errors.budget)}
+                          >
+                            <option value="" className="bg-slate-900">Select budget range</option>
+                            {budgetOptions.map((option) => (
+                              <option key={option} value={option} className="bg-slate-900">
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </div>
+                        </div>
                         {errors.budget && (
-                          <p className="text-red-400 text-sm mt-1">{errors.budget}</p>
+                          <p className="text-red-400 text-xs mt-1.5">{errors.budget}</p>
                         )}
                       </div>
 
                       <div>
-                        <label className="block text-light-gray mb-2 font-medium">
-                          Timeline <span className="text-calm-blue">*</span>
+                        <label className="block text-sm text-gray-300 mb-2">
+                          Timeline <span className="text-cyan-400">*</span>
                         </label>
-                        <select
-                          name="timeline"
-                          value={formData.timeline}
-                          onChange={handleChange}
-                          className={`w-full form-input-glass border ${
-                            errors.timeline ? 'border-red-500' : 'border-calm-blue/30'
-                          } rounded-xl px-4 py-3 text-white focus:outline-none focus:border-calm-blue transition-colors [&>option]:bg-space-navy [&>option]:text-white`}
-                        >
-                          <option value="" className="bg-space-navy text-white">Select timeline</option>
-                          <option value="Urgent (within 2 weeks)" className="bg-space-navy text-white">Urgent (within 2 weeks)</option>
-                          <option value="1 month" className="bg-space-navy text-white">1 month</option>
-                          <option value="2-3 months" className="bg-space-navy text-white">2-3 months</option>
-                          <option value="3-6 months" className="bg-space-navy text-white">3-6 months</option>
-                          <option value="Flexible / Exploring options" className="bg-space-navy text-white">Flexible / Exploring options</option>
-                        </select>
+                        <div className="relative">
+                          <select
+                            name="timeline"
+                            value={formData.timeline}
+                            onChange={handleChange}
+                            className={selectClasses(!!errors.timeline)}
+                          >
+                            <option value="" className="bg-slate-900">Select timeline</option>
+                            {timelineOptions.map((option) => (
+                              <option key={option} value={option} className="bg-slate-900">
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </div>
+                        </div>
                         {errors.timeline && (
-                          <p className="text-red-400 text-sm mt-1">{errors.timeline}</p>
+                          <p className="text-red-400 text-xs mt-1.5">{errors.timeline}</p>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-6">
-                    <h3 className="text-lg font-semibold text-white border-b border-calm-blue/20 pb-2">
-                      Additional Details
-                    </h3>
+                  <div className="space-y-5">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center text-calm-blue text-sm font-semibold">
+                        4
+                      </div>
+                      <h3 className="text-lg font-semibold text-white">Additional Details</h3>
+                    </div>
 
                     <div>
-                      <label className="block text-light-gray mb-2 font-medium">
+                      <label className="block text-sm text-gray-300 mb-2">
                         Anything else we should know?
                       </label>
                       <textarea
@@ -457,7 +543,7 @@ export default function ProjectQuestionnaireModal({
                         value={formData.additionalInfo}
                         onChange={handleChange}
                         rows={3}
-                        className="w-full form-input-glass border border-calm-blue/30 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-calm-blue transition-colors resize-none"
+                        className={`${inputClasses(false)} resize-none`}
                         placeholder="Any additional context, requirements, or questions..."
                       />
                     </div>
@@ -466,36 +552,39 @@ export default function ProjectQuestionnaireModal({
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-calm-blue hover:bg-sky-blue text-white h-14 rounded-xl text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-calm-blue/50 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-calm-blue hover:bg-calm-blue/90 text-white h-12 rounded-xl text-base font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
-                      'Submitting...'
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Submitting...
+                      </>
                     ) : (
                       <>
-                        <Send className="w-5 h-5" />
-                        Submit Your Inquiry
+                        <Send className="w-4 h-4" />
+                        Submit Inquiry
                       </>
                     )}
                   </Button>
                 </form>
-              </>
+              </div>
             ) : (
-              <div className="text-center py-12">
+              <div className="p-8 text-center py-16">
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 0.5, type: 'spring' }}
-                  className="w-20 h-20 rounded-full bg-calm-blue/20 flex items-center justify-center mx-auto mb-6"
+                  className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6"
                 >
-                  <CheckCircle2 className="w-10 h-10 text-calm-blue" />
+                  <CheckCircle2 className="w-8 h-8 text-emerald-400" />
                 </motion.div>
-                <h3 className="text-2xl font-bold text-white mb-4">Thanks!</h3>
-                <p className="text-light-gray text-lg mb-8">
+                <h3 className="text-xl font-bold text-white mb-3">Thanks!</h3>
+                <p className="text-gray-400 mb-8 max-w-sm mx-auto">
                   We'll review your inquiry and get back to you within 24 hours.
                 </p>
                 <Button
                   onClick={handleClose}
-                  className="bg-calm-blue hover:bg-sky-blue text-white px-8 h-12 rounded-xl font-semibold"
+                  className="bg-calm-blue hover:bg-calm-blue/90 text-white px-8 h-11 rounded-xl font-semibold"
                 >
                   Close
                 </Button>

@@ -11,7 +11,6 @@ const corsHeaders = {
 const NOTION_DATABASE_ID = "118c4ff318fb44bd9b0fa0505c1162e1";
 
 Deno.serve(async (req: Request) => {
-  // Handle CORS preflight
   if (req.method === "OPTIONS") {
     return new Response(null, {
       status: 200,
@@ -20,18 +19,16 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    // Initialize Supabase client with service role to access secrets
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Retrieve Notion API key from secrets table
     const { data: secretData, error: secretError } = await supabase
       .from("secrets")
       .select("key_value")
       .eq("key_name", "notion_api_key")
-      .single();
+      .maybeSingle();
 
     if (secretError || !secretData) {
       console.error("Failed to retrieve Notion API key:", secretError);
@@ -44,13 +41,10 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Initialize Notion client
     const notion = new Client({ auth: secretData.key_value });
 
-    // Parse request body
     const body = await req.json();
 
-    // Create page in Notion database
     await notion.pages.create({
       parent: { database_id: NOTION_DATABASE_ID },
       properties: {
