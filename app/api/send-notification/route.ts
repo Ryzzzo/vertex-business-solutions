@@ -7,8 +7,8 @@ export async function POST(request: Request) {
     const data = await request.json();
 
     const result = await resend.emails.send({
-      from: 'Vertex Inquiry <onboarding@resend.dev>',
-      to: ['contact@vertexapps.dev', 'r.stacy@me.com'],
+      from: 'Vertex <contact@vertexapps.dev>',
+      to: 'contact@vertexapps.dev',
       subject: `New Inquiry: ${data.name} from ${data.company || 'Unknown Company'}`,
       html: `
         <h2>New Project Inquiry</h2>
