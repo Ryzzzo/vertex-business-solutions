@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase';
 
 interface ProjectQuestionnaireModalProps {
   isOpen: boolean;
@@ -142,6 +142,7 @@ export default function ProjectQuestionnaireModal({
     setIsSubmitting(true);
 
     try {
+      const supabase = getSupabase();
       const { error: dbError } = await supabase.from('inquiries').insert({
         name: formData.name,
         email: formData.email,
