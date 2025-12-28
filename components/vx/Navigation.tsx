@@ -62,31 +62,21 @@ export default function Navigation() {
       <div className="container h-full flex items-center justify-between">
         <button
           onClick={() => scrollToSection('#hero')}
-          className="flex flex-col items-center group"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            padding: 0,
-            margin: 0
-          }}
+          className="flex items-center group"
           aria-label="Navigate to home section - Vertex Business Solutions"
         >
           <span
-            className="text-2xl font-bold tracking-tight text-white group-hover:text-calm-blue transition-colors"
-            style={{ textAlign: 'center', padding: 0, margin: 0 }}
+            className="text-4xl font-bold tracking-tight text-white group-hover:text-calm-blue transition-colors"
+            style={{
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(74, 144, 226, 0.3), 0 1px 0 rgba(255, 255, 255, 0.1)',
+              background: 'linear-gradient(180deg, #ffffff 0%, #e0e7ef 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
           >
             VX
           </span>
-          {!isScrolled && (
-            <span
-              className="text-[11px] tracking-widest text-soft-gray uppercase transition-opacity duration-300"
-              style={{ textAlign: 'center', padding: 0, margin: 0 }}
-            >
-              Vertex
-            </span>
-          )}
         </button>
 
         <div className="hidden md:flex items-center space-x-10">

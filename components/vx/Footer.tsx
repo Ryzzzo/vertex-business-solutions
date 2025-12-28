@@ -31,9 +31,14 @@ export default function Footer() {
     <footer className="bg-space-navy border-t border-white/5 py-12">
       <div className="container">
         <div className="flex flex-col items-center space-y-6">
-          <p className="text-[13px] text-subtle-purple text-center">
-            © 2025 Vertex Business Solutions • Custom Business Application Development
-          </p>
+          <div className="text-center">
+            <p className="text-[13px] text-subtle-purple">
+              © 2025 Vertex Business Solutions. All rights reserved.
+            </p>
+            <p className="text-[10px] text-subtle-purple/60 mt-1">
+              Vertex Business Solutions and the VX logo are trademarks of Vertex Business Solutions.
+            </p>
+          </div>
 
           <div className="flex items-center gap-8">
             <a
