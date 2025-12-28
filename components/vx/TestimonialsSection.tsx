@@ -17,7 +17,7 @@ const testimonials: Testimonial[] = [
     quote: "You'll be hard pressed to find better value anywhere. Ryan's pricing is very fair for the product he delivers, and he's very communicative and responsive. He's extremely friendly and I really enjoyed working with him on my project!",
     name: 'Kevin M.',
     title: 'Government Contracting Consultant',
-    project: 'Website Development',
+    project: 'Full Stack Website Development',
     stars: 5,
   },
   {
@@ -38,7 +38,7 @@ const testimonials: Testimonial[] = [
     quote: "Ryan was a pleasure to work with. He communicates clearly, understands requirements quickly, and implements feedback reliably and thoughtfully. What I especially appreciated was his structured approach and calm, professional way of working — even when details evolved during the project. The result was delivered cleanly, on time, and with a strong sense for clarity and usability.",
     name: 'Jochen W.',
     title: 'Tech Founder | Web Development',
-    project: 'Verified on Upwork',
+    project: 'Website Development',
     stars: 5,
   },
 ];
